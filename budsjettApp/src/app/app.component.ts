@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
+import { Sparing } from '../pages/sparing/sparing';
 import { HomePage } from '../pages/home/home';
 
 
@@ -9,7 +9,7 @@ import { HomePage } from '../pages/home/home';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = HomePage;
+  rootPage = Sparing;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
