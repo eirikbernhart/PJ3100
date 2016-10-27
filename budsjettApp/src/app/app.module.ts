@@ -3,12 +3,14 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Sparing } from '../pages/sparing/sparing';
+import { NySparing } from '../pages/ny-sparing/ny-sparing';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    Sparing
+    Sparing,
+    NySparing
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,7 +19,8 @@ import { Sparing } from '../pages/sparing/sparing';
   entryComponents: [
     MyApp,
     HomePage,
-    Sparing
+    Sparing,
+    NySparing
   ],
   providers: []
 })

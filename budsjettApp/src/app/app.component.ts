@@ -3,13 +3,14 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { Sparing } from '../pages/sparing/sparing';
 import { HomePage } from '../pages/home/home';
+import { NySparing } from '../pages/ny-sparing/ny-sparing';
 
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = Sparing;
+  rootPage = NySparing;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
