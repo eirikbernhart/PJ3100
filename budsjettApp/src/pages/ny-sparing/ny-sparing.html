@@ -16,33 +16,36 @@
 <ion-content padding>
     <form>
         <h1>Ny Sparing</h1>
-        <ion-list no-lines>
+        <ion-list>
             
             <ion-item>
-                <ion-label floating>Tittel:</ion-label>
-                <ion-input></ion-input>
-                <ion-textarea></ion-textarea>
+                <ion-label stacked>Tittel:</ion-label>
+                <ion-input type="text"></ion-input>
+                
             </ion-item>
-            
+        
             <ion-item>
-                <ion-label floating>Sum:</ion-label>
-                <ion-input></ion-input>
-                <ion-textarea></ion-textarea>
+                <ion-label stacked>Sum:</ion-label>
+                <ion-input type="number"></ion-input>
+                
             </ion-item>
+        
             <ion-item>
-                <ion-label floating>Frist:</ion-label>
-                <ion-input></ion-input>
-                <ion-textarea></ion-textarea>
+                <ion-label stacked>Frist:</ion-label>
+                <ion-datetime></ion-datetime>
+               
             </ion-item>
             
             <ion-buttons>
-                <button>
-                    <ion-icon name="checkmark">Ok</ion-icon>
+                <button ion-button>
+                    <ion-icon padding-right=3px name="checkmark"></ion-icon>
+                    Ok
                 </button> 
-            </ion-buttons>
-            <ion-buttons>
-                <button>
-                    <ion-icon name="close">Avbryt</ion-icon>
+            
+            
+                <button ion-button>
+                    <ion-icon padding-right=3px name="close"></ion-icon>
+                    Avbryt
                 </button> 
             </ion-buttons>
             
