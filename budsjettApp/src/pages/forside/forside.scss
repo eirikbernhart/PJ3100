@@ -1,3 +1,37 @@
 page-forside {
 
+    .wrapper{
+        position: relative;
+        width: 100%;
+    }
+
+    .doughnut-center {
+        position: absolute;
+        text-align: center;
+        top: 35%;
+        width: 100%;
+        font-size: 200%;
+    }
+
+    #chartBox{
+        float: left;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+
+    .red{
+        background: rgba(255, 99, 132, 0.2);
+    }
+    .yellow{
+        background: rgba(255, 206, 86, 0.2);
+    }
+    .blue{
+        background: rgba(54, 162, 235, 0.2);
+            
+    }
+    .green{
+        background: rgba(75, 192, 192, 0.2);
+    }
 }

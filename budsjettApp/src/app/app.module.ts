@@ -8,10 +8,10 @@ import { HomePage } from '../pages/home/home';
   declarations: [
     MyApp,
     Forside,
-    HomePage
+    HomePage,
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -42,23 +42,33 @@
     <ion-list *ngSwitchCase="'dag'">
       <ion-item style="border: none">
         <p>Gjenværende i dag:</p> <!--Verdi for gjenværende pengebruk-->
-        <progress max="100" value="10" style="margin-top:10px; padding-top:20px"></progress>
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'uke'">
       <ion-item style="border: none">
         <p>Gjenværende for uken:</p> <!--Verdi for gjenværende pengebruk-->
-        <progress max="100" value="10" style="margin-top:10px; padding-top:20px"></progress>
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'måned'">
       <ion-item style="border: none">
         <p>Gjenværende for måneden:</p> <!--Verdi for gjenværende pengebruk-->
-        <progress max="100" value="10" style="margin-top:10px; padding-top:20px"></progress>
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
       </ion-item>
     </ion-list>
+</div>
+<div class="wrapper">
+  <canvas #canvas width="20%" height="15%"></canvas> <!--Diagrammet-->
+  <p class="doughnut-center">80%</p>
+</div>
+<div>
+  <div id="chartBox" class="red"></div><p>Bolig</p>
+  <div id="chartBox" class="blue"></div><p>Mat og drikke</p>
+  <div id="chartBox" class="yellow"></div><p>Klær og utstyr</p>
+  <div id="chartBox" class="green"></div><p>Annet</p>
 </div>
 <!--Innhold relatert til dag, uke eller måned END-->
 
