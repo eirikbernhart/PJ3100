@@ -5,6 +5,8 @@ import { Forside } from '../pages/forside/forside';
 import { Tabs } from '../pages/tabs/tabs';
 import { Sparing } from '../pages/sparing/sparing';
 import { NySparing } from '../pages/ny-sparing/ny-sparing';
+import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { NySparing } from '../pages/ny-sparing/ny-sparing';
     Forside,
     Tabs,
     Sparing,
-    NySparing
+    NySparing,
+    TidsLinje
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -24,6 +27,7 @@ import { NySparing } from '../pages/ny-sparing/ny-sparing';
     Sparing,
     NySparing,
     Tabs,
+    TidsLinje
   ],
   providers: []
 })

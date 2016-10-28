@@ -7,6 +7,7 @@ import { Tabs } from '../pages/tabs/tabs';
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
 })
 export class MyApp {
+
   public rootPage = Tabs;
 
   constructor(platform: Platform) {

@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import 'chart.js/src/chart.js';
 declare var Chart;
 /*

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 /*
   Generated class for the NySparing page.

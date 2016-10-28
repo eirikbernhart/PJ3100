@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Forside } from '../forside/forside';
 import { Sparing } from '../sparing/sparing';
+import { TidsLinje } from '../tidslinje/tidslinje-page';
 /*
   Generated class for the Tabs page.
 
@@ -15,6 +16,7 @@ export class Tabs {
 
   tab1Root: any = Forside;
   tab2Root: any = Sparing;
+  tab3Root: any = TidsLinje;
   constructor() {
   }
 
