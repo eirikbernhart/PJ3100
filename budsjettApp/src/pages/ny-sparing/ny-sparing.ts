@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the NySparing page.
@@ -17,7 +17,7 @@ export class NySparing {
 
   nySparing(){
     //Hva skal skje når man trykker submit (ok)
-    this.navCtrl.pop;
+    console.log("nySparing() metoden kjørte ferdig");
   }
 
 }
