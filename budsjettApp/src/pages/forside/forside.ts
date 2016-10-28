@@ -21,7 +21,7 @@ export class Forside {
   ionViewDidEnter(){
     let ctx = this.canvas.nativeElement
     new Chart(ctx, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         labels: [],
         datasets: [{

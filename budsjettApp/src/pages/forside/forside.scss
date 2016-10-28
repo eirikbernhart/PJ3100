@@ -5,6 +5,14 @@ page-forside {
         width: 100%;
     }
 
+    progress {
+        /* Reset the default appearance */
+        -webkit-appearance: none;
+        appearance: none;
+        width: 250px;
+        height: 20px;
+    }
+
     .doughnut-center {
         position: absolute;
         text-align: center;
