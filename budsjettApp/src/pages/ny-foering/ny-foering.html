@@ -15,13 +15,56 @@
 
 <ion-content padding>
 
-  <p>Her lages en ny føring!!!</p>
+  <ion-list radio-group>
+
+    <ion-item>
+      <ion-label>Utgift</ion-label>
+      <ion-radio checked="true" value="utgift"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Inntekt</ion-label>
+      <ion-radio value="inntekt"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Sum</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Kommentar</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Kategori</ion-label>
+      <ion-select [(ngModel)]="kategori">
+        <ion-option value="mat">Mat</ion-option>
+        <ion-option value="bolig">Bolig</ion-option>
+        <ion-option value="klaer">Klær</ion-option>
+        <ion-option value="moro">Moro</ion-option>
+        <ion-option value="annet">Annet</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Dato</ion-label>
+    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+
+  
   <button ion-button>
-    <ion-icon name="cancel"></ion-icon>
+    <ion-icon  padding-right=3px name="close"></ion-icon>
     Avbryt
   </button>
   <button ion-button>
-
+    <ion-icon  padding-right=3px name="checkmark"></ion-icon>
     OK
   </button>
 
