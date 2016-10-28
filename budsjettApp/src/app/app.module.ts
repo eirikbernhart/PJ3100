@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { NyFoering } from '../pages/ny-foering/ny-foering';
+import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    NyFoering
+    TidsLinje
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -16,8 +14,7 @@ import { NyFoering } from '../pages/ny-foering/ny-foering';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    NyFoering
+    TidsLinje
   ],
   providers: []
 })
