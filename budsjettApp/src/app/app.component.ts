@@ -3,7 +3,6 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { Tabs } from '../pages/tabs/tabs';
 
-
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
 })

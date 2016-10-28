@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Forside } from '../forside/forside';
-
+import { Sparing } from '../sparing/sparing';
 /*
   Generated class for the Tabs page.
 
@@ -14,6 +14,7 @@ import { Forside } from '../forside/forside';
 export class Tabs {
 
   tab1Root: any = Forside;
+  tab2Root: any = Sparing;
   constructor() {
   }
 
