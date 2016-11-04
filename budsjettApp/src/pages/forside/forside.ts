@@ -1,4 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { Instillinger } from '../instillinger/instillinger';
 import 'chart.js/src/chart.js';
 declare var Chart;
 /*
@@ -13,6 +15,10 @@ declare var Chart;
 })
 
 export class Forside {
+  instillinger = Instillinger;
+
+  constructor(public navCtrl: NavController) {}
+  
   diagram: string = "dag";
   @ViewChild('canvas') canvas:ElementRef;
 

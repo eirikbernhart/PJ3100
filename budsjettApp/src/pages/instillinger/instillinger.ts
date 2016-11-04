@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NySparing } from '../ny-sparing/ny-sparing';
 
 /*
-  Generated class for the Sparing page.
+  Generated class for the Instillinger page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-sparing',
-  templateUrl: 'sparing.html'
+  selector: 'page-instillinger',
+  templateUrl: 'instillinger.html'
 })
-export class Sparing {
-  nySparing = NySparing;
+export class Instillinger {
 
   constructor(public navCtrl: NavController) {}
+
+  ionViewDidLoad() {
+    console.log('Hello Instillinger Page');
+  }
 
 }
