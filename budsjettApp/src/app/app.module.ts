@@ -7,7 +7,20 @@ import { Sparing } from '../pages/sparing/sparing';
 import { NySparing } from '../pages/ny-sparing/ny-sparing';
 import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+export const firebaseConfig = {
+    apiKey: "AIzaSyCA6LHv_6rpptEslO8OdTwND920qlDAk6Y",
+    authDomain: "budsjettapp.firebaseapp.com",
+    databaseURL: "https://budsjettapp.firebaseio.com",
+    storageBucket: "budsjettapp.appspot.com",
+    messagingSenderId: "558185515963"
+};
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
@@ -21,6 +34,7 @@ import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
