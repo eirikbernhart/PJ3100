@@ -7,6 +7,8 @@ import { Sparing } from '../pages/sparing/sparing';
 import { NySparing } from '../pages/ny-sparing/ny-sparing';
 import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
+import { CalculationsProvider } from '../providers/calculations-provider';
+import { FirebaseProvider } from '../providers/firebase-provider';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 export const firebaseConfig = {
@@ -46,6 +48,9 @@ const myFirebaseAuthConfig = {
     Instillinger,
     TidsLinje
   ],
-  providers: []
+  providers: [
+    FirebaseProvider,
+    CalculationsProvider
+  ]
 })
 export class AppModule {}
