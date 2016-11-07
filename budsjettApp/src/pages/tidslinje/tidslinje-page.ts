@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { TidslinjeForKategori } from '../tidslinje-for-kategori/tidslinje-for-kategori';
 
 @Component({
   selector: 'tidslinje-page',
@@ -12,5 +12,9 @@ export class TidsLinje {
 
   ionViewDidLoad() {
     console.log('Hello TestPage Page');
+  }
+
+  goToCategory(categoryData){
+    this.navCtrl.push(TidslinjeForKategori, categoryData)
   }
 }

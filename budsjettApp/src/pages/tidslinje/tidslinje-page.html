@@ -54,21 +54,18 @@
 	<ion-list>
 		<ion-list-header>Utgifter</ion-list-header>
 		<ion-item-sliding>
-			<ion-item>
+			<button ion-item (click)="goToCathegory(categoryData)">
 				<ion-icon name="pizza" item-left></ion-icon>
 				<ion-label>Mat og Drikke</ion-label>
-				<ion-note item-right>></ion-note>
-			</ion-item>
-			<ion-item>
+			</button>
+			<button ion-item (click)="goToCathegory(categoryData)">
 				<ion-icon name="shirt" item-left></ion-icon>
 				<ion-label>Klær og utstyr</ion-label>
-				<ion-note item-right>></ion-note>
-			</ion-item>
-			<ion-item>
+			</button>
+			<button ion-item (click)="goToCathegory(categoryData)">
 				<ion-icon name="archive" item-left></ion-icon>
 				<ion-label>Annet</ion-label>
-				<ion-note item-right>></ion-note>
-			</ion-item>
+			</button>
 		</ion-item-sliding>
 	</ion-list>
 	

@@ -1,0 +1,31 @@
+<!--
+  Generated template for the TidslinjeForKategori page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>tidslinjeForKategori</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group *ngFor="let date of category.uniqueDates">
+    <ion-item-divider sticky>
+      {[date}}
+    </ion-item-divider>
+
+    <div *ngFor="let expense of category.expenses">
+      <ion-item *ngIf="expense.date === date">
+        <h3>{{category.expenses.title}}</h3>
+        <p>
+          category.expenses.time
+          category.expenses.location
+        </p>
+      </ion-item>
+    </div>
+  </ion-item-group>
+</ion-content>
