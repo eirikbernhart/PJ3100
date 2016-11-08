@@ -24,8 +24,9 @@ export class TidsLinje {
     console.log('Hello TestPage Page');
   }
 
-  goToCategory(category){
-    this.navCtrl.push(TidslinjeForKategori, category);
+  goToCategory(category: string, incomeOrExpense: string){
+    var categoryObj: any = {title: category, incomeOrExpense: incomeOrExpense};
+    this.navCtrl.push(TidslinjeForKategori, categoryObj);
   }
 
   categorize(transaction){

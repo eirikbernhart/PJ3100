@@ -7,45 +7,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>tidslinjeForKategori</ion-title>
+    <ion-title>{{headerTitle}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <ion-item-group *ngFor="let date of transaction.uniqueDates"> <!--fbp.category.uniqueDates-->
+  <ion-item-group> <!--*ngFor fbp.category.uniqueDates-->
 
     <ion-item-divider sticky>
-      {[date}}
+      Dato<!--{[date}}-->
     </ion-item-divider>
 
-    <div [ngSwitch]="expenseOrIncome">
-
-      <div *ngSwitchCase="expense">
-        <div *ngFor="let expense of expenses.category">
-          <ion-item *ngIf="expense.date === date">
-            <h3>{{expense.title}}</h3>
+        <div *ngFor="let item of listings | async">
+          <ion-item> <!--*ngIf="expense.date === date"-->
+            <h3>{{item.title}}</h3>
             <p>
-              {{expense.amount}} &mdash;
-              {{expense.time}}:
-              {{expense.provider}}
+              {{item.amount}} Kr &mdash;
+              {{item.time}}
             </p>
           </ion-item>
-      </div>
-
-        <div *ngSwitchCase="income">
-          <div *ngFor="let income of income.category">
-            <ion-item *ngIf="income.date === date">
-              <h3>{{income.title}}</h3>
-              <p>
-                {{income.amount}} &mdash;
-                {{income.time}}:
-                {{income.provider}}
-              </p>
-            </ion-item>
-          </div>
         </div>
 
-    </div>
   </ion-item-group>
 </ion-content>

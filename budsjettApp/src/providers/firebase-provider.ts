@@ -25,17 +25,11 @@ export class FirebaseProvider {
   constructor(
     public http: Http,
     private auth: FirebaseAuth,
-    private af: AngularFire) {
+    public af: AngularFire) {
 
     this.uncategorized = this.af.database.list('/uncategorized');
-    this.vipps = this.af.database.list('/income/vipps');
-    this.lønn = this.af.database.list('/income/lønn');
-    this.bolig = this.af.database.list('/expense/bolig');
-    this.matOgDrikke = this.af.database.list('/expense/matOgDrikke');
-    this.klærOgUtstyr = this.af.database.list('/expense/klærOgUtstyr');
-    this.annet = this.af.database.list('/expense/annet');
 
-    if (this.uncategorized == null){
+    if (this.uncategorized.$ref.equalTo(null)){
     this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", -179);
     this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", -738);
     }
@@ -51,3 +45,4 @@ export class FirebaseProvider {
   }
 
 }
+ 

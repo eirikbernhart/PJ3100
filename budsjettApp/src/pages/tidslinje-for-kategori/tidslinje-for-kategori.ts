@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import { FirebaseListObservable, AngularFire } from 'angularfire2'
 
 /*
   Generated class for the TidslinjeForKategori page.
@@ -12,14 +13,23 @@ import { NavParams } from 'ionic-angular';
   templateUrl: 'tidslinje-for-kategori.html'
 })
 export class TidslinjeForKategori {
-  transaction: any;
+  category: any;
+  headerTitle: string;
+  listings: FirebaseListObservable<any>;
 
-  constructor(public navParams: NavParams) {
-    this.transaction = navParams.data;
+  constructor(public navParams: NavParams, private af: AngularFire) {
+    this.category = navParams.data;
+    var headerTitle_ = this.category.title.replace( /([A-Z])/g, " $1" );
+    this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
+
+    this.listings = af.database.list(
+      '/' + this.category.incomeOrExpense + 
+      '/' + this.category.title);
   }
 
   ionViewDidLoad() {
-    console.log('Hello TidslinjeForKategori Page');
+    console.log('/' + this.category.incomeOrExpense + 
+      '/' + this.category.title);
   }
 
 }

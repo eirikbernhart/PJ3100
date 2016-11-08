@@ -27,7 +27,7 @@ export class Kategoriser {
   }
 
   ionViewDidLoad() {
-    console.log('Hello Kategoriser Page');
+    console.log(this.transaction);
   }
 
   submit(){
@@ -37,7 +37,7 @@ export class Kategoriser {
       this.amount = this.transaction.amount;
 
     this.fbp.addExpense(this.category, this.title, this.transaction.date, this.amount);
-    this.transaction.remove(); //Fjern fra uncategorized
+    this.fbp.af.database.object('/uncategorized/' + this.transaction.$key).remove(); //Fjern fra uncategorized
   }
 
 }

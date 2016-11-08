@@ -36,7 +36,7 @@ const myFirebaseAuthConfig = {
     Instillinger,
     TidsLinje,
     Kategoriser,
-    //TidslinjeForKategori
+    TidslinjeForKategori
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -52,7 +52,7 @@ const myFirebaseAuthConfig = {
     Instillinger,
     TidsLinje,
     Kategoriser,
-    //TidslinjeForKategori
+    TidslinjeForKategori
   ],
   providers: [
     FirebaseProvider,
