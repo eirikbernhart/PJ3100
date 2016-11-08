@@ -14,7 +14,7 @@ import { NavController, NavParams } from 'ionic-angular';
 export class Kategoriser {
 
   transaction: any;
-
+  category: string = "matOgDrikke";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.transaction = navParams.data;
