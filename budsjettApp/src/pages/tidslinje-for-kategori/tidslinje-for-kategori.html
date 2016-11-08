@@ -14,18 +14,34 @@
 
 <ion-content padding>
   <ion-item-group *ngFor="let date of category.uniqueDates">
+
     <ion-item-divider sticky>
       {[date}}
     </ion-item-divider>
 
-    <div *ngFor="let expense of category.expenses">
-      <ion-item *ngIf="expense.date === date">
-        <h3>{{category.expenses.title}}</h3>
-        <p>
-          category.expenses.time
-          category.expenses.location
-        </p>
-      </ion-item>
+    <div [ngSwitch]="expenseOrIncome">
+    <div *ngSwitchCase="expense">
+      <div *ngFor="let expense of expenses.category">
+        <ion-item *ngIf="expense.date === date">
+          <h3>{{expense.title}}</h3>
+          <p>
+            {{expense.amount}} &mdash;
+            {{expense.time}}:
+            {{expense.provider}}
+          </p>
+        </ion-item>
+    </div>
+
+    <div *ngSwitchCase="income">
+      <div *ngFor="let income of income.category">
+        <ion-item *ngIf="income.date === date">
+          <h3>{{income.title}}</h3>
+          <p>
+            {{income.amount}} &mdash;
+            {{income.time}}:
+            {{income.provider}}
+          </p>
+        </ion-item>
     </div>
   </ion-item-group>
 </ion-content>

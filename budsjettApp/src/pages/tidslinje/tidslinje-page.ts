@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TidslinjeForKategori } from '../tidslinje-for-kategori/tidslinje-for-kategori';
+import { FirebaseProvider } from '../../providers/firebase-provider';
 
 @Component({
   selector: 'tidslinje-page',
@@ -8,13 +9,25 @@ import { TidslinjeForKategori } from '../tidslinje-for-kategori/tidslinje-for-ka
 })
 export class TidsLinje {
 
-  constructor(public navCtrl: NavController) {}
+  private uncategorized;
+  
+  constructor(public navCtrl: NavController, public fbp: FirebaseProvider) {
+
+    this.uncategorized = this.fbp.uncategorized;
+
+  }
+
+  
 
   ionViewDidLoad() {
     console.log('Hello TestPage Page');
   }
 
-  goToCategory(categoryData){
-    this.navCtrl.push(TidslinjeForKategori, categoryData)
+  goToCategory(category){
+    this.navCtrl.push(TidslinjeForKategori, category);
+  }
+
+  categorize(data){
+    this.navCtrl.push(TidslinjeForKategori, data);
   }
 }

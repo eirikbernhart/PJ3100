@@ -11,20 +11,29 @@ import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2'
 */
 @Injectable()
 export class FirebaseProvider {
-  private af: AngularFire;
-  private auth: FirebaseAuth;
 
-  public ubehandlet: FirebaseListObservable<any>;
-  public hovedkategorier: FirebaseListObservable<any>;
+  public uncategorized: FirebaseListObservable<any>;
+  public income: FirebaseListObservable<any>;
+  public expense: FirebaseListObservable<any>;
 
-  constructor(public http: Http) {
+  constructor(
+    public http: Http,
+    private auth: FirebaseAuth,
+    private af: AngularFire) {
 
-    this.auth.subscribe((data) => {
-      if(data) {
-        this.ubehandlet = this.af.database.list('/ubehandlet');
-        this.hovedkategorier = this.af.database.list('/hovedkategorier');
-      }
-    });
+    this.uncategorized = this.af.database.list('/uncategorized');
+    this.income = this.af.database.list('/income');
+    this.expense = this.af.database.list('/expense');
+
+    if (this.uncategorized == null){
+    this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", -179);
+    this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", -738);
+    }
+
   }
-    
+  
+  addUncategorizedTransaction(title: string, date: string, amount: number){
+     this.uncategorized.push({title: title, date: date, amount: amount});
+   }
+
 }
