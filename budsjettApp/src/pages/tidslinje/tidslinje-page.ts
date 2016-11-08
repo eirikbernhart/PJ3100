@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TidslinjeForKategori } from '../tidslinje-for-kategori/tidslinje-for-kategori';
+import  { Kategoriser } from '../kategoriser/kategoriser';
 import { FirebaseProvider } from '../../providers/firebase-provider';
 
 @Component({
@@ -28,6 +29,6 @@ export class TidsLinje {
   }
 
   categorize(data){
-    this.navCtrl.push(TidslinjeForKategori, data);
+    this.navCtrl.push(Kategoriser, data);
   }
 }

@@ -19,8 +19,8 @@
 	<ion-list>
 		<ion-list-header>Ukategorisert</ion-list-header>
 		<ion-item-sliding *ngFor="let transaction of uncategorized | async">
-			<
-			<ion-item (click)="categorize()"> 
+			
+			<ion-item (click)="categorize(transaction)"> 
 				<ion-label>{{transaction.title}}</ion-label> <!--{{transaction.title}}-->
 				<ion-note item-right>{{transaction.amount}} Kr</ion-note> <!--{{transaction.amount}}-->
 			</ion-item>
