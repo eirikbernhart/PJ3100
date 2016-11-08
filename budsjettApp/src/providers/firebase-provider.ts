@@ -13,8 +13,14 @@ import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2'
 export class FirebaseProvider {
 
   public uncategorized: FirebaseListObservable<any>;
-  public income: FirebaseListObservable<any>;
-  public expense: FirebaseListObservable<any>;
+
+  public vipps: FirebaseListObservable<any>;
+  public lønn: FirebaseListObservable<any>;
+
+  public bolig: FirebaseListObservable<any>;
+  public matOgDrikke: FirebaseListObservable<any>;
+  public klærOgUtstyr: FirebaseListObservable<any>;
+  public annet: FirebaseListObservable<any>;
 
   constructor(
     public http: Http,
@@ -22,8 +28,12 @@ export class FirebaseProvider {
     private af: AngularFire) {
 
     this.uncategorized = this.af.database.list('/uncategorized');
-    this.income = this.af.database.list('/income');
-    this.expense = this.af.database.list('/expense');
+    this.vipps = this.af.database.list('/income/vipps');
+    this.lønn = this.af.database.list('/income/lønn');
+    this.bolig = this.af.database.list('/expense/bolig');
+    this.matOgDrikke = this.af.database.list('/expense/matOgDrikke');
+    this.klærOgUtstyr = this.af.database.list('/expense/klærOgUtstyr');
+    this.annet = this.af.database.list('/expense/annet');
 
     if (this.uncategorized == null){
     this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", -179);
@@ -35,5 +45,9 @@ export class FirebaseProvider {
   addUncategorizedTransaction(title: string, date: string, amount: number){
      this.uncategorized.push({title: title, date: date, amount: amount});
    }
+
+  addExpense(category: string, title: string, date: string, amount: number){
+     this.af.database.list('/expense/' + category).push({title: title, date: date, amount: amount});
+  }
 
 }

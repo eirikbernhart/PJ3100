@@ -28,7 +28,7 @@ export class TidsLinje {
     this.navCtrl.push(TidslinjeForKategori, category);
   }
 
-  categorize(data){
-    this.navCtrl.push(Kategoriser, data);
+  categorize(transaction){
+    this.navCtrl.push(Kategoriser, transaction);
   }
 }

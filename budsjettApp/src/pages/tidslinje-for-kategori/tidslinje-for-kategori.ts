@@ -12,10 +12,10 @@ import { NavParams } from 'ionic-angular';
   templateUrl: 'tidslinje-for-kategori.html'
 })
 export class TidslinjeForKategori {
-  category: any;
+  transaction: any;
 
   constructor(public navParams: NavParams) {
-    this.category = navParams.data;
+    this.transaction = navParams.data;
   }
 
   ionViewDidLoad() {
