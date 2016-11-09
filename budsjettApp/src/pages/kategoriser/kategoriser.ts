@@ -36,7 +36,7 @@ export class Kategoriser {
     if (this.amount == null)
       this.amount = this.transaction.amount;
 
-    this.fbp.addExpense(this.category, this.title, this.transaction.date, this.amount);
+    this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
     this.fbp.af.database.object('/uncategorized/' + this.transaction.$key).remove(); //Fjern fra uncategorized
   }
 

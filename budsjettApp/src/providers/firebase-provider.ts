@@ -30,18 +30,18 @@ export class FirebaseProvider {
     this.uncategorized = this.af.database.list('/uncategorized');
 
     if (this.uncategorized.$ref.equalTo(null)){
-    this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", -179);
-    this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", -738);
+    this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
+    this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", "21:00", -738);
     }
 
   }
   
-  addUncategorizedTransaction(title: string, date: string, amount: number){
-     this.uncategorized.push({title: title, date: date, amount: amount});
+  addUncategorizedTransaction(title: string, date: string, time: string, amount: number){
+     this.uncategorized.push({title: title, date: date, time: time, amount: amount});
    }
 
-  addExpense(category: string, title: string, date: string, amount: number){
-     this.af.database.list('/expense/' + category).push({title: title, date: date, amount: amount});
+  addExpense(category: string, title: string, date: string, time: string, amount: number){
+     this.af.database.list('/expense/' + category).push({title: title, date: date, time: time, amount: amount});
   }
 
 }
