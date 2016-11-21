@@ -44,5 +44,9 @@ export class FirebaseProvider {
      this.af.database.list('/expense/' + category).push({title: title, date: date, time: time, amount: amount});
   }
 
+  removeExpense(category: string, toRemove: AngularFire){  
+    this.af.database.list('/expense/' + category).remove({toRemove: toRemove});
+  }
+
 }
  
