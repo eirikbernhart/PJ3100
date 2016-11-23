@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Forside } from '../forside/forside';
+import { Tabs } from '../tabs/tabs';
 
 /*
   Generated class for the Login page.
@@ -19,7 +19,7 @@ export class Login {
    goToOtherPage() {
     //push another page onto the history stack
     //causing the nav controller to animate the new page in
-    this.navCtrl.push(Forside);
+    this.navCtrl.push(Tabs);
   }
 
   ionViewDidLoad() {
