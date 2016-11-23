@@ -13,20 +13,25 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item-group> <!--*ngFor fbp.category.uniqueDates-->
+  <ion-item-group>
 
-    <ion-item-divider sticky>
-      Dato<!--{[date}}-->
-    </ion-item-divider>
+        <div *ngFor="let date of uniqueDates">
+          <ion-item-divider sticky>
+            {{date}}
+          </ion-item-divider>
 
-        <div *ngFor="let item of listings | async">
-          <ion-item> <!--*ngIf="expense.date === date"-->
-            <h3>{{item.title}}</h3>
-            <p>
-              {{item.amount}} Kr &mdash;
-              kl. {{item.time}}
-            </p>
-          </ion-item>
+          <div *ngFor="let item of items | async">
+            <div *ngIf="item.date === date">
+              <ion-item>
+                <h3>{{item.title}}</h3>
+                <p>
+                  {{item.amount}} Kr &mdash;
+                  kl. {{item.time}}
+                </p>
+              </ion-item>
+            </div>
+          </div>
+
         </div>
 
   </ion-item-group>
