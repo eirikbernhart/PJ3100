@@ -7,6 +7,8 @@ import { Sparing } from '../pages/sparing/sparing';
 import { NySparing } from '../pages/ny-sparing/ny-sparing';
 import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
+import { Kategoriser } from '../pages/kategoriser/kategoriser';
+import { TidslinjeForKategori } from '../pages/tidslinje-for-kategori/tidslinje-for-kategori';
 import { CalculationsProvider } from '../providers/calculations-provider';
 import { FirebaseProvider } from '../providers/firebase-provider';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -32,7 +34,9 @@ const myFirebaseAuthConfig = {
     Sparing,
     NySparing,
     Instillinger,
-    TidsLinje
+    TidsLinje,
+    Kategoriser,
+    TidslinjeForKategori
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -46,7 +50,9 @@ const myFirebaseAuthConfig = {
     NySparing,
     Tabs,
     Instillinger,
-    TidsLinje
+    TidsLinje,
+    Kategoriser,
+    TidslinjeForKategori
   ],
   providers: [
     FirebaseProvider,

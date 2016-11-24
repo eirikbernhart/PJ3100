@@ -15,4 +15,7 @@ export class CalculationsProvider {
 
   constructor(public http: Http) {}
 
+  //Iterere gjennom hovedkategoriene og hente prisen fra verdiene i hver kategori 
+  totalSumUtgifter(dato: Date){}
+
 }

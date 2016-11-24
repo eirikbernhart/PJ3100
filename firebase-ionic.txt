@@ -1,0 +1,7 @@
+npm install @types/jasmine@^2.5.36
+
+npm install @ionic/app-scripts@latest --save-dev
+
+npm install @types/request@0.0.30 --save-dev --save-exact
+
+npm install firebase angularfire2 --save
