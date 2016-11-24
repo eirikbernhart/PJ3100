@@ -9,6 +9,7 @@ import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
 import { Kategoriser } from '../pages/kategoriser/kategoriser';
 import { TidslinjeForKategori } from '../pages/tidslinje-for-kategori/tidslinje-for-kategori';
+import { NyBruker } from '../pages/ny-bruker/ny-bruker';
 import { Login } from '../pages/login/login';
 import { CalculationsProvider } from '../providers/calculations-provider';
 import { FirebaseProvider } from '../providers/firebase-provider';
@@ -38,7 +39,9 @@ const myFirebaseAuthConfig = {
     TidsLinje,
     Kategoriser,
     TidslinjeForKategori,
+    NyBruker,
     Login
+    
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -55,7 +58,9 @@ const myFirebaseAuthConfig = {
     TidsLinje,
     Kategoriser,
     TidslinjeForKategori,
+    NyBruker,
     Login
+    
   ],
   providers: [
     FirebaseProvider,

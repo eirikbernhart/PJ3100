@@ -1,5 +1,5 @@
 <!--
-  Generated template for the Login page.
+  Generated template for the NyBruker page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,27 +7,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Logg inn</ion-title>
+    <ion-title>Registrer ny bruker</ion-title>
   </ion-navbar>
-    
+
 </ion-header>
 
 
 <ion-content padding>
-    
     <ion-item style="border-top:none">
         <ion-input type="text" placeholder="Brukernavn:"></ion-input>
     </ion-item>
     <ion-item style="padding-top:20px">
         <ion-input type="text" placeholder="Passord:"></ion-input>
     </ion-item>
-
-    <button ion-button style="width:100%; margin-top:40px;" (click)="goToOtherPage()">Login</button>
-    <ion-buttons bottom end>
-        <button ion-button color="royal" (click)="goToNyBruker()">
-            <ion-icon style="font-size: 25px" name="add-circle" padding-right="20px"></ion-icon>
-            Ny Bruker
-        </button> 
-    </ion-buttons>
-
+    <ion-item style="padding-top:20px">
+        <ion-input type="text" placeholder="Bekreft passord:"></ion-input>
+    </ion-item>
+    
+    
+    <button ion-button color="royal" (click)="goToOtherPage()">
+        <ion-icon style="font-size: 25px;" name="add-circle" padding-right="20px;"></ion-icon>
+        Registrer deg
+    </button>  
+    
 </ion-content>
