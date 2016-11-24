@@ -1,0 +1,86 @@
+<!--
+  Generated template for the Forside page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<head>
+  <script src="node_modules/chart.js/src/chart.js"></script>
+</head>
+
+<ion-header>
+  <ion-toolbar no-border-bottom>
+    <ion-title>Oversikt</ion-title>
+    <ion-buttons end>
+      <button ion-button color="royal" [navPush]="instillinger">
+        <ion-icon style="font-size: 25px" name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!--Navigasjon (dag, uke måned)-->
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="diagram">
+      <ion-segment-button value="dag">
+        Dag
+      </ion-segment-button>
+      <ion-segment-button value="uke">
+        Uke
+      </ion-segment-button>
+      <ion-segment-button value="måned">
+        Måned
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <!--Navigasjon (dag, uke måned) END-->
+</ion-header>
+
+
+<ion-content padding>
+  <!--Innhold relatert til dag, uke eller måned-->
+  <div [ngSwitch]="diagram">
+    <ion-list *ngSwitchCase="'dag'">
+      <ion-item style="border: none">
+        <p>Gjenværende i dag:</p> <!--Verdi for gjenværende pengebruk-->
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'uke'">
+      <ion-item style="border: none">
+        <p>Gjenværende for uken:</p> <!--Verdi for gjenværende pengebruk-->
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'måned'">
+      <ion-item style="border: none">
+        <p>Gjenværende for måneden:</p> <!--Verdi for gjenværende pengebruk-->
+        <progress max="100" value="10" style="margin-top:10px; padding-top:25px; width:100%"></progress>
+      </ion-item>
+    </ion-list>
+</div>
+<div>
+  <canvas #canvas width="20%" height="15%"></canvas> <!--Diagrammet-->
+</div>
+<ion-col>
+  <ion-item no-lines>
+    <ion-icon name="home" item-left class="blue"></ion-icon>
+    <p>Bolig</p>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-icon name="pizza" item-left class="red"></ion-icon>
+    <p>Mat og drikke</p>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-icon name="shirt" item-left class="yellow"></ion-icon>
+    <p>Klær og utstyr</p>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-icon name="archive" item-left class="green"></ion-icon>
+    <p>Annet</p>
+  </ion-item>
+</ion-col>
+<!--Innhold relatert til dag, uke eller måned END-->
+
+</ion-content>

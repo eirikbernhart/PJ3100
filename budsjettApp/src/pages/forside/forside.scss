@@ -1,0 +1,25 @@
+page-forside {
+
+    .icons{
+        -webkit-text-stroke: 0.4px black;
+        font-size: 30px;
+    }
+
+    .red{
+        @extend .icons;
+        color: rgba(255, 99, 132, 0.2);
+    }
+    .yellow{
+        @extend .icons;
+        color: rgba(255, 206, 86, 0.2);
+    }
+    .blue{
+        @extend .icons;
+        color: rgba(54, 162, 235, 0.2);
+            
+    }
+    .green{
+        @extend .icons;
+        color: rgba(75, 192, 192, 0.2);
+    }
+}

@@ -1,0 +1,36 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ny sparing</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div class="nySparing-wrapper">
+        <ion-list>
+            <ion-item style="border-top:none">
+                <ion-input [(ngModel)] = "extName" type="text" placeholder="Tittel"></ion-input>
+                
+            </ion-item>
+        
+            <ion-item style="padding-top:20px">
+                <ion-input [(ngModel)] = "extPris" type="number" placeholder="Sum"></ion-input>
+                
+            </ion-item>
+        
+            <ion-item style="padding-top:20px">
+                <ion-label>Dato</ion-label>
+                <ion-datetime></ion-datetime>
+               
+            </ion-item>
+
+            <button ion-button style="width:100%; margin-top:40px;" navPop (click)="nySparing()">
+                <ion-icon padding-right="3px" name="checkmark"></ion-icon>
+                Ok
+            </button>
+        </ion-list>
+    </div>
+</ion-content>
