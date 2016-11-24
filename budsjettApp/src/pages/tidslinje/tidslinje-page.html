@@ -15,31 +15,24 @@
 
 <ion-content padding>
 
-<<<<<<< HEAD
 
-=======
-	<!--###LISTE NR.1###-->
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 	<ion-list>
 		<ion-list-header>Ukategorisert</ion-list-header>
 		<ion-item-sliding *ngFor="let transaction of uncategorized | async">
 			
 			<ion-item (click)="categorize(transaction)"> 
-<<<<<<< HEAD
+
 
 				<ion-label>{{transaction.title}}</ion-label> 
 				<ion-note item-right>{{transaction.amount}} Kr</ion-note> 
 
-=======
-				<ion-label>{{transaction.title}}</ion-label> 
-				<ion-note item-right>{{transaction.amount}} Kr</ion-note> 
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
+
 			</ion-item>
 			
 		</ion-item-sliding>
 	</ion-list>
 	
-<<<<<<< HEAD
+
 
 	<ion-list>
 		<ion-list-header>Inntekter</ion-list-header>
@@ -50,16 +43,7 @@
 				<ion-label>Vipps</ion-label>
 
 	
-=======
-	<!--###LISTE NR.2###-->
-	<ion-list>
-		<ion-list-header>Inntekter</ion-list-header>
-		<ion-item-sliding> <!--*ngFor="let category for incomes.category"-->
-			
-			<button ion-item (click)="goToCategory('vipps', 'income')">
-				<ion-icon name="logo-usd" item-left></ion-icon> <!--{{category.icon}}-->
-				<ion-label>Vipps</ion-label> <!--{{category.title}}-->
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
+
 			</button>
 			<button ion-item (click)="goToCategory('lønn', 'income')">
 				<ion-icon name="clipboard" item-left></ion-icon>
@@ -68,7 +52,7 @@
 		</ion-item-sliding>
 	</ion-list>
 	
-<<<<<<< HEAD
+
 
 	<ion-list>
 		<ion-list-header>Utgifter</ion-list-header>
@@ -78,15 +62,7 @@
 				<ion-label>Mat og Drikke</ion-label>
 
 	
-=======
-	<!--###LISTE NR.3###-->
-	<ion-list>
-		<ion-list-header>Utgifter</ion-list-header>
-		<ion-item-sliding> <!--*ngFor="let category for expenses.category"-->
-			<button ion-item (click)="goToCategory('matOgDrikke', 'expense')">
-				<ion-icon name="pizza" item-left></ion-icon> <!--name={{category.icon}}-->
-				<ion-label>Mat og Drikke</ion-label> <!--{{category.title}}-->
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
+
 			</button>
 			<button ion-item (click)="goToCategory('klærOgUtstyr', 'expense')">
 				<ion-icon name="shirt" item-left></ion-icon>

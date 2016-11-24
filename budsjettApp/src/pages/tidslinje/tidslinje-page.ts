@@ -19,25 +19,22 @@ export class TidsLinje {
   }
 
 
-<<<<<<< HEAD
   /* pushes an instance of TidslinjeForKategori on to the page stack 
   *  Takes two parameters, the category and a string "expense" or "income".
   */
 
-=======
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
+
   goToCategory(category: string, incomeOrExpense: string){
     var categoryObj: any = {title: category, incomeOrExpense: incomeOrExpense};
     this.navCtrl.push(TidslinjeForKategori, categoryObj);
   }
 
-<<<<<<< HEAD
+
 
   /* pushes an instance of Kategoriser to the page stack 
   */
 
-=======
->>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
+
   categorize(transaction){
     this.navCtrl.push(Kategoriser, transaction);
   }
