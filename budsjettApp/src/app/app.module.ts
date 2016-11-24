@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+
 import { MyApp } from './app.component';
 import { Forside } from '../pages/forside/forside';
 import { Tabs } from '../pages/tabs/tabs';
@@ -9,9 +10,13 @@ import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
 import { Kategoriser } from '../pages/kategoriser/kategoriser';
 import { TidslinjeForKategori } from '../pages/tidslinje-for-kategori/tidslinje-for-kategori';
+
 import { NyBruker } from '../pages/ny-bruker/ny-bruker';
 import { Login } from '../pages/login/login';
 import { CalculationsProvider } from '../providers/calculations-provider';
+
+import { SparingObjectDetailComponent } from '../pages/sparing-object-detail-component/sparing-object-detail-component';
+import { SparingService } from '../app/sparing-service';
 import { FirebaseProvider } from '../providers/firebase-provider';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -39,9 +44,11 @@ const myFirebaseAuthConfig = {
     TidsLinje,
     Kategoriser,
     TidslinjeForKategori,
+	SparingObjectDetailComponent,
     NyBruker,
     Login
     
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -62,7 +69,9 @@ const myFirebaseAuthConfig = {
     Login
     
   ],
+  
   providers: [
+	SparingService,
     FirebaseProvider,
     CalculationsProvider
   ]

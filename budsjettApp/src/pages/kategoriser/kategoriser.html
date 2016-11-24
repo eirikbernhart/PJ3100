@@ -1,13 +1,10 @@
-<!--
-  Generated template for the Kategoriser page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Kategoriser</ion-title>
+    <ion-title>kategoriser</ion-title>
+>>>>>>> Ny versjon av sparing, slik at den enkle sparing-siden, har blitt erstattet, og satt inn sammen med en nyere versjon av appen
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +12,9 @@
 
 <ion-content padding>
 
+
   <h1>{{type}}</h1>
+
 
   <ion-list inset>
 
@@ -23,6 +22,7 @@
       <ion-label stacked>Tittel</ion-label>
       <ion-input type="text" [(ngModel)]="title" placeholder={{transaction.title}}></ion-input>
     </ion-item>
+
 
     <div *ngIf="type === 'Utgift'">
       <ion-item>
@@ -46,6 +46,7 @@
         <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
       </ion-item>
     </div>
+
 
   </ion-list>
 

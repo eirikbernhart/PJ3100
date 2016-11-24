@@ -1,23 +1,41 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the NySparing page.
+import { SparingObject } from '../sparing-object/sparing-object';
+import { SparingService } from '../../app/sparing-service';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-ny-sparing',
   templateUrl: 'ny-sparing.html'
 })
-export class NySparing {
 
-  constructor(public navCtrl: NavController) {}
+export class NySparing implements OnInit{
 
-  nySparing(){
-    //Hva skal skje når man trykker submit (ok)
-    console.log("nySparing() metoden kjørte ferdig");
+  sparingObjects: SparingObject[];
+  extName: string;
+  extPris: number;
+	
+  constructor(public navCtrl: NavController, private sparingService: SparingService) {}
+	
+	
+  getSparingObjects(): void {
+	  
+	  this.sparingService.getSparingObjects().then(sparingObjects => this.sparingObjects = sparingObjects);
+  }
+	
+	
+  ngOnInit(): void {
+	  this.getSparingObjects();
+  }
+
+  nySparing(id: number, name: string, pris: number){
+    
+	console.log("StaticAssert that length is 2: " + this.sparingObjects.length);
+	  
+	this.sparingObjects.push({id: this.sparingObjects.length + 1, name: this.extName, pris: this.extPris, dato: '21.12.2012'});
+	
+
   }
 
 }

@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { FirebaseListObservable, AngularFire } from 'angularfire2'
+
 import { FirebaseProvider } from '../../providers/firebase-provider';
 
-/*
-  Generated class for the TidslinjeForKategori page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+
 @Component({
   selector: 'page-tidslinje-for-kategori',
   templateUrl: 'tidslinje-for-kategori.html'
 })
 export class TidslinjeForKategori {
+
   private category: any;
   private fb_categoryPath: string;
   private headerTitle: string;
@@ -21,9 +19,11 @@ export class TidslinjeForKategori {
   private items: FirebaseListObservable<any>;
 
   constructor(public navParams: NavParams, private af: AngularFire, private fpb: FirebaseProvider) {
+
     this.category = navParams.data;
     var headerTitle_ = this.category.title.replace( /([A-Z])/g, " $1" );
     this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
+
 
     this.fb_categoryPath = 
       '/' + this.category.incomeOrExpense + 
@@ -64,3 +64,4 @@ export class TidslinjeForKategori {
   }
 
 }
+
