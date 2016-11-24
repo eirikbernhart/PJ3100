@@ -3,12 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2';
 
-/*
-  Generated class for the FirebaseProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class FirebaseProvider {
 
@@ -26,6 +21,7 @@ export class FirebaseProvider {
     public http: Http,
     private auth: FirebaseAuth,
     public af: AngularFire) {
+
 
       this.uncategorized = this.af.database.list('/uncategorized');
 
@@ -49,9 +45,11 @@ export class FirebaseProvider {
 
   /* Adds an uncategorized transaction to the uncategorized Firebase category. 
   */  
+
   addUncategorizedTransaction(title: string, date: string, time: string, amount: number){
      this.uncategorized.push({title: title, date: date, time: time, amount: amount});
    }
+
 
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: expense -> category -> "the expense object".
@@ -80,6 +78,7 @@ export class FirebaseProvider {
       .map(obj => obj.map(obj => {
         return obj;
       }));
+
   }
 
 }
