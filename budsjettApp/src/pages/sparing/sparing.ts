@@ -9,6 +9,7 @@ import { NySparing } from '../ny-sparing/ny-sparing';
   selector: 'page-sparing',
   templateUrl: 'sparing.html'
 })
+<<<<<<< HEAD
 
 export class Sparing implements OnInit {
 
@@ -20,10 +21,21 @@ export class Sparing implements OnInit {
  
 
 
+=======
+export class Sparing implements OnInit {
+  nySparing = NySparing;
+
+  sparingObjects: SparingObject[];
+  selectedSparingObject: SparingObject;
+	
+ 
+
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   constructor(public navcontroller: NavController, private sparingService: SparingService) {
 	  
 	  
 	  
+<<<<<<< HEAD
   }
 	
   getSparingObjects(): void {
@@ -39,6 +51,23 @@ export class Sparing implements OnInit {
 	  this.selectedSparingObject = sparingObject;
   }
 	
+=======
+  }
+	
+  getSparingObjects(): void {
+	  
+	  this.sparingService.getSparingObjects().then(sparingObjects => this.sparingObjects = sparingObjects);
+  }
+	
+  ngOnInit(): void {
+	  this.getSparingObjects();
+  }
+	
+  onSelect(sparingObject: SparingObject): void {
+	  this.selectedSparingObject = sparingObject;
+  }
+	
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   deSelect (sparingObject: SparingObject): void {
 	  this.selectedSparingObject = null;
   }
@@ -69,7 +98,10 @@ export class Sparing implements OnInit {
 	  
   }
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 }
 
 

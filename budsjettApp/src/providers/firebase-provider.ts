@@ -22,6 +22,7 @@ export class FirebaseProvider {
     private auth: FirebaseAuth,
     public af: AngularFire) {
 
+<<<<<<< HEAD
 
       this.uncategorized = this.af.database.list('/uncategorized');
 
@@ -46,10 +47,22 @@ export class FirebaseProvider {
   /* Adds an uncategorized transaction to the uncategorized Firebase category. 
   */  
 
+=======
+    this.uncategorized = this.af.database.list('/uncategorized');
+
+    if (this.uncategorized.$ref.equalTo(null)){
+    this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
+    this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", "21:00", -738);
+    }
+
+  }
+  
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   addUncategorizedTransaction(title: string, date: string, time: string, amount: number){
      this.uncategorized.push({title: title, date: date, time: time, amount: amount});
    }
 
+<<<<<<< HEAD
 
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: expense -> category -> "the expense object".
@@ -79,6 +92,10 @@ export class FirebaseProvider {
         return obj;
       }));
 
+=======
+  addExpense(category: string, title: string, date: string, time: string, amount: number){
+     this.af.database.list('/expense/' + category).push({title: title, date: date, time: time, amount: amount});
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   }
 
 }

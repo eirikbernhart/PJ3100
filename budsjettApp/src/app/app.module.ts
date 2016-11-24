@@ -10,12 +10,18 @@ import { Instillinger } from '../pages/instillinger/instillinger';
 import { TidsLinje } from '../pages/tidslinje/tidslinje-page';
 import { Kategoriser } from '../pages/kategoriser/kategoriser';
 import { TidslinjeForKategori } from '../pages/tidslinje-for-kategori/tidslinje-for-kategori';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 import { SparingObjectDetailComponent } from '../pages/sparing-object-detail-component/sparing-object-detail-component';
 
 import { SparingService } from '../app/sparing-service';
 ;import { CalculationsProvider } from '../providers/calculations-provider';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 import { FirebaseProvider } from '../providers/firebase-provider';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -42,10 +48,15 @@ const myFirebaseAuthConfig = {
     Instillinger,
     TidsLinje,
     Kategoriser,
+<<<<<<< HEAD
 
     TidslinjeForKategori,
 	SparingObjectDetailComponent
 
+=======
+    TidslinjeForKategori,
+	SparingObjectDetailComponent
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -61,9 +72,15 @@ const myFirebaseAuthConfig = {
     Instillinger,
     TidsLinje,
     Kategoriser,
+<<<<<<< HEAD
     TidslinjeForKategori
   ],
   
+=======
+    TidslinjeForKategori,
+	  
+  ],
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   providers: [
 	SparingService,
     FirebaseProvider,

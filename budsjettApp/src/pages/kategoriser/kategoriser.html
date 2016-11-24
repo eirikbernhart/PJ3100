@@ -1,10 +1,16 @@
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 <ion-header>
 
   <ion-navbar>
     <ion-title>kategoriser</ion-title>
+<<<<<<< HEAD
 >>>>>>> Ny versjon av sparing, slik at den enkle sparing-siden, har blitt erstattet, og satt inn sammen med en nyere versjon av appen
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   </ion-navbar>
 
 </ion-header>
@@ -12,10 +18,13 @@
 
 <ion-content padding>
 
+<<<<<<< HEAD
 
   <h1>{{type}}</h1>
 
 
+=======
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
   <ion-list inset>
 
     <ion-item>
@@ -23,6 +32,7 @@
       <ion-input type="text" [(ngModel)]="title" placeholder={{transaction.title}}></ion-input>
     </ion-item>
 
+<<<<<<< HEAD
 
     <div *ngIf="type === 'Utgift'">
       <ion-item>
@@ -47,6 +57,21 @@
       </ion-item>
     </div>
 
+=======
+    <ion-item>
+      <ion-label stacked>Pris</ion-label>
+      <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Kategori</ion-label>
+      <ion-select [(ngModel)]="category">
+      <ion-option value="matOgDrikke">Mat Og Drikke</ion-option>
+      <ion-option value="klærOgUtstyr">Klær Og Utstyr</ion-option>
+      <ion-option value="annet">Annet</ion-option>
+    </ion-select>
+    </ion-item>
+>>>>>>> e0da23be4f47a2cb94756eacff29a820ed0776d8
 
   </ion-list>
 
