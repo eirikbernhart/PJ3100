@@ -7,13 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>kategoriser</ion-title>
+    <ion-title>Kategoriser</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <h1>{{type}}</h1>
 
   <ion-list inset>
 
@@ -22,19 +24,28 @@
       <ion-input type="text" [(ngModel)]="title" placeholder={{transaction.title}}></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Pris</ion-label>
-      <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
-    </ion-item>
+    <div *ngIf="type === 'Utgift'">
+      <ion-item>
+        <ion-label stacked>Pris</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label stacked>Kategori</ion-label>
+        <ion-select [(ngModel)]="category">
+        <ion-option value="matOgDrikke">Mat Og Drikke</ion-option>
+        <ion-option value="klærOgUtstyr">Klær Og Utstyr</ion-option>
+        <ion-option value="annet">Annet</ion-option>
+      </ion-select>
+      </ion-item>
+    </div>
 
-    <ion-item>
-      <ion-label stacked>Kategori</ion-label>
-      <ion-select [(ngModel)]="category">
-      <ion-option value="matOgDrikke">Mat Og Drikke</ion-option>
-      <ion-option value="klærOgUtstyr">Klær Og Utstyr</ion-option>
-      <ion-option value="annet">Annet</ion-option>
-    </ion-select>
-    </ion-item>
+    <div *ngIf="type === 'Lønn'">
+      <ion-item no-lines>
+        <ion-label stacked>Inntekt</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
+      </ion-item>
+    </div>
 
   </ion-list>
 

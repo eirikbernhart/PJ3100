@@ -13,6 +13,7 @@ import { FirebaseProvider } from '../../providers/firebase-provider';
 })
 export class Kategoriser {
 
+  type: string;
   transaction: any;
   title: string;
   amount: number;
@@ -24,6 +25,11 @@ export class Kategoriser {
     public fbp: FirebaseProvider) {
 
     this.transaction = navParams.data;
+
+    if (this.transaction.amount < 0)
+      this.type = 'Utgift';
+    else
+      this.type = 'Lønn';
   }
 
   ionViewDidLoad() {
@@ -35,8 +41,13 @@ export class Kategoriser {
       this.title = this.transaction.title;
     if (this.amount == null)
       this.amount = this.transaction.amount;
+    if (this.amount < 0){
+      this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
 
-    this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
+    } else {
+      this.fbp.addIncome('lønn', this.title, this.transaction.date, this.transaction.time, this.amount);
+    }
+    
     this.fbp.af.database.object('/uncategorized/' + this.transaction.$key).remove(); //Fjern fra uncategorized
   }
 

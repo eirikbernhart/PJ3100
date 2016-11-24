@@ -27,15 +27,23 @@ export class FirebaseProvider {
     private auth: FirebaseAuth,
     public af: AngularFire) {
 
-    this.uncategorized = this.af.database.list('/uncategorized');
+      this.uncategorized = this.af.database.list('/uncategorized');
 
     /* Adds two uncategorized transactions for demonstration purposes.
     *  This is since we don't have an API from DNB to work with. 
     */
-    /*if (this.uncategorized.$ref.equalTo(null)){
-    this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
-    this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", "21:00", -738);
-    }*/
+    this.af.database.list('/uncategorized', { preserveSnapshot: true }).subscribe(snapshots => {
+      let count = 0;
+      snapshots.forEach(snapshot => {
+        count++;
+      });
+      if (count == 0){
+        this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
+        this.addUncategorizedTransaction("NSB AS OSLO", "01.11.2016", "13:00", -781);
+        this.addUncategorizedTransaction("DEWTEAM AS", "01.12.2016", "17:20", 1738);
+        this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", "03.12.2016", "15:45", 20738);
+      }
+    });
 
   }
 
@@ -46,17 +54,23 @@ export class FirebaseProvider {
    }
 
    /* Categorizes a transaction based on the given parameters. 
-   *  In Firebase: expense -> category -> date -> "the expense object".
+   *  In Firebase: expense -> category -> "the expense object".
    */
   addExpense(category: string, title: string, date: string, time: string, amount: number){
-    let dategroup: string = date.replace(/[^a-zA-Z0-9]/g, '-');
-
     this.af.database.list('/expense/' + category)
       .push({title: title, date: date, time: time, amount: amount});
   }
 
-  /* Returns the date as it would be in a dategroup in Firebase */
-  getAsDategroup(date: string): string{
+   /* Categorizes a transaction based on the given parameters. 
+   *  In Firebase: income -> "vipps" or "lønn" -> "the income object".
+   */
+  addIncome(category: string, title: string, date: string, time: string, amount: number){
+    this.af.database.list('/income/' + category)
+      .push({title: title, date: date, time: time, amount: amount})
+  }
+
+  /* Formats a date string to dd-mm-yyyy */
+  formatDategroup(date: string): string{
     return date.replace(/[^a-zA-Z0-9]/g, '-');
   }
 

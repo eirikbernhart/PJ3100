@@ -36,7 +36,7 @@ export class TidslinjeForKategori {
   }
 
   /* Pushes all date values in each object under the category, 
-  ** and makes the array containing only unique values (dates) 
+  ** and makes the array containing only unique values (dates), then sorts it out.
   */
   pushUniqueDates(arr: Array<any>){
     let flags:any = [];
@@ -48,10 +48,11 @@ export class TidslinjeForKategori {
           count++;
 
           let date: string = snapshot.val().date;
-          if(flags[snapshot.val().date]) return;
+          if(flags[date]) return;
           flags[date] = true;
           arr.push(date);
         });
+        arr.sort();
       });
   }
 
