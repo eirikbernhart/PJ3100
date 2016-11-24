@@ -15,14 +15,20 @@
 
 <ion-content padding>
 
-	<ion-list>
+	<ion-list id="ukategorisert">
 		<ion-list-header>Ukategorisert</ion-list-header>
-		<ion-item-sliding *ngFor="let transaction of uncategorized | async">
+		<ion-item-sliding *ngFor="let transaction of uncategorized | async" no-lines>
 			
-			<ion-item (click)="categorize(transaction)"> 
+			<ion-item-options side="left">
+				<button ion-button icon-only color="background" (click)="deleteTransaction(transaction.$key)">
+					<ion-icon name="trash" color="danger"></ion-icon>
+				</button>
+			</ion-item-options>
+
+			<button ion-item (click)="categorize(transaction)">
 				<ion-label>{{transaction.title}}</ion-label>
 				<ion-note item-right>{{transaction.amount}} Kr</ion-note>
-			</ion-item>
+			</button>
 			
 		</ion-item-sliding>
 	</ion-list>

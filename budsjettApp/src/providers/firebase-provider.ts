@@ -53,6 +53,10 @@ export class FirebaseProvider {
      this.uncategorized.push({title: title, date: date, time: time, amount: amount});
    }
 
+   deleteUncategorizedTransaction(objKey: string){
+     this.af.database.list('/uncategorized/' + objKey).remove();
+   }
+
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: expense -> category -> "the expense object".
    */

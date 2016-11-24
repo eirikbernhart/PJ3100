@@ -26,6 +26,10 @@ export class TidsLinje {
     this.navCtrl.push(TidslinjeForKategori, categoryObj);
   }
 
+  deleteTransaction(objKey: string){
+    this.fbp.deleteUncategorizedTransaction(objKey);
+  }
+
   /* pushes an instance of Kategoriser to the page stack 
   */
   categorize(transaction){
