@@ -69,6 +69,12 @@ export class Sparing implements OnInit {
 	  
   }
 	
+  endreSparingPris(selectedSparingObject) {
+	  
+	  this.selectedSparingObject.pris = 0;
+	
+  }
+	
 
 }
 
