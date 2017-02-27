@@ -1,0 +1,58 @@
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>kategoriser</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <h1>{{type}}</h1>
+
+
+  <ion-list inset>
+
+    <ion-item>
+      <ion-label stacked>Tittel</ion-label>
+      <ion-input type="text" [(ngModel)]="title" placeholder={{transaction.title}}></ion-input>
+    </ion-item>
+
+
+    <div *ngIf="type === 'Utgift'">
+      <ion-item>
+        <ion-label stacked>Pris</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label stacked>Kategori</ion-label>
+        <ion-select [(ngModel)]="category">
+        <ion-option value="matOgDrikke">Mat Og Drikke</ion-option>
+        <ion-option value="klærOgUtstyr">Klær Og Utstyr</ion-option>
+        <ion-option value="annet">Annet</ion-option>
+      </ion-select>
+      </ion-item>
+    </div>
+
+    <div *ngIf="type === 'Lønn'">
+      <ion-item no-lines>
+        <ion-label stacked>Inntekt</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" placeholder={{transaction.amount}}></ion-input>
+      </ion-item>
+    </div>
+
+
+  </ion-list>
+
+  <button ion-button style="width:100%; margin-top:40px;" navPop (click)="submit()">
+   <ion-icon padding-right="3px" name="checkmark"></ion-icon>
+   Ok
+  </button>
+
+</ion-content>
