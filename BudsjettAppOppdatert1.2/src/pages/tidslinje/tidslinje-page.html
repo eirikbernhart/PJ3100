@@ -1,0 +1,80 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Tidslinje</ion-title>
+	<ion-buttons end>
+		<button ion-button color="royal" [navPush]="nyForing">
+                <ion-icon style="font-size: 25px" name="add-circle"></ion-icon>
+        </button> 
+	</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+
+	<ion-list>
+		<ion-list-header>Ukategorisert</ion-list-header>
+		<ion-item-sliding *ngFor="let transaction of uncategorized | async" no-lines>
+			
+
+			<ion-item-options side="left">
+				<button ion-button icon-only color="background" (click)="deleteTransaction(transaction.$key)">
+					<ion-icon name="trash" color="danger"></ion-icon>
+				</button>
+			</ion-item-options>
+
+			<button ion-item (click)="categorize(transaction)">
+				<ion-label>{{transaction.title}}</ion-label>
+				<ion-note item-right>{{transaction.amount}} Kr</ion-note>
+			</button>
+
+			
+			
+		</ion-item-sliding>
+	</ion-list>
+	
+
+	<ion-list>
+		<ion-list-header>Inntekter</ion-list-header>
+		<ion-item-sliding> 
+			
+			<button ion-item (click)="goToCategory('vipps', 'income')">
+				<ion-icon name="logo-usd" item-left></ion-icon>
+				<ion-label>Vipps</ion-label>
+
+	
+			</button>
+			<button ion-item (click)="goToCategory('lønn', 'income')">
+				<ion-icon name="clipboard" item-left></ion-icon>
+				<ion-label>Lønn</ion-label>
+			</button>
+		</ion-item-sliding>
+	</ion-list>
+	
+
+	<ion-list>
+		<ion-list-header>Utgifter</ion-list-header>
+		<ion-item-sliding> 
+			<button ion-item (click)="goToCategory('foodAndDrink', 'expenseExternalList')">
+				<ion-icon name="pizza" item-left></ion-icon>
+				<ion-label>Mat og Drikke</ion-label>
+
+	
+			</button>
+			<button ion-item (click)="goToCategory('clothes', 'expenseExternalList')">
+				<ion-icon name="shirt" item-left></ion-icon>
+				<ion-label>Klær og utstyr</ion-label>
+			</button>
+			<button ion-item (click)="goToCategory('other', 'expenseExternalList')">
+				<ion-icon name="archive" item-left></ion-icon>
+				<ion-label>Annet</ion-label>
+			</button>
+		</ion-item-sliding>
+	</ion-list>
+	
+</ion-content>

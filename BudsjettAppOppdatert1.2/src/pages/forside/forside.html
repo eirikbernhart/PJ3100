@@ -1,0 +1,110 @@
+<head>
+  <script src="node_modules/chart.js/src/chart.js"></script>
+</head>
+
+<ion-header>
+
+  <ion-toolbar no-border-bottom>
+    <ion-title>Oversikt</ion-title>
+    <ion-buttons end>
+      <button ion-button color="royal" [navPush]="instillinger">
+        <ion-icon style="font-size: 25px" name="settings"></ion-icon>
+      </button>
+      <button ion-button color="primary" (click)="logout()">
+          logg ut
+         <ion-icon ios="md-exit" md="md-exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar no-border-top>
+    <ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            Mål: {{currentBalance}}
+          </ion-card-header>
+          <ion-card-header>
+            <!--Forbruk: {{expensesToShow}}-->
+            Forbruk: {{expensesToShow}}
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <!--Navigasjon (dag, uke måned)-->
+  <ion-list>
+    <ion-item>
+      <ion-select [(ngModel)]="filtrerTest" (ngModelChange)="updateDiagram(filtrerTest)">
+        <ion-option value="day">I dag</ion-option>
+        <ion-option value="week">Denne uken</ion-option>
+        <ion-option value="month" checked="true">Denne måneden</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!--Navigasjon (dag, uke måned) END-->
+
+
+
+  <!--Innhold relatert til dag, uke eller måned-->
+  <!--NB!Progressbar operates on values form 0 -100-->
+  <div [ngSwitch]="filtrerTest">
+
+    <ion-list *ngSwitchCase="'day'">
+      <ion-item style="border: none">
+        <progress-bar [progress]="sumTotalDay"></progress-bar>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'week'">
+      <ion-item style="border: none">
+        <progress-bar [progress]="sumTotal"></progress-bar>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'month'">
+      <ion-item style="border: none">
+        <progress-bar [progress]="sumTotalMonth"></progress-bar>
+      </ion-item>
+    </ion-list>
+
+  </div>
+  <!--Innhold relatert til dag, uke eller måned END-->
+
+
+
+  <div>
+    <canvas #canvas width="20%" height="15%"></canvas>
+    <!--Diagrammet-->
+  </div>
+
+
+
+  <!--Ikoner-->
+  <ion-col>
+    <ion-item no-lines>
+      <ion-icon name="home" item-left class="blue"></ion-icon>
+      <p>Bolig</p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon name="pizza" item-left class="red"></ion-icon>
+      <p>Mat og drikke</p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon name="shirt" item-left class="yellow"></ion-icon>
+      <p>Klær og utstyr</p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon name="archive" item-left class="green"></ion-icon>
+      <p>Annet</p>
+    </ion-item>
+  </ion-col>
+
+</ion-content>

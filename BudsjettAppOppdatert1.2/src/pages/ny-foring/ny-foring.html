@@ -1,0 +1,43 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ny føring</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+ 
+  <ion-list>
+    <ion-item>
+      <ion-input [(ngModel)] = "extName" type="text" placeholder="Tittel"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)] = "extPris" type="number" placeholder="Pris"></ion-input>
+    </ion-item>
+
+
+    <!--Tid og dato kommer automatisk-->
+    <ion-label>{{timestampVar}}</ion-label>
+
+    <ion-item>
+        <ion-label stacked>Kategori</ion-label>
+        <ion-select [(ngModel)]="category">
+        <ion-option value="foodAndDrink">Mat Og Drikke</ion-option>
+        <ion-option value="clothes">Klær Og Utstyr</ion-option>
+        <ion-option value="other">Annet</ion-option>
+        <ion-option value="income">Inntekt</ion-option>
+      </ion-select>
+      </ion-item>
+    
+
+    <button ion-button style="width:100%; margin-top:40px;" navPop (click) ="nyForingFirebase()">
+      <ion-icon padding-right="3px" name="checkmark"></ion-icon>
+      Ok
+    </button>
+
+  </ion-list>
+
+</ion-content>
