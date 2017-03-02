@@ -9,13 +9,11 @@ import { FirebaseProvider } from '../../providers/firebase-provider';
   templateUrl: 'tidslinje-page.html'
 })
 export class TidsLinje {
-
-  private uncategorized;
   
+  private uncategorized = this.fbp.uncategorized_observable;
+
   constructor(public navCtrl: NavController, public fbp: FirebaseProvider) {
-
-    this.uncategorized = this.fbp.uncategorized;
-
+    
   }
 
   /* pushes an instance of TidslinjeForKategori on to the page stack 

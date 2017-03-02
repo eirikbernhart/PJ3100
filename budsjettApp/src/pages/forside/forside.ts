@@ -1,6 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Instillinger } from '../instillinger/instillinger';
+import { CalculationsProvider } from '../../providers/calculations-provider';
+import { FirebaseProvider } from '../../providers/firebase-provider';
+import { FirebaseListObservable } from 'angularfire2'
 import 'chart.js/src/chart.js';
 declare var Chart;
 /*
@@ -14,10 +17,20 @@ declare var Chart;
   templateUrl: 'forside.html',
 })
 
-export class Forside {
+export class Forside implements OnInit {
   instillinger = Instillinger;
+  constructor(public navCtrl: NavController, private cp: CalculationsProvider, private fbp: FirebaseProvider) {    
+  }
 
-  constructor(public navCtrl: NavController) {}
+  ngOnInit(){
+    let day = this.cp.day;
+    let month = this.cp.month;
+    let sum;
+    this.cp.getTotalAmountOf("matOgDrikke", "" + day + "." + month + "." + this.cp.year, sum).subscribe(x => console.log(sum));
+    console.log(day);
+    console.log(month);
+    console.log(this.cp.year);
+  }
   
   diagram: string = "dag";
   @ViewChild('canvas') canvas:ElementRef;

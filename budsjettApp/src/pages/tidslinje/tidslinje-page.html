@@ -17,7 +17,7 @@
 
 	<ion-list id="ukategorisert">
 		<ion-list-header>Ukategorisert</ion-list-header>
-		<ion-item-sliding *ngFor="let transaction of uncategorized | async" no-lines>
+		<ion-item-sliding *ngFor="let transaction of uncategorized | async">
 			
 			<ion-item-options side="left">
 				<button ion-button icon-only color="background" (click)="deleteTransaction(transaction.$key)">
