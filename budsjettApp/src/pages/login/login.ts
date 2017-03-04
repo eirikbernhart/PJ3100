@@ -1,35 +1,62 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
+import { FirebaseProvider } from '../../providers/firebase-provider';
+import { RegisterPage } from '../register/register';
+import { ResetpwdPage } from '../resetpwd/resetpwd';
+
 import { Tabs } from '../tabs/tabs';
-import { NyBruker } from '../ny-bruker/ny-bruker';
 
-/*
-  Generated class for the Login page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class Login {
+export class LoginPage {
 
-  constructor(public navCtrl: NavController) {}
-  
-   goToOtherPage() {
-    //push another page onto the history stack
-    //causing the nav controller to animate the new page in
-    this.navCtrl.push(Tabs);
-  }
-  goToNyBruker() {
-    //push another page onto the history stack
-    //causing the nav controller to animate the new page in
-    this.navCtrl.push(NyBruker);
+  loginForm;
+  emailChanged: boolean = false;
+  passwordChanged: boolean = false;
+  submitAttempt: boolean = false;
+  loading: any;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public fbp: FirebaseProvider,  
+    public formBuilder: FormBuilder) {
+
+    let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    this.loginForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('Hello Login Page');
+  elementChanged(input){
+    let field = input.inputControl.name;
+    this[field + "Changed"] = true;
+  }
+
+  register(){
+    this.navCtrl.push(RegisterPage);
+  }
+
+  resetPwd(){
+    this.navCtrl.push(ResetpwdPage);
+  }
+
+  loginUser(){
+    this.submitAttempt = true;
+
+    if (!this.loginForm.valid){
+      console.log(this.loginForm.value);
+    } else {
+      this.fbp.doLogin(this.loginForm.value.email, this.loginForm.value.password);
+      this.fbp.af.auth.subscribe((user) => {
+        if(user) this.navCtrl.setRoot(Tabs);
+      });
+    }
   }
 
 }

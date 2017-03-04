@@ -18,9 +18,24 @@
     </ion-buttons>
   </ion-toolbar>
 
+  <ion-toolbar no-border-top>
+    <ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            Mål: {{currentBalance}}
+          </ion-card-header>
+          <ion-card-header>
+            Forbruk: {{expensesToShow}}
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-toolbar>
+
   <!--Navigasjon (dag, uke måned)-->
   <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="diagram">
+    <ion-segment [(ngModel)]="diagram" (ngModelChange)="updateDiagram(diagram)">
       <ion-segment-button value="dag">
         Dag
       </ion-segment-button>

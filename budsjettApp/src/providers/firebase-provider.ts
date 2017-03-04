@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2';
-
+import * as fb from 'firebase';
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -11,6 +10,12 @@ import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2'
 */
 @Injectable()
 export class FirebaseProvider {
+
+  public fireAuth: any;
+  public userDataVar: any;
+  public userId: any;
+  public databaseRef;
+  public currentUser;
 
   public uncategorized_observable: FirebaseListObservable<any> = 
     this.af.database.list('/uncategorized');
@@ -23,11 +28,32 @@ export class FirebaseProvider {
 
   constructor(
     public http: Http,
-    private auth: FirebaseAuth,
-    public af: AngularFire) {
+    public auth: FirebaseAuth,
+    public af: AngularFire
+    ) {
 
     this.addTestTransactions();
+  }
 
+  doLogin(email: string, password: string): any {
+
+    return this.af.auth.login({ email: email, password: password });;
+  }
+
+  register(email: string, password: string): any {
+    return this.af.auth.createUser({email: email, password: password});
+  }
+
+  resetPassword(email: string, password: string): any {
+    return fb.auth().sendPasswordResetEmail(email);
+  }
+
+  doLogout(): any {
+    return this.af.auth.logout();
+  }
+
+  getCurrentUser() {
+    return this.af.auth.getAuth().uid;
   }
 
   /* Returns a a promise of a Firebase list object as an array */
@@ -65,6 +91,11 @@ export class FirebaseProvider {
         this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", "03.12.2016", "15:45", 20738);
       }
     });
+  }
+
+  addForingToFirebase(category, title, amount, date, time) {
+    this.af.database.list('/userData/' + this.currentUser.uid + '/expense/' + category)
+      .push({title: title, date: date, time: time, amount: amount});
   }
 
   /* Adds an uncategorized transaction to the uncategorized Firebase category. 
