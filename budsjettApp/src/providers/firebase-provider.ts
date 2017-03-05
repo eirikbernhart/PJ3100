@@ -15,23 +15,23 @@ export class FirebaseProvider {
   public userDataVar: any;
   public userId: any;
   public databaseRef;
-  public currentUser;
+  public currentUserId = this.auth.getAuth().uid;
 
   public uncategorized_observable: FirebaseListObservable<any> = 
-    this.af.database.list('/uncategorized');
+    this.af.database.list('/userData/' + this.currentUserId + '/uncategorized/');
 
   public expense_observable: FirebaseListObservable<any> =
-    this.af.database.list('/expense');
+    this.af.database.list('/userData/' + this.currentUserId + '/expense/');
 
   public income_observable: FirebaseListObservable<any> = 
-    this.af.database.list('/income');
+    this.af.database.list('/userData/' + this.currentUserId + '/income/');
 
   constructor(
     public http: Http,
     public auth: FirebaseAuth,
-    public af: AngularFire
+    public af: AngularFire,
     ) {
-
+    
     this.addTestTransactions();
   }
 
@@ -94,7 +94,7 @@ export class FirebaseProvider {
   }
 
   addForingToFirebase(category, title, amount, date, time) {
-    this.af.database.list('/userData/' + this.currentUser.uid + '/expense/' + category)
+    this.af.database.list('/userData/' + this.currentUserId + '/expense/' + category)
       .push({title: title, date: date, time: time, amount: amount});
   }
 
@@ -112,7 +112,7 @@ export class FirebaseProvider {
    *  In Firebase: expense -> category -> "the expense object".
    */
   addExpense(category: string, title: string, date: string, time: string, amount: number){
-    this.af.database.list('/expense/' + category)
+    this.af.database.list('/userData/' + this.currentUserId + '/expense/' + category)
       .push({title: title, date: date, time: time, amount: amount});
   }
 
@@ -120,7 +120,7 @@ export class FirebaseProvider {
    *  In Firebase: income -> "vipps" or "lønn" -> "the income object".
    */
   addIncome(category: string, title: string, date: string, time: string, amount: number){
-    this.af.database.list('/income/' + category)
+    this.af.database.list('/userData/' + this.currentUserId + '/income/' + category)
       .push({title: title, date: date, time: time, amount: amount})
   }
 

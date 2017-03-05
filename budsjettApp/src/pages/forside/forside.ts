@@ -61,18 +61,12 @@ export class Forside implements OnInit {
             app.getRootNav().setRoot(LoginPage);
             
           }
-        });
+    });
+
+    calcServ.getTotalAmountOf("matOgDrikke", "02-03-2017", 234);
   }
 
   ngOnInit(){
-    let day = this.cp.day;
-    let month = this.cp.month;
-    let sum;
-    this.cp.getTotalAmountOf("matOgDrikke", "" + day + "." + month + "." + this.cp.year, sum).subscribe(x => console.log(sum));
-    console.log(day);
-    console.log(month);
-    console.log(this.cp.year);
-
     this.setUpChart();
     this.renderChart();
     setTimeout(x => { 
@@ -118,7 +112,7 @@ export class Forside implements OnInit {
       this.calcServ.totalFoodAndDrinkToday(this.dateVar).subscribe(x =>{
         this.calcServ.totalClothesToday(this.dateVar).subscribe(x =>{
           this.calcServ.totalAnnetToday(this.dateVar).subscribe(x =>{
-            
+
             dataRent = (8000 / 31);
             dataFoodAndDrink = this.calcServ.sumFoodAndDrinkToday;
             dataClothes = this.calcServ.sumClothesToday;
@@ -204,7 +198,7 @@ export class Forside implements OnInit {
                 data: {
                 labels: [],
                 datasets: [{
-                data: [(this.foodTotalTest) * (-1), 8600, this.clothTotal, this.annetTotal], //Kategori data skal inn i dette arrayet!
+                data: [(this.foodTotal) * (-1), 8600, this.clothTotal * (-1), this.annetTotal * (-1)], //Kategori data skal inn i dette arrayet!
                 backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',

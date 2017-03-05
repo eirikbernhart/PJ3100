@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable'
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseUrl } from 'angularfire2';
 import { FirebaseProvider } from './firebase-provider';
-
+import * as fb from 'firebase';
 /*
   Generated class for the CalculationsProvider provider.
 
@@ -35,31 +35,28 @@ export class CalculationsProvider {
 
     let monday = this.day - this.weekDay;
     for (let i = 0; i < this.weekDay; i++){
-      this.getTotalAmountOf("matOgDrikke", (monday+i < 10) ? "0"+monday+i : monday+i  + "." + (this.month < 10) ? "0" + this.month : this.month + "." + this.year, this.foodAmountWeek);
     }
 
     for (let i = 1; i < this.day; i++){
-      this.getTotalAmountOf("matOgDrikke", "" + i + "." + this.month + "." + this.year, this.foodAmountMonth);
     }
   }
-
   //Returns a promise of the total sum for each object.amount under a category ----Returnerer ikke riktig verdi (bug)
-  getTotalAmountOf(category: string, date: string, sum: number) : Observable<void> {
+  getTotalAmountOf(category: string, date: string, sum: number): any {
     /* w/ uid:
     let entries = this.fbp.fbp.database.list('/userData/' 
     + this.currentUser.uid + '/expense/'*/
-    let entries = this.fbp.af.database.list('/expense/' + category, {
+    let expense = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expense/' + category, {
       query: {
         orderByChild: 'date',
         equalTo: date
       }
     });
 
-
-    return entries.map(x => { 
-      sum = 0;
-      x.forEach(i => { 
-        sum += i.amount;
+    expense.subscribe(snapshots => {
+      snapshots.forEach(cat => {
+        if (cat.$key == category) {
+          console.log(cat.$key);
+        }
       });
     });
   }
@@ -74,6 +71,9 @@ export class CalculationsProvider {
   //TotalData for each category based on day/week/month:
 
   //Data-total: day
+  public sumTotalToday;
+  public sumTotalWeek;
+  public sumTotalMonth;
   public sumFoodAndDrinkToday;
   public sumClothesToday;
   public sumAnnetToday;

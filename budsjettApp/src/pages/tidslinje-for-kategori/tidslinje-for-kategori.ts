@@ -26,6 +26,7 @@ export class TidslinjeForKategori {
     this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
 
     this.fb_categoryPath = 
+      'userData/' + this.af.auth.getAuth().uid +
       '/' + this.category.incomeOrExpense + 
       '/' + this.category.title;
 
