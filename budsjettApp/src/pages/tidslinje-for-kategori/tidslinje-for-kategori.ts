@@ -29,7 +29,7 @@ export class TidslinjeForKategori {
       'userData/' + this.af.auth.getAuth().uid +
       '/' + this.category.incomeOrExpense + 
       '/' + this.category.title;
-
+ 
      this.pushUniqueDates(this.uniqueDates);
 
      this.items = af.database.list(this.fb_categoryPath);
