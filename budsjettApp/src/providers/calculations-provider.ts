@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable'
-import { AngularFire, FirebaseListObservable, FirebaseUrl } from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { FirebaseProvider } from './firebase-provider';
 import * as fb from 'firebase';
 /*
@@ -26,7 +26,7 @@ export class CalculationsProvider {
   constructor(public http: Http, private fbp: FirebaseProvider) {
     this.currentUser = fbp.auth.getAuth();
 
-    this.initAmountOf("matOgDrikke", dayAmount => {
+    this.initAmountsOf("matOgDrikke", dayAmount => {
       this.foodAmountToday = dayAmount;
     }, weekAmount => {
       this.foodAmountWeek = weekAmount;
@@ -42,7 +42,7 @@ export class CalculationsProvider {
     }, 1000)
   }
   
-  initAmountOf(category: string, day, week, month){
+  initAmountsOf(category: string, day, week, month){
     this.day = new Date().getDate();
     this.month = new Date().getMonth() +1;
     this.year = new Date().getFullYear();
@@ -57,13 +57,15 @@ export class CalculationsProvider {
     let monday = this.day - this.weekDay;
     for (let i = 0; i < this.weekDay; i++){
       this.getTotalAmountOf(category, monday + i + "." + this.month + "." + this.year, amount => {
-        week(amount);
+        if (i === this.weekDay)
+          week(amount);
       });
     }
 
     for (let i = 1; i < this.day; i++){
       this.getTotalAmountOf(category, i + "." + this.month + "." + this.year, amount => {
-        month(amount);
+        if (i === this.day)
+          month(amount);
       });
     }
   }
@@ -75,13 +77,24 @@ export class CalculationsProvider {
         equalTo: date
       }
     });
-
-    var amount: number;
-    expense.subscribe(snapshots => {
+    
+    var amount = 0;
+    expense.subscribe((snapshots: any) => {
+      let isAmountReady;
+      let countFirst = 0;
+      let countSecond = 0;
+      let lengthFirst = snapshots.getChildrenCount();
+      let lengthSecond;
       snapshots.forEach(categ => {
+        countFirst++;
+        lengthSecond = categ.getChildrenCount();
         categ.forEach(item => {
-          amount = item.amount;
-          callback(amount);
+          countSecond++;
+          amount += item.amount;
+
+          isAmountReady = countFirst === lengthFirst && countSecond === lengthSecond;
+          if (isAmountReady)
+            callback(amount);
         });
       });
     });
