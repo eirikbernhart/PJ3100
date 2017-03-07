@@ -25,38 +25,64 @@ export class CalculationsProvider {
   
   constructor(public http: Http, private fbp: FirebaseProvider) {
     this.currentUser = fbp.auth.getAuth();
+
+    this.initAmountOf("matOgDrikke", dayAmount => {
+      this.foodAmountToday = dayAmount;
+    }, weekAmount => {
+      this.foodAmountWeek = weekAmount;
+    }, monthAmount => {
+      this.foodAmountMonth = monthAmount;
+    });
+    
+  }
+
+  clogInfo(){
+    setTimeout(() => {
+      console.log(this.foodAmountToday + " " + this.foodAmountWeek + " " + this.foodAmountMonth);
+    }, 1000)
+  }
+  
+  initAmountOf(category: string, day, week, month){
     this.day = new Date().getDate();
     this.month = new Date().getMonth() +1;
     this.year = new Date().getFullYear();
     this.weekDay = new Date().getDay();
     this.day = this.day < 10 ? "0" + this.day : this.day;
     this.month = this.month < 10 ? "0" + this.month : this.month;
-    this.getTotalAmountOf("matOgDrikke", this.day + "." + this.month + "." + this.year, this.foodAmountToday);
+
+    this.getTotalAmountOf(category, this.day + "." + this.month + "." + this.year, amount => {
+      day(amount);
+    });
 
     let monday = this.day - this.weekDay;
     for (let i = 0; i < this.weekDay; i++){
+      this.getTotalAmountOf(category, monday + i + "." + this.month + "." + this.year, amount => {
+        week(amount);
+      });
     }
 
     for (let i = 1; i < this.day; i++){
+      this.getTotalAmountOf(category, i + "." + this.month + "." + this.year, amount => {
+        month(amount);
+      });
     }
   }
-  //Returns a promise of the total sum for each object.amount under a category ----Returnerer ikke riktig verdi (bug)
-  getTotalAmountOf(category: string, date: string, sum: number): any {
-    /* w/ uid:
-    let entries = this.fbp.fbp.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/'*/
-    let expense = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expense/' + category, {
+
+  getTotalAmountOf(category: string, date: string, callback) {
+    let expense = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expense/', {
       query: {
         orderByChild: 'date',
         equalTo: date
       }
     });
 
+    var amount: number;
     expense.subscribe(snapshots => {
-      snapshots.forEach(cat => {
-        if (cat.$key == category) {
-          console.log(cat.$key);
-        }
+      snapshots.forEach(categ => {
+        categ.forEach(item => {
+          amount = item.amount;
+          callback(amount);
+        });
       });
     });
   }
