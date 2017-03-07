@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable'
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import * as moment from 'moment';
 import { FirebaseProvider } from './firebase-provider';
 import * as fb from 'firebase';
 /*
@@ -19,280 +20,189 @@ export class CalculationsProvider {
   month;
   year;
   weekDay;
+  //TotalData for each category based on day/week/month:
+  public sumAll: number = 0;
+  public sumAllFoodAndDrink: number = 0;
+  public sumAllClothes: number = 0;
+  public sumAllOther: number = 0;
+  
   foodAmountToday;
   foodAmountWeek;
   foodAmountMonth;
-  
   constructor(public http: Http, private fbp: FirebaseProvider) {
-    this.currentUser = fbp.auth.getAuth();
-
-    this.initAmountsOf("matOgDrikke", dayAmount => {
-      this.foodAmountToday = dayAmount;
-    }, weekAmount => {
-      this.foodAmountWeek = weekAmount;
-    }, monthAmount => {
-      this.foodAmountMonth = monthAmount;
+    this.fbp.af.auth.subscribe(user => {
+      if (user)
+        this.currentUser = user;
+      this.initAmountsOf("matOgDrikke", day => {
+        this.foodAmountToday = day;
+      }, week => {
+        this.foodAmountWeek = week;
+      }, month => {
+        this.foodAmountMonth = month;
+      });
     });
-    
   }
 
+  public clogData = new Object;
   clogInfo(){
+    let amo;
+    this.getTotalAmountOf("matOgDrikke", '07.03.2017', amount => {
+      amo = amount;
+    });
     setTimeout(() => {
-      console.log(this.foodAmountToday + " " + this.foodAmountWeek + " " + this.foodAmountMonth);
-    }, 1000)
+      for (let key in this.clogData){
+        console.log(this.clogData[key]);
+      }
+      console.log("getTotAmOf: " + amo);
+      console.log("foodAmounts:" + ' ' + this.foodAmountToday + " " + this.foodAmountWeek + " " + this.foodAmountMonth);
+    }, 10000)
   }
   
   initAmountsOf(category: string, day, week, month){
     this.day = new Date().getDate();
     this.month = new Date().getMonth() +1;
     this.year = new Date().getFullYear();
-    this.weekDay = new Date().getDay();
-    this.day = this.day < 10 ? "0" + this.day : this.day;
-    this.month = this.month < 10 ? "0" + this.month : this.month;
+    this.weekDay = new Date().getDay() +1;
+    let daystr = (this.day < 10) ? "0" + this.day : this.day;
+    let monthstr = (this.month < 10) ? "0" + this.month : this.month;
 
-    this.getTotalAmountOf(category, this.day + "." + this.month + "." + this.year, amount => {
+    this.getTotalAmountOf(category, daystr + "." + monthstr + "." + this.year, amount => {
       day(amount);
     });
 
     let monday = this.day - this.weekDay;
-    for (let i = 0; i < this.weekDay; i++){
-      this.getTotalAmountOf(category, monday + i + "." + this.month + "." + this.year, amount => {
-        if (i === this.weekDay)
-          week(amount);
+    let date;
+    let day2;
+    let found1: boolean;
+    let weekAmount = 0;
+    for (let i = 0; i <= this.weekDay; i++){
+      day2 = (monday + i < 10) ? '0' + (monday + i) : monday + i;
+      date = day2 + "." + monthstr + "." + this.year
+      this.clogData['date1'] = "date 1: " + date;
+      console.log(date);
+      this.getTotalAmountOf(category, date, amount => {
+        weekAmount += amount;
+        if (i === this.weekDay){
+          week(weekAmount);
+          found1 = true;
+        }
       });
+      if (found1) break;
     }
 
-    for (let i = 1; i < this.day; i++){
-      this.getTotalAmountOf(category, i + "." + this.month + "." + this.year, amount => {
-        if (i === this.day)
-          month(amount);
+    let day3;
+    let monthAmount = 0;
+    let found2 = false;
+    for (let i = 1; i <= this.day; i++){
+      day3 = (i < 10) ? '0' + i : i;
+      date = day3 + "." + monthstr + "." + this.year;
+      this.clogData['date2'] = "date 2 " + date;
+      console.log(date);
+      this.getTotalAmountOf(category, date, amount => {
+        monthAmount += amount;
+        if (i === this.day){
+          month(monthAmount);
+          found2 = true;
+        }
       });
+      if (found2) break;
     }
-  }
 
-  getTotalAmountOf(category: string, date: string, callback) {
-    let expense = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expense/', {
-      query: {
-        orderByChild: 'date',
-        equalTo: date
+    return new Promise(function(resolve, reject){
+      if (found1 && found2) {
+        resolve(found1 && found2);
+        
       }
     });
+  }
+  
+  getTotalAmountOf(category: string, date: string, callback) {
+    let expenseRef = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expense/' + category).$ref.orderByChild('date').equalTo(date);
     
     var amount = 0;
-    expense.subscribe((snapshots: any) => {
+    expenseRef.once("value", snapshots => {
       let isAmountReady;
-      let countFirst = 0;
-      let countSecond = 0;
-      let lengthFirst = snapshots.getChildrenCount();
-      let lengthSecond;
-      snapshots.forEach(categ => {
-        countFirst++;
-        lengthSecond = categ.getChildrenCount();
-        categ.forEach(item => {
-          countSecond++;
-          amount += item.amount;
+      let count = 0;
+      let length = snapshots.numChildren();
+      snapshots.forEach((item: fb.database.DataSnapshot) => {
+        count++;
+        amount += item.val().amount;
+        isAmountReady = (count === length);
+        console.log('isAmountReady: ' + isAmountReady);
+        if (isAmountReady)
+          callback(amount);
 
-          isAmountReady = countFirst === lengthFirst && countSecond === lengthSecond;
-          if (isAmountReady)
-            callback(amount);
-        });
+        return false
+        
       });
     });
   }
 
 
   //..........................................................................................................
-  public data;
-  public week;
-
-  
-
-  //TotalData for each category based on day/week/month:
-
-  //Data-total: day
-  public sumTotalToday;
-  public sumTotalWeek;
-  public sumTotalMonth;
-  public sumFoodAndDrinkToday;
-  public sumClothesToday;
-  public sumAnnetToday;
-
-  //Data-total: week
-  public sumFoodAndDrinkDatedCurrentWeek;
-
-  //Data-total: month
-  public sumAnnet = 0;
-  public sumFoodAndDrink = 0;
-  public sumClothes = 0;
-  public sumIncome = 0;
-
-  public localArray;
-  public bsVar = 0;
-  public fbpObject;
-
-  totalSumUtgifter(dato: Date){
-   
-  }
-
-  getCurrentWeek(input) {
-
-  }
-
-  //Get the current week of this year. Not really useful for us atm...
-  getWeekOfTheYear() {
-    let now: any = new Date();
-    let onejan: any = new Date(now.getFullYear(), 0, 1);
-    this.week = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
-    console.log("This week is: " + this.week);
-  }
-
-  iterateThroughChildren() {
-
-  }
-
-
-  totalFoodAndDrinkToday(date: string) {
-    let queryObservable = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/matOgDrikke', {
-      query: {
-        orderByChild: 'date',
-        equalTo: date
-      }
+  //This method can get the total amount of expenses, based on:
+  //"Today", "current week" and "current month".
+  sumTotalAll(date: string, filterBy: string) {
+    this.fbp.af.auth.subscribe(user => {
+      if (user)
+        this.currentUser = user.uid;
     });
 
-    return queryObservable
-      .map(x => {
-        this.sumFoodAndDrinkToday = 0;
-        x.forEach(i => {
-          this.sumFoodAndDrinkToday = this.sumFoodAndDrinkToday + i.amount * (-1);
-        })
-      })
-  }
 
-  totalClothesToday(date: string) {
-    let queryObservable = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/klærOgUtstyr', {
-      query: {
-        orderByChild: 'date',
-        equalTo: date
-      }
-    });
+    let orderType: string;
 
-     return queryObservable
-      .map(x => {
-        this.sumClothesToday = 0;
-        x.forEach(i => {
-          this.sumClothesToday = this.sumClothesToday + i.amount * (-1);
-        })
-      })
-  }
+    if(filterBy == "day") {
+      orderType = "date"
+      date = date;
 
-  totalAnnetToday(date: string) {
-    let queryObservable = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/annet', {
-      query: {
-        orderByChild: 'date',
-        equalTo: date
-      }
-    });
+    } else if(filterBy == "week") {
+      orderType ="dateWeek"
 
-     return queryObservable
-      .map(x => {
-        this.sumAnnetToday = 0;
-        x.forEach(i => {
-          this.sumAnnetToday = this.sumAnnetToday + i.amount * (-1);
-        })
-      })
-  }
-
-   orderAmountByThisWeek(date: string) {
-
-    let currentDay;
+      moment.locale();
+      let dateWeek = moment().isoWeek();
+      console.log("Vi er i uke: " + dateWeek);
+      date = dateWeek.toString();
     
-    let queryObservable = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/matOgDrikke', {
+    } else if(filterBy == "month") {
+      orderType ="dateMonth"
+      date = date.substring(0, 2);
+    }
+
+    let queryObservable = this.fbp.af.database.list('/userData/' + this.currentUser.uid + '/expenseFlatened', {
       query: {
-        orderByChild: 'date',
+        orderByChild: orderType,
         equalTo: date
       }
-    });
+    })
+     
+      //KEEP...
+      queryObservable
+        .map(x => {
 
-    return queryObservable
-      .map(x => {
-        this.sumFoodAndDrinkDatedCurrentWeek = 0;
-        x.forEach(i => {
+          this.sumAll = 0;
+          this.sumAllFoodAndDrink = 0;
+          this.sumAllClothes = 0;
+          this.sumAllOther = 0;
 
-          console.log("Vi er på dato: " + i.date)
-          
-            currentDay = parseInt(i.date.substring(2,4));
-            if(currentDay < 8) {
-              this.week = 1;
-              //console.log("Utgifter første uke: " + i.amount)
-              this.sumFoodAndDrinkDatedCurrentWeek = this.sumFoodAndDrinkDatedCurrentWeek + i.amount * (-1);
-            } else if (currentDay > 7 && currentDay < 15) {
-              this.week = 2;
-              //console.log("Utgifter andre uke: " + i.amount)
-              this.sumFoodAndDrinkDatedCurrentWeek = this.sumFoodAndDrinkDatedCurrentWeek + i.amount * (-1)
-            } else if (currentDay > 14 && currentDay < 22) {
-              this.week = 3;
-              //console.log("Utgifter tredje uke: " + i.amount)
-              this.sumFoodAndDrinkDatedCurrentWeek = this.sumFoodAndDrinkDatedCurrentWeek + i.amount * (-1)
-            } else {
-              this.week = 4;
-              //console.log("Utgifter fjerde uke: " + i.amount)
-              this.sumFoodAndDrinkDatedCurrentWeek = this.sumFoodAndDrinkDatedCurrentWeek + i.amount * (-1)
+          x.forEach(i => {
+            this.sumAll += i.amount * (-1);
+
+            console.log("Kategori på element: " + i.category)
+
+            if(i.category == "foodAndDrink") {
+              this.sumAllFoodAndDrink += i.amount * (-1);
+            } else if(i.category == "clothes") {
+              this.sumAllClothes += i.amount * (-1);
+            } else if(i.category == "other") {
+              this.sumAllOther += i.amount * (-1);
             }
-            //console.log(this.week)
-            console.log("Utgifter denne uken: " + this.sumFoodAndDrinkDatedCurrentWeek);
-            
 
-        })
-      })
-      
-   }
-  
-
-  
-
-  totalFoodAndDrink() {
-
-    let entriesFromFoodAndDrink$ = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/matOgDrikke');
-
-    return entriesFromFoodAndDrink$
-    .map(x => { 
-      this.sumFoodAndDrink = 0;
-        x.forEach(i => { 
-          this.sumFoodAndDrink = this.sumFoodAndDrink + i.amount * (-1);
-        })
-      })
-  }
-
-  totalClothes() {
-    
-    let entriesFromFoodAndDrink$ = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/klærOgUtstyr');
-
-    return entriesFromFoodAndDrink$
-    .map(x => { 
-      this.sumClothes = 0;
-        x.forEach(i => { 
-          this.sumClothes = this.sumClothes + i.amount * (-1);
-        })
-      })
-  }
-
-  totalAnnet() {
-    
-    let entriesFromAnnet$ = this.fbp.af.database.list('/userData/' 
-    + this.currentUser.uid + '/expense/annet');
-
-    return entriesFromAnnet$
-    .map(x => { 
-      this.sumAnnet = 0;
-        x.forEach(i => { 
-          this.sumAnnet = this.sumAnnet + i.amount * (-1);
-        })
-      })
+          })
+        }).subscribe(sum => {
+          console.log("Total innen kategorien matOgDrikke: " + this.sumAllFoodAndDrink);
+          console.log("Total innen kategorien klær: " + this.sumAllClothes);
+          console.log("Total innen kategorien annet: " + this.sumAllOther);
+          console.log("Total sum for alt: " + this.sumAll);
+        });
   }
 }
