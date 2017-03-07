@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable'
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { FirebaseProvider } from './firebase-provider';
 import * as fb from 'firebase';
+export interface DataSnapshot extends fb.database.DataSnapshot{}
 /*
   Generated class for the CalculationsProvider provider.
 
@@ -22,7 +23,7 @@ export class CalculationsProvider {
   foodAmountToday;
   foodAmountWeek;
   foodAmountMonth;
-  
+
   constructor(public http: Http, private fbp: FirebaseProvider) {
     this.currentUser = fbp.auth.getAuth();
 
@@ -33,7 +34,6 @@ export class CalculationsProvider {
     }, monthAmount => {
       this.foodAmountMonth = monthAmount;
     });
-    
   }
 
   clogInfo(){
@@ -78,24 +78,28 @@ export class CalculationsProvider {
       }
     });
     
+  
     var amount = 0;
-    expense.subscribe((snapshots: any) => {
+    expense.subscribe((snapshots) => {
       let isAmountReady;
       let countFirst = 0;
       let countSecond = 0;
-      let lengthFirst = snapshots.getChildrenCount();
+      let lengthFirst = snapshots.length;
       let lengthSecond;
-      snapshots.forEach(categ => {
+      snapshots.forEach((categ: DataSnapshot) => {
+        countSecond = 0;
         countFirst++;
-        lengthSecond = categ.getChildrenCount();
-        categ.forEach(item => {
+        lengthSecond = categ.numChildren();
+        categ.forEach((item: DataSnapshot) => {
+          amount += item.val().amount;
           countSecond++;
-          amount += item.amount;
-
           isAmountReady = countFirst === lengthFirst && countSecond === lengthSecond;
           if (isAmountReady)
             callback(amount);
+            
+          return false;
         });
+        return false;
       });
     });
   }
