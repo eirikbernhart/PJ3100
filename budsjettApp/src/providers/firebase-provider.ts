@@ -15,7 +15,7 @@ export class FirebaseProvider {
   public userDataVar: any;
   public userId: any;
   public databaseRef;
-  public currentUserId = this.auth.getAuth().uid;
+  public currentUserId;
 
   public uncategorized_observable: FirebaseListObservable<any> = 
     this.af.database.list('/userData/' + this.currentUserId + '/uncategorized/');
@@ -32,7 +32,11 @@ export class FirebaseProvider {
     public af: AngularFire,
     ) {
     
-    this.addTestTransactions();
+    this.af.auth.subscribe(user => {
+      if (user)
+        this.currentUserId = this.auth.getAuth().uid;
+        this.addTestTransactions();
+    })
   }
 
   doLogin(email: string, password: string): any {
@@ -84,11 +88,18 @@ export class FirebaseProvider {
       snapshots.forEach(snapshot => {
         count++;
       });
+
+      let day = new Date().getDate();
+      let month = new Date().getMonth() +1;
+      let year = new Date().getFullYear();
+      let daystr = (day < 10) ? '0' + day : day;
+      let monthstr = (month < 10) ? '0' + month : month;
+      let date = daystr + '.' + monthstr + '.' + year;
       if (count == 0){
-        this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
-        this.addUncategorizedTransaction("NSB AS OSLO", "01.11.2016", "13:00", -781);
-        this.addUncategorizedTransaction("DEWTEAM AS", "01.12.2016", "17:20", 1738);
-        this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", "03.12.2016", "15:45", 20738);
+        this.addUncategorizedTransaction("KIWI 547 FROGNER", date, "08:00", -179);
+        this.addUncategorizedTransaction("NSB AS OSLO", date, "13:00", -781);
+        this.addUncategorizedTransaction("DEWTEAM AS", date, "17:20", 1738);
+        this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", date, "15:45", 20738);
       }
     });
   }
