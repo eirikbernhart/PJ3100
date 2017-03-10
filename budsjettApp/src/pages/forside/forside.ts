@@ -8,6 +8,7 @@ import Rx from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { CalculationsProvider } from '../../providers/calculations-provider';
+import { DataLogger } from '../../providers/data-logger';
 
 import 'chart.js/src/chart.js';
 declare var Chart;
@@ -18,8 +19,10 @@ declare var Chart;
   templateUrl: 'forside.html',
 })
 
+
+
 export class Forside {
-  
+   
   public dateVarUpd;
 
   @ViewChild('canvas') doughCanvas;
@@ -41,29 +44,21 @@ export class Forside {
 
   public forkJoinedVal;
 
-
-
   constructor(
     public navCtrl: NavController,
     public authService: FirebaseProvider,
     public app: App,
     public calcServ: CalculationsProvider,
+    public datalogger: DataLogger,
   ) {
-    moment.locale();
-    this.dateVarUpd = moment().format('MM/DD/YYYY');
     console.log("Forside constructor ran!");
 
     this.authService.af.auth.subscribe(function (user) {
       if (!user) {
         app.getRootNav().setRoot(LoginPage);
       }
-
-      if (user){
-        calcServ.clogInfo();
-      }
     });
   }
-
 
   logout() {
     this.authService.doLogout();
@@ -71,24 +66,10 @@ export class Forside {
 
   ionViewDidEnter() {
     this.diagram = 'month';
-    this.calcServ.sumTotalAll(this.dateVarUpd, "month");
-
-    setTimeout(x => {
-      this.updateDiagram("month");
-    }, 1000);
-
+    moment.locale();
+    this.dateVarUpd = moment().format('MM.DD.YYYY');
+    this.updateDiagram("month");
   }
-
-  ngOnInit() {
-    
-    setTimeout(x => {
-      this.renderChart();
-    }, 1000);
-    
-  }
-
-
-
 
   renderChart() {
     this.doughChart = new Chart(this.doughCanvas.nativeElement, {
@@ -126,126 +107,73 @@ export class Forside {
   }
 
   updateDiagram(value) {
-    let weekFoodAndDrink;
-    let monthFoodAndDrink;
-    let dayFoodAndDrink;
 
-    let dayClothes;
-    let weekClothes;
-    let monthClothes;
-
-    let dayOther;
-    let weekOther;
-    let monthOther;
-
+    let date = moment().format('DD-MM-YYYY');
+    date = date.replace('-', '.').replace('-', '.');
     let dataFoodAndDrink;
-    let dataRent;
+    let dataRent = 0;
     let dataClothes;
     let dataAnnet;
     this.currentBalance = 16600;
+    let totAll = this.calcServ.sumTotalAll(date, value).then(() => {
+      dataFoodAndDrink = this.calcServ.sumAllFoodAndDrink;
+      dataAnnet = this.calcServ.sumAllOther;
+      dataClothes = this.calcServ.sumAllClothes;
+      return Promise.resolve();
+    });
 
-    let isDataReady1 = false;
-    this.calcServ.initAmountsOf("matOgDrikke", day =>{
-      dayFoodAndDrink = day;
-      console.log("day: ", day);
-    }, week =>{
-      weekFoodAndDrink = week;
-    }, month => {
-      monthFoodAndDrink = month;
-    }).then((val: boolean) => {isDataReady1 = val});
+    //totAll.fail(err => {console.log(err)});;
 
-    let isDataReady2 = false;
-    this.calcServ.initAmountsOf("annet", day =>{
-      dayOther = day;
-    }, week =>{
-      weekOther = week;
-    }, month => {
-      monthOther = month;
-    }).then((val: boolean) => {isDataReady2 = val});;
+    totAll.done(()=> {
+      if (value == "day") {
+        console.log("Det er dag!!!!!!!!!!!!!");
+        dataRent = (8000 / 31);
 
-    let isDataReady3 = false;
-    this.calcServ.initAmountsOf("klærOgUtstyr", day =>{
-      dayClothes = day;
-    }, week =>{
-      weekClothes = week;
-    }, month => {
-      monthClothes = month;
-    }).then((val: boolean) => {isDataReady3 = val});;
+        this.sumTotalDay = dataFoodAndDrink + dataRent + dataClothes + dataAnnet;
+        this.expensesToShow = (this.sumTotalDay).toFixed(1);
 
-    let isAllDataReady = (isDataReady1 && isDataReady2 && isDataReady3);
-    function waitForData(){
-      if (isAllDataReady){
-        if (value == "day") {
+        if (this.sumTotalDay > this.currentBalance / 31) {
+          this.sumTotalDay = 100;
 
-          console.log("Det er dag!!!!!!!!!!!!!")
+        } else {
+          this.sumTotalDay = ((this.sumTotalDay) / (this.currentBalance) * (100) * (31)).toFixed(0);
+        }
 
-          dataFoodAndDrink = dayFoodAndDrink;
-          dataRent = (8000 / 31);
-          dataClothes = dayClothes;
-          dataAnnet = dayOther;
+          this.currentBalance = (this.currentBalance / 31).toFixed(0);
+              
 
-          this.sumTotalDay = dayFoodAndDrink + dataRent + dayClothes + dayOther;
-          this.expensesToShow = (this.sumTotalDay).toFixed(1);
+        } else if (value == "week") {
 
-          if (this.sumTotalDay > this.currentBalance / 31) {
-            this.sumTotalDay = 100;
+          dataRent = (8000 / 4);
+          this.expensesToShow = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
+          this.currentBalance = (this.currentBalance / 4).toFixed(0);
 
-          } else {
-            this.sumTotalDay = ((this.sumTotalDay) / (this.currentBalance) * (100) * (31)).toFixed(0);
+        } else if (value == "month") {
+
+            dataRent = 8000; //.toPrecision(4)
+            this.sumTotalMonth = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
+            this.expensesToShow = this.sumTotalMonth;
+            if (this.sumTotalMonth > this.currentBalance) {
+              this.sumTotalMonth = 100;
+            } else {
+              this.sumTotalMonth = ((this.sumTotalMonth / this.currentBalance * 100).toFixed(0))
+            }
           }
 
-            this.currentBalance = (this.currentBalance / 31).toFixed(0);
-                
+          console.log("Er dataen(foodAndDrink) riktig?: " + dataFoodAndDrink);
+          console.log("Er dataen(Rent) riktig?: " + dataRent);
+          console.log("Er dataen(clothes) riktig?: " + dataClothes);
+          console.log("Er dataen(other) riktig?: " + dataAnnet);
+          console.log(this.sumTotalMonth);
+          this.renderChart();
+          this.doughChart.data.datasets[0].data[0] = dataFoodAndDrink * -1;
+          this.doughChart.data.datasets[0].data[1] = dataRent * -1;
+          this.doughChart.data.datasets[0].data[2] = dataClothes * -1;
+          this.doughChart.data.datasets[0].data[3] = dataAnnet * -1;
+          this.doughChart.update(); 
+       });
 
-          } else if (value == "week") {
-
-            dataFoodAndDrink = weekFoodAndDrink;
-            dataRent = (8000 / 4);
-            dataClothes = weekClothes;
-            dataAnnet = weekOther;
-
-            this.expensesToShow = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
-
-            this.currentBalance = (this.currentBalance / 4).toFixed(0);
-
-            } else if (value == "month") {
-
-              this.calcServ.sumTotalAll(this.dateVarUpd, "month");
-
-              dataFoodAndDrink = monthFoodAndDrink;
-              dataRent = (8000); //.toPrecision(4)
-              dataClothes = monthClothes;
-              dataAnnet = monthOther;
-
-              this.sumTotalMonth = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
-              this.expensesToShow = this.sumTotalMonth;
-
-              if (this.sumTotalMonth > this.currentBalance) {
-                this.sumTotalMonth = 100;
-              } else {
-                this.sumTotalMonth = ((this.sumTotalMonth / this.currentBalance * 100).toFixed(0))
-              }
-            }
-
-            console.log("Er dataen(foodAndDrink) riktig?: " + dataFoodAndDrink);
-            console.log("Er dataen(Rent) riktig?: " + dataRent);
-            console.log("Er dataen(clothes) riktig?: " + dataClothes);
-            console.log("Er dataen(other) riktig?: " + dataAnnet);
-
-            this.doughChart.data.datasets[0].data[0] = dataFoodAndDrink * -1;
-            this.doughChart.data.datasets[0].data[1] = dataRent * -1;
-            this.doughChart.data.datasets[0].data[2] = dataClothes * -1;
-            this.doughChart.data.datasets[0].data[3] = dataAnnet * -1;
-            this.doughChart.update();
-
-      } else{
-          setTimeout(()=>{
-            waitForData();
-          }, 500);
-      }
-
-    }
-    
+        return totAll;
   }
 
 }

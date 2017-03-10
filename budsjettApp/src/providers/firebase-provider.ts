@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2';
 import * as fb from 'firebase';
+import * as moment from 'moment';
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -17,14 +18,10 @@ export class FirebaseProvider {
   public databaseRef;
   public currentUserId;
 
-  public uncategorized_observable: FirebaseListObservable<any> = 
-    this.af.database.list('/userData/' + this.currentUserId + '/uncategorized/');
-
-  public expense_observable: FirebaseListObservable<any> =
-    this.af.database.list('/userData/' + this.currentUserId + '/expense/');
-
-  public income_observable: FirebaseListObservable<any> = 
-    this.af.database.list('/userData/' + this.currentUserId + '/income/');
+  public uncategorized_observable: FirebaseListObservable<any>;
+  public expense_observable: FirebaseListObservable<any>;
+  public income_observable: FirebaseListObservable<any>;
+    
 
   constructor(
     public http: Http,
@@ -35,6 +32,9 @@ export class FirebaseProvider {
     this.af.auth.subscribe(user => {
       if (user)
         this.currentUserId = this.auth.getAuth().uid;
+        this.uncategorized_observable = this.af.database.list('/userData/' + this.currentUserId + '/uncategorized/');
+        this.expense_observable = this.af.database.list('/userData/' + this.currentUserId + '/expense/');
+        this.income_observable = this.af.database.list('/userData/' + this.currentUserId + '/income/');
         this.addTestTransactions();
     })
   }
@@ -83,36 +83,56 @@ export class FirebaseProvider {
   *  This is since we don't have an API from DNB to work with. 
   */
   addTestTransactions(){
-    this.uncategorized_observable.subscribe(snapshots => {
+    this.uncategorized_observable.$ref.once('value', snapshots => {
       let count = 0;
       snapshots.forEach(snapshot => {
         count++;
+        return false;
       });
 
       let day = new Date().getDate();
       let month = new Date().getMonth() +1;
       let year = new Date().getFullYear();
+      let week = moment().week() + '';
       let daystr = (day < 10) ? '0' + day : day;
       let monthstr = (month < 10) ? '0' + month : month;
       let date = daystr + '.' + monthstr + '.' + year;
       if (count == 0){
-        this.addUncategorizedTransaction("KIWI 547 FROGNER", date, "08:00", -179);
-        this.addUncategorizedTransaction("NSB AS OSLO", date, "13:00", -781);
-        this.addUncategorizedTransaction("DEWTEAM AS", date, "17:20", 1738);
-        this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", date, "15:45", 20738);
+        this.addUncategorizedTransaction("KIWI 547 FROGNER", date, "08:00", week, -179);
+        this.addUncategorizedTransaction("NSB AS OSLO", date, "13:00", week, -781);
+        this.addUncategorizedTransaction("DEWTEAM AS", date, "17:20", week, 1738);
+        this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", date, week, "15:45", 20738);
       }
     });
   }
 
   addForingToFirebase(category, title, amount, date, time) {
-    this.af.database.list('/userData/' + this.currentUserId + '/expense/' + category)
-      .push({title: title, date: date, time: time, amount: amount});
+
+    let day = date.substr(0, 2);
+    let month = date.substr(3, 2);
+    let year = date.substr(6, 4);
+
+    this.af.database.list('/userData/' + this.currentUserId + '/expense/')
+      .push({title: title, date: date, time: time, amount: amount,
+      day: day,
+      month: month,
+      year: year,
+    });
   }
 
   /* Adds an uncategorized transaction to the uncategorized Firebase category. 
   */  
-   addUncategorizedTransaction(title: string, date: string, time: string, amount: number){
-     this.uncategorized_observable.push({title: title, date: date, time: time, amount: amount});
+   addUncategorizedTransaction(title: string, date: string, time: string, week: string, amount: number){
+
+      let day = date.substr(0, 2);
+      let month = date.substr(3, 2);
+      let year = date.substr(6, 4);
+
+     this.uncategorized_observable.push({title: title, date: date, time: time, week: week, amount: amount,
+      day: day,
+      month: month,
+      year: year,
+    });
    }
 
    deleteUncategorizedTransaction(objKey: string){
@@ -121,18 +141,39 @@ export class FirebaseProvider {
 
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: expense -> category -> "the expense object".
+   * Date parameter in format dd.mm.yyyy.
    */
-  addExpense(category: string, title: string, date: string, time: string, amount: number){
-    this.af.database.list('/userData/' + this.currentUserId + '/expense/' + category)
-      .push({title: title, date: date, time: time, amount: amount});
+  addExpense(category: string, title: string, date: string, time: string, week: string, amount: number){
+
+    let day = date.substr(0, 2);
+    let month = date.substr(3, 2);
+    let year = date.substr(6, 4);
+
+    this.af.database.list('/userData/' + this.currentUserId + '/expense/')
+      .push({title: title, date: date, time: time, week: week, amount: amount,
+        day: day,
+        month: month,
+        year: year,
+        category: category
+    });
   }
 
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: income -> "vipps" or "lønn" -> "the income object".
    */
-  addIncome(category: string, title: string, date: string, time: string, amount: number){
-    this.af.database.list('/userData/' + this.currentUserId + '/income/' + category)
-      .push({title: title, date: date, time: time, amount: amount})
+  addIncome(category: string, title: string, date: string, time: string, week: string, amount: number){
+
+    let day = date.substr(0, 2);
+    let month = date.substr(3, 2);
+    let year = date.substr(6, 4); 
+
+    this.af.database.list('/userData/' + this.currentUserId + '/income/')
+      .push({title: title, date: date, time: time, week: week, amount: amount,
+        day: day,
+        month: month,
+        year: year,
+        category: category
+    });
   }
 
   /* Formats a date string to dd-mm-yyyy */

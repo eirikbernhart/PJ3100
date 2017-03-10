@@ -18,6 +18,7 @@ import { SparingObjectDetailComponent } from '../pages/sparing/sparing-object-de
 import {WishlistService} from '../providers/wishlist-service';
 
 import { CalculationsProvider } from '../providers/calculations-provider';
+import { DataLogger } from '../providers/data-logger';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { FirebaseProvider } from '../providers/firebase-provider';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -80,6 +81,7 @@ const myFirebaseAuthConfig = {
     FirebaseProvider,
     CalculationsProvider,
     WishlistService,
+    DataLogger,
   ]
 })
 export class AppModule {}
