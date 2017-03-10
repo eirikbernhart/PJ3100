@@ -26,16 +26,10 @@ export class CalculationsProvider {
   public sumAllFoodAndDrink;
   public sumAllClothes;
   public sumAllOther;
-  public data: {foodAndDrink, clothes, other};
   constructor(public http: Http, private fbp: FirebaseProvider, public datalogger: DataLogger) {
     this.fbp.af.auth.subscribe(user => {
       if (user) {
         this.currentUserUID = user.uid;
-        let df = jquery.Deferred();
-        df.resolve('lol');
-        df.then(data => {
-          console.log(data)
-        });
       }
     });
   }
@@ -47,15 +41,15 @@ export class CalculationsProvider {
   sumTotalAll(date: string, filterBy: string): JQueryDeferred<Object> {
       let sumTotalAll = jquery.Deferred();
       let equal;
-      let week = moment().isoWeek();
+      let week = moment().isoWeek() + '';
       let year = moment().year();
       let month: any = moment().month()+1;
       month = (month < 10) ? '0' + month : month;
       let orderType: string;
       
       if(filterBy === "day") {
-        orderType = "date"
-        equal = date;
+        orderType = "month"
+        equal = month;
       } else if(filterBy === "week") {
         orderType ="week"
         equal = week;
@@ -74,7 +68,6 @@ export class CalculationsProvider {
         }
       });
 
-      let data = {foodAndDrink: 0, clothes: 0, other: 0};
       var sumAll = 0;
       var sumAllFoodAndDrink = 0;
       var sumAllClothes = 0;
@@ -111,7 +104,7 @@ export class CalculationsProvider {
           sumTotalAll.reject('Could not get data in CalculationProvider.sumTotalAll()');
         }, 10000);
 
-        sumTotalAll.then(data => {
+        sumTotalAll.then(() => {
           this.sumAll = sumAll;
           this.sumAllClothes = sumAllClothes;
           this.sumAllFoodAndDrink = sumAllFoodAndDrink;

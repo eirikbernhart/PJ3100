@@ -16,22 +16,7 @@
         <ion-icon style="font-size: 25px" name="settings"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar no-border-top>
-    <ion-card>
-      <ion-row>
-        <ion-col>
-          <ion-card-header>
-            Mål: {{currentBalance}}
-          </ion-card-header>
-          <ion-card-header>
-            Forbruk: {{expensesToShow}}
-          </ion-card-header>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-toolbar>
+</ion-toolbar>
 
   <!--Navigasjon (dag, uke måned)-->
   <ion-toolbar no-border-top>
@@ -50,10 +35,20 @@
   <!--Navigasjon (dag, uke måned) END-->
 </ion-header>
 
-
 <ion-content padding>
   <!--Innhold relatert til dag, uke eller måned-->
-  <div [ngSwitch]="diagram">
+  <ion-card>
+    <ion-row>
+      <ion-card-header>
+        Budsjett: {{currentBalance}}
+      </ion-card-header>
+      <ion-card-header padding-left>
+        Forbruk: {{expensesToShow}}
+      </ion-card-header>
+    </ion-row>
+  </ion-card>
+
+  <div [ngSwitch]="diagram" padding>
     <ion-list *ngSwitchCase="day">
       <ion-item style="border: none">
         <p>Gjenværende i dag:</p> <!--Verdi for gjenværende pengebruk-->
@@ -75,27 +70,33 @@
       </ion-item>
     </ion-list>
 </div>
-<div>
+<ion-grid>
+  <ion-row>
+  <ion-col no-padding>
+    <ion-item no-lines> 
+      <ion-icon name="home" item-left class="blue"></ion-icon>
+      <p>Bolig</p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon no-padding name="pizza" item-left class="red"></ion-icon>
+      <p>Mat og drikke </p> 
+    </ion-item>
+  </ion-col>
+  <ion-col no-padding>
+    <ion-item no-lines> 
+      <ion-icon name="shirt" item-left class="yellow"></ion-icon>
+      <p>Klær og utstyr   </p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon name="archive" item-left class="green"></ion-icon>
+      <p>Annet</p>
+    </ion-item>
+  </ion-col>
+  </ion-row>
+</ion-grid>
+<div padding>
   <canvas #canvas width="20%" height="15%"></canvas> <!--Diagrammet-->
 </div>
-<ion-col>
-  <ion-item no-lines>
-    <ion-icon name="home" item-left class="blue"></ion-icon>
-    <p>Bolig</p>
-  </ion-item>
-  <ion-item no-lines>
-    <ion-icon name="pizza" item-left class="red"></ion-icon>
-    <p>Mat og drikke </p>
-  </ion-item>
-  <ion-item no-lines>
-    <ion-icon name="shirt" item-left class="yellow"></ion-icon>
-    <p>Klær og utstyr   </p>
-  </ion-item>
-  <ion-item no-lines>
-    <ion-icon name="archive" item-left class="green"></ion-icon>
-    <p>Annet</p>
-  </ion-item>
-</ion-col>
 <!--Innhold relatert til dag, uke eller måned END-->
 
 </ion-content>

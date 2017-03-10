@@ -42,7 +42,7 @@ export class Kategoriser {
     if (this.amount == null)
       this.amount = this.transaction.amount;
     if (this.amount < 0){
-      this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.week, this.transaction.time, this.amount);
+      this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.time, this.transaction.week, this.amount);
 
     } else {
       this.fbp.addIncome('lønn', this.title, this.transaction.date, this.transaction.time, this.transaction.week, this.amount);

@@ -35,6 +35,7 @@ export class Forside {
   public sumTotalDay;
   public sumTotalWeek;
   public sumTotalMonth;
+  public sumTotalRent;
   public diagram;
   filtrerTest: string = "month";
 
@@ -51,7 +52,7 @@ export class Forside {
     public datalogger: DataLogger,
   ) {
     console.log("Forside constructor ran!");
-
+  
     this.authService.af.auth.subscribe(function (user) {
       if (!user) {
         app.getRootNav().setRoot(LoginPage);
@@ -67,16 +68,17 @@ export class Forside {
     this.diagram = 'month';
     moment.locale();
     this.dateVarUpd = moment().format('MM.DD.YYYY');
+    this.renderChart();
     this.updateDiagram("month");
   }
-
+ 
   renderChart() {
     this.doughChart = new Chart(this.doughCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: [],
+        labels: ['Mat og drikke', 'Bolig', 'Klær og utstyr', 'Annet'],
         datasets: [{
-          data: [(this.calcServ.sumAllFoodAndDrink), 8600, this.calcServ.sumAllClothes, this.calcServ.sumAllOther], //Kategori data skal inn i dette arrayet!
+          data: [(this.calcServ.sumAllFoodAndDrink), this.sumTotalRent, this.calcServ.sumAllClothes, this.calcServ.sumAllOther], //Kategori data skal inn i dette arrayet!
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -102,6 +104,11 @@ export class Forside {
           }
         }]
       },
+      options: {
+        legend: {
+          display: false
+        }
+      },
     })
   }
 
@@ -111,14 +118,13 @@ export class Forside {
     date = date.replace('-', '.').replace('-', '.');
     let dataFoodAndDrink;
     let dataRent = 0;
-    let dataClothes;
+    let dataClothes; 
     let dataAnnet;
     this.currentBalance = 16600;
     let totAll = this.calcServ.sumTotalAll(date, value).then(() => {
       dataFoodAndDrink = this.calcServ.sumAllFoodAndDrink;
       dataAnnet = this.calcServ.sumAllOther;
       dataClothes = this.calcServ.sumAllClothes;
-      return Promise.resolve();
     });
 
     totAll.then(()=> {
@@ -140,7 +146,7 @@ export class Forside {
               
 
         } 
-        
+         
         else if (value === "week") {
 
           dataRent = (8000 / 4);
@@ -151,7 +157,7 @@ export class Forside {
         
         else if (value === "month") {
 
-            dataRent = parseInt((8000).toPrecision(4));
+            dataRent = (8000);
             this.sumTotalMonth = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
             this.expensesToShow = this.sumTotalMonth;
             if (this.sumTotalMonth > this.currentBalance) {
@@ -160,7 +166,9 @@ export class Forside {
               this.sumTotalMonth = ((this.sumTotalMonth / this.currentBalance * 100).toFixed(0))
             }
           }
-
+      
+      dataRent = parseInt(dataRent.toPrecision(4));
+      this.sumTotalRent = dataRent; 
        }).then(() => {
 
           console.log("Er dataen(foodAndDrink) riktig?: " + dataFoodAndDrink);
@@ -168,15 +176,12 @@ export class Forside {
           console.log("Er dataen(clothes) riktig?: " + dataClothes);
           console.log("Er dataen(other) riktig?: " + dataAnnet);
           console.log(this.sumTotalMonth);
-          this.renderChart();
           this.doughChart.data.datasets[0].data[0] = dataFoodAndDrink * -1;
-          this.doughChart.data.datasets[0].data[1] = dataRent * -1;
+          this.doughChart.data.datasets[0].data[1] = dataRent;
           this.doughChart.data.datasets[0].data[2] = dataClothes * -1;
           this.doughChart.data.datasets[0].data[3] = dataAnnet * -1;
           this.doughChart.update(); 
        });
-
-        return totAll;
   }
 
 }

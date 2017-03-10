@@ -27,7 +27,7 @@ export class FirebaseProvider {
     public http: Http,
     public auth: FirebaseAuth,
     public af: AngularFire,
-    ) {
+    ) { 
     
     this.af.auth.subscribe(user => {
       if (user)
@@ -85,12 +85,12 @@ export class FirebaseProvider {
   addTestTransactions(){
     this.uncategorized_observable.$ref.once('value', snapshots => {
       let count = 0;
-      snapshots.forEach(snapshot => {
+      snapshots.forEach(snapshot => { 
         count++;
-        return false;
+        return false; 
       });
 
-      let week = moment().week() + '';
+      let week = moment().isoWeek() + ''; 
       let date = moment().format('DD-MM-YYYY').replace('-', '.').replace('-', '.');
       if (count == 0){
         this.addUncategorizedTransaction("KIWI 547 FROGNER", date, "08:00", week, -179);
