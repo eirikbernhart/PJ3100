@@ -49,19 +49,20 @@ export class CalculationsProvider {
       let equal;
       let week = moment().isoWeek();
       let year = moment().year();
-      let month = moment().month();
+      let month: any = moment().month()+1;
+      month = (month < 10) ? '0' + month : month;
       let orderType: string;
       
-      if(filterBy == "day") {
+      if(filterBy === "day") {
         orderType = "date"
         equal = date;
-      } else if(filterBy == "week") {
+      } else if(filterBy === "week") {
         orderType ="week"
         equal = week;
         
         console.log("Vi er i uke: " + week);
       
-      } else if(filterBy == "month") {
+      } else if(filterBy === "month") {
         orderType ="month"
         equal = month;
       }
@@ -86,17 +87,17 @@ export class CalculationsProvider {
           let count = 0;
           x.forEach((i) => {
             count++;
-            sumAll += i.amount * (-1);
+            sumAll += i.amount;
             let categoryVal = i.category;
             let yearVal = i.year + '';
             console.log("Kategori på element: " + i.category);
             if (yearVal === year + ''){
               if(categoryVal === 'matOgDrikke') {
-                sumAllFoodAndDrink += i.amount * (-1);
+                sumAllFoodAndDrink += i.amount;
               } else if(categoryVal === "klærOgUtstyr") {
-                sumAllClothes += i.amount * (-1);
+                sumAllClothes += i.amount;
               } else if(categoryVal === "annet") {
-                sumAllOther += i.amount * (-1);
+                sumAllOther += i.amount;
               }
             }
             console.log(length);

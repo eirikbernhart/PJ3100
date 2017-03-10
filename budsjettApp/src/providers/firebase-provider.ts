@@ -90,13 +90,8 @@ export class FirebaseProvider {
         return false;
       });
 
-      let day = new Date().getDate();
-      let month = new Date().getMonth() +1;
-      let year = new Date().getFullYear();
       let week = moment().week() + '';
-      let daystr = (day < 10) ? '0' + day : day;
-      let monthstr = (month < 10) ? '0' + month : month;
-      let date = daystr + '.' + monthstr + '.' + year;
+      let date = moment().format('DD-MM-YYYY').replace('-', '.').replace('-', '.');
       if (count == 0){
         this.addUncategorizedTransaction("KIWI 547 FROGNER", date, "08:00", week, -179);
         this.addUncategorizedTransaction("NSB AS OSLO", date, "13:00", week, -781);
@@ -126,7 +121,7 @@ export class FirebaseProvider {
 
       let day = date.substr(0, 2);
       let month = date.substr(3, 2);
-      let year = date.substr(6, 4);
+      let year = date.substr(6, 5);
 
      this.uncategorized_observable.push({title: title, date: date, time: time, week: week, amount: amount,
       day: day,
