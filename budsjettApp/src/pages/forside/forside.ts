@@ -32,7 +32,6 @@ export class Forside {
   public instillinger = Instillinger;
 
   public expensesToShow: any;
-
   public sumTotalDay;
   public sumTotalWeek;
   public sumTotalMonth;
@@ -106,8 +105,8 @@ export class Forside {
     })
   }
 
-  updateDiagram(value) {
-
+  updateDiagram(value: string) {
+    console.log(value);
     let date = moment().format('DD-MM-YYYY');
     date = date.replace('-', '.').replace('-', '.');
     let dataFoodAndDrink;
@@ -122,10 +121,8 @@ export class Forside {
       return Promise.resolve();
     });
 
-    //totAll.fail(err => {console.log(err)});;
-
-    totAll.done(()=> {
-      if (value == "day") {
+    totAll.then(()=> {
+      if (value === "day") {
         console.log("Det er dag!!!!!!!!!!!!!");
         dataRent = (8000 / 31);
 
@@ -142,15 +139,19 @@ export class Forside {
           this.currentBalance = (this.currentBalance / 31).toFixed(0);
               
 
-        } else if (value == "week") {
+        } 
+        
+        else if (value === "week") {
 
           dataRent = (8000 / 4);
           this.expensesToShow = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
           this.currentBalance = (this.currentBalance / 4).toFixed(0);
 
-        } else if (value == "month") {
+        } 
+        
+        else if (value === "month") {
 
-            dataRent = 8000; //.toPrecision(4)
+            dataRent = parseInt((8000).toPrecision(4));
             this.sumTotalMonth = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet).toFixed(0);
             this.expensesToShow = this.sumTotalMonth;
             if (this.sumTotalMonth > this.currentBalance) {
@@ -159,6 +160,8 @@ export class Forside {
               this.sumTotalMonth = ((this.sumTotalMonth / this.currentBalance * 100).toFixed(0))
             }
           }
+
+       }).then(() => {
 
           console.log("Er dataen(foodAndDrink) riktig?: " + dataFoodAndDrink);
           console.log("Er dataen(Rent) riktig?: " + dataRent);
