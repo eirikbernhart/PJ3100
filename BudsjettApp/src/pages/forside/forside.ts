@@ -81,6 +81,8 @@ export class Forside {
   ionViewDidEnter() {
 
     this.calcServ.sumTotalAll(this.dateVarUpd, "month");
+    Chart.defaults.global.legend.display = false;
+
 
     setTimeout(x => {
       this.filtrerTest = "month";
@@ -107,7 +109,7 @@ export class Forside {
     this.doughChart = new Chart(this.doughCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: [],
+        labels: ["Mat og drikke", "Bolig", "Klær og utsyr", "Annet"],
         datasets: [{
           data: [(this.calcServ.sumAllFoodAndDrink), 8600, this.calcServ.sumAllClothes, this.calcServ.sumAllOther], //Kategori data skal inn i dette arrayet!
           backgroundColor: [
@@ -131,7 +133,7 @@ export class Forside {
             onClick: false,
             legend: {
               display: false
-            }
+            },
           }
         }]
       },
