@@ -26,7 +26,14 @@ export class SparingObjectDetailComponent {
   sparingObject: SparingObject;
   
   
-
+  setActive() {
+    if(this.sparing.isActive == true) {
+      this.sparing.isActive = false;
+    } else {
+      this.sparing.isActive = true;
+    }
+    
+  }
 
 
 }

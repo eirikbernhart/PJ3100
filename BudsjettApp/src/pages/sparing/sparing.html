@@ -18,7 +18,18 @@
 	Antall sparinger: {{lengthOfList}}
 
 	<ion-list>
-		<ion-item *ngFor="let sparingListEntry of sparingList | async" no-lines > 
+		<ion-item *ngFor="let sparingListEntry of sparingList | async" no-lines>
+		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async;
+		let i = index" no-lines
+		[class.active]="isActive">--><!--Original-->
+
+		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async; let i = index" 
+		[ngClass]="{'active': selectedIndex == i}" no-lines>-->
+
+		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async;
+		let i = index" no-lines
+		[ngClass]="{'active': selectedIndex == i}">-->
+
 
 			<ion-icon name="build" (click)="onSelect(sparingListEntry);"></ion-icon>
 			{{sparingListEntry.name}}

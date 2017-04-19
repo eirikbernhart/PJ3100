@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2';
+
 
 import { SparingObject } from '../sparing-object/sparing-object';
 import { NySparing } from '../ny-sparing/ny-sparing';
@@ -18,6 +19,8 @@ import { WishlistService } from '../../providers/wishlist-service';
 
 export class Sparing implements OnInit {
 
+   @ViewChildren('sparinger') sparinger;
+
   nySparing = NySparing;
 
   sparingObjects: SparingObject[];
@@ -26,6 +29,10 @@ export class Sparing implements OnInit {
   
   lengthOfList;
   public sparingList;
+
+  //Styling
+  isActive: boolean = false;
+  selectedIndex = 0;
 
   constructor(
     public navcontroller: NavController, 
@@ -53,6 +60,14 @@ export class Sparing implements OnInit {
       console.log("Left sparingside");
       this.lengthOfList = 0;
   }
+  
+ 
+
+  ngAfterViewInit() {
+    console.log("Sparinger index 0: " + this.sparinger);
+  }
+
+  
 
   onSelect(sparingObject: SparingObject): void {
 	  this.selectedSparingObject = sparingObject; 
