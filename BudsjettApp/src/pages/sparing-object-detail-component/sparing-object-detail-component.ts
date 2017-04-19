@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { SparingObject } from '../../pages/sparing-object/sparing-object';
 import { Sparing } from '../sparing/sparing';
+import { WishlistService } from '../../providers/wishlist-service';
 
 
 @Component({
@@ -12,10 +13,12 @@ import { Sparing } from '../sparing/sparing';
 export class SparingObjectDetailComponent {
 
   public prisToSet;
+  public sparingsVerdi;
 
   constructor(
     public navCtrl: NavController, 
-    public sparing: Sparing
+    public sparing: Sparing,
+    public wishProv: WishlistService
     ) {
       console.log("Sparing-object-component constructor ran!");
     }
@@ -32,8 +35,13 @@ export class SparingObjectDetailComponent {
     } else {
       this.sparing.isActive = true;
     }
-    
   }
+
+  addToSparing(val: number) {
+    //console.log("HVAAAAAAA ER SPARING????" + val);
+    this.wishProv.setSparingsPropertyPrisSpart(this.sparingObject ,val);
+    this.sparingsVerdi = null;
+  } 
 
 
 }

@@ -7,17 +7,19 @@
 			
 			<ion-list-header>Detaljer: {{sparingObject.name}} </ion-list-header>
 			<ion-item>Dato: {{sparingObject.dato}}</ion-item>
-			<ion-item>Pris: {{sparingObject.pris}}</ion-item>
+			<ion-item>Pris: {{sparingObject.totalPris}}</ion-item>
 			
 		
 			<!--<input type="text" #titleInput [(ngModel)]="sparingObject.pris">--><!--original-->
-			<ion-list-header>Per måned:</ion-list-header>
-			<input type="text" #titleInput>
-			<ion-item>
-  				<ion-label> Aktiv</ion-label>
-				  
-  				<ion-toggle (ionChange)="setActive()"></ion-toggle>
+			
+			<ion-item no-lines>
+							<ion-input [value]="sparingsVerdi" [(ngModel)]="sparingsVerdi" placeholder="Sett av til sparing" type="number"></ion-input>
+							<button ion-button item-right (click)="addToSparing(sparingsVerdi)">Ok</button>
 			</ion-item>
+			{{sparingObject.spartPris}}/{{sparingObject.totalPris}}
+			
+
+		
 			<!--original-->
 			<!--<button sparingObject.pris = "titleInput.value" (click) = "sparing.endreSparingPrisFirebase(sparingObject, titleInput.value)">endre</button>-->
 

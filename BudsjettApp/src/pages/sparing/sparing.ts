@@ -90,7 +90,7 @@ export class Sparing implements OnInit {
 
   endreSparingPrisFirebase(sparingObject: SparingObject, pris: number): void {
     this.selectedSparingObject = sparingObject;
-    this.wishProv.setSparingsPropertyPris(this.selectedSparingObject, pris);
+    this.wishProv.setSparingsPropertyPrisSpart(this.selectedSparingObject, pris);
   }
 
 
