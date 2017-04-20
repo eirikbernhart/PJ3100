@@ -7,54 +7,29 @@
   <ion-toolbar no-border-bottom>
     <ion-title>Oversikt</ion-title>
     <ion-buttons end>
-      <button ion-button color="royal" [navPush]="instillinger">
+      <button ion-button color="light" [navPush]="instillinger">
         <ion-icon style="font-size: 25px" name="settings"></ion-icon>
       </button>
-      <button ion-button color="primary" (click)="logout()">
+      <button ion-button color="light" (click)="logout()">
           logg ut
          <ion-icon ios="md-exit" md="md-exit"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="filtrerTest" (ngModelChange)="updateDiagram(filtrerTest)">
-      <ion-segment-button value="day">
-        Dag
-      </ion-segment-button>
-      <ion-segment-button value="week">
-        Uke
-      </ion-segment-button>
-      <ion-segment-button value="month">
-        Måned
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+  
 
   <ion-toolbar no-border-top>
     <ion-card>
       <ion-row>
         <ion-col>
           <ion-card-header>
-            Disponibelt: {{currentBalance}}
-          </ion-card-header>
-          <ion-card-header>
-            <!--Forbruk: {{expensesToShow}}-->
-            Forbruk: {{expensesToShow}}
+           Disponibelt: <strong>{{currentBalance}}</strong>
+           Forbruk: <strong>{{expensesToShow}}</strong>
           </ion-card-header>
         </ion-col>
       </ion-row>
-    </ion-card>
-  </ion-toolbar>
-
-</ion-header>
-
-
-
-<ion-content padding>
-
-
-  <!--Innhold relatert til dag, uke eller måned-->
+       <!--Innhold relatert til dag, uke eller måned-->
   <!--NB!Progressbar operates on values form 0 -100-->
   <div [ngSwitch]="filtrerTest">
 
@@ -77,11 +52,34 @@
     </ion-list>
 
   </div>
+    </ion-card>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-segment [(ngModel)]="filtrerTest" (ngModelChange)="updateDiagram(filtrerTest)" color="dnb">
+      <ion-segment-button value="day">
+        Dag
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        Uke
+      </ion-segment-button>
+      <ion-segment-button value="month">
+        Måned
+      </ion-segment-button>
+    </ion-segment>
+
+
+ 
   <!--Innhold relatert til dag, uke eller måned END-->
 
 
 
-  <div>
+  <div class="chart_container">
     <canvas #canvas width="20%" height="15%"></canvas>
     <!--Diagrammet-->
   </div>

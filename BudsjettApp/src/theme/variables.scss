@@ -28,7 +28,9 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  dnb:        #009987,
+  orange:     #FFA500,
 );
 
 
@@ -84,3 +86,11 @@ $colors: (
 
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
+
+
+// customize
+$tabs-ios-tab-text-color-active: color($colors, dnb);
+$tabs-ios-tab-icon-color-active: color($colors, dnb);
+
+$tabs-md-tab-text-color-active: color($colors, dnb);
+$tabs-md-tab-icon-color-active: color($colors, dnb);
