@@ -12,7 +12,19 @@ page-sparing {
     color: #fff;
 }
 
- ion-list {
+progress-bar .progress-outer {
+    height:  5px;
+    margin: 0px !important;
+}
+
+progress-bar .progress-inner {
+    min-width: 1%;
+    padding: 0px; 
+    border-radius: 2px;
+    background-color: #FFA500;
+}
+
+ /*ion-list {
     display: block;
     margin: 0;
     padding: 0;
@@ -22,6 +34,6 @@ page-sparing {
 
 ion-item-2 {
     background: grey !important;
-}
+}*/
 
 }

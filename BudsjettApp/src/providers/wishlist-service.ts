@@ -42,8 +42,8 @@ export class WishlistService {
 	  
   }
 
-   nySparingFirebase(id: number, name: string, pris: number, dato: string) {
-    this.sparingObject = new SparingObject(id, name, pris, dato);
+   nySparingFirebase(id: number, name: string, prisTotal: number, spartPris: number, dato: string) {
+    this.sparingObject = new SparingObject(id, name, prisTotal, spartPris, dato);
   }
 
   addWishList(sparingObj) :any {

@@ -22,6 +22,7 @@
 		<ion-item *ngFor="let sparingListEntry of sparingList | async;
 		let i = index" no-lines
 		[class.active]="isActive"><!--Original-->
+		
 
 		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async; let i = index" 
 		[ngClass]="{'active': selectedIndex == i}" no-lines>-->
@@ -34,6 +35,7 @@
 			<ion-icon color = "dnb" name="build" (click)="onSelect(sparingListEntry);"></ion-icon>
 			{{sparingListEntry.name}}
 			<ion-icon color = "dnb" name="trash" (click)="deleteSparingFirebase(sparingListEntry);"></ion-icon>
+			<progress-bar [progress]="(sparingListEntry.spartPris / sparingListEntry.prisTotal) * 100"></progress-bar>
 			
 				
 			

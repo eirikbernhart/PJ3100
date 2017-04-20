@@ -19,6 +19,7 @@ export class NySparing implements OnInit{
   sparingObject: SparingObject;
   extName: string;
   extPrisTotal: number;
+  extSpartPris: number = 1;
   extDato: string;
   
   @ViewChild(TimelineService) fbpViewChild: TimelineService;
@@ -33,8 +34,8 @@ export class NySparing implements OnInit{
 	 
   }
 
-  nySparingFirebase(id: number, name: string, prisTotal: number, dato: string) { //THIS WORKS ONLINE!
-    this.sparingObject = new SparingObject(3, this.extName, this.extPrisTotal, this.extDato);
+  nySparingFirebase(id: number, name: string, prisTotal: number, spartPris: number, dato: string) { //THIS WORKS ONLINE!
+    this.sparingObject = new SparingObject(3, this.extName, this.extPrisTotal, this.extSpartPris, this.extDato);
     console.log(this.sparingObject);
     this.addToWishList(this.sparingObject); //THIS WORKS!
   }

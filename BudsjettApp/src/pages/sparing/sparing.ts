@@ -79,7 +79,7 @@ export class Sparing implements OnInit {
 	
   defaultValue(sparingObject: SparingObject): void {
 	  this.selectedSparingObject = {id: 0, name: "Ingen sparinger er registrert!",
-					prisTotal: 0, dato: "ingen"}; 
+					prisTotal: 0, spartPris: 0, dato: "ingen"}; 
   }
 	
   deleteSparingFirebase(sparingObject: SparingObject): void { //Works Online
