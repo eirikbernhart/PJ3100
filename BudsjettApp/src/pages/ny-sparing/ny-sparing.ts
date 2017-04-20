@@ -19,7 +19,7 @@ export class NySparing implements OnInit{
   sparingObject: SparingObject;
   extName: string;
   extPrisTotal: number;
-  extSpartPris: number = 1;
+  extSpartPris: number = 0;
   extDato: string;
   
   @ViewChild(TimelineService) fbpViewChild: TimelineService;

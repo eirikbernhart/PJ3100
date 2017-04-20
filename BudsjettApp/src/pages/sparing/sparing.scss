@@ -13,15 +13,17 @@ page-sparing {
 }
 
 progress-bar .progress-outer {
-    height:  5px;
+    height:  9px;
     margin: 0px !important;
 }
 
 progress-bar .progress-inner {
-    min-width: 1%;
+    min-width: 0%;
+    max-width: 100%;
     padding: 0px; 
     border-radius: 2px;
     background-color: #FFA500;
+    height: 2px;
 }
 
  /*ion-list {

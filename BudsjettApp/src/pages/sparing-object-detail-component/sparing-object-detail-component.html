@@ -14,9 +14,10 @@
 			
 			<ion-item no-lines>
 							<ion-input [value]="sparingsVerdi" [(ngModel)]="sparingsVerdi" placeholder="Sett av til sparing" type="number"></ion-input>
-							<button ion-button color="dnb" item-right (click)="addToSparing(sparingsVerdi)">Ok</button>
+							<button ion-button color="dnb" item-right (click)="addToSparing(sparingsVerdi)" (click)="sparing.deSelect(sparingListEntry)">Ok</button>
 			</ion-item>
 			{{sparingObject.spartPris}}/{{sparingObject.prisTotal}}
+			
 			
 
 		
