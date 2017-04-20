@@ -4,7 +4,7 @@
         <ion-title>Sparing</ion-title>
         
         <ion-buttons end>
-            <button ion-button color="royal" [navPush]="nySparing">
+            <button ion-button color="light" [navPush]="nySparing">
                 <ion-icon style="font-size: 25px" name="add-circle"></ion-icon>
             </button> 
         </ion-buttons>
@@ -31,9 +31,9 @@
 		[ngClass]="{'active': selectedIndex == i}">-->
 
 
-			<ion-icon name="build" (click)="onSelect(sparingListEntry);"></ion-icon>
+			<ion-icon color = "dnb" name="build" (click)="onSelect(sparingListEntry);"></ion-icon>
 			{{sparingListEntry.name}}
-			<ion-icon name="trash" (click)="deleteSparingFirebase(sparingListEntry);"></ion-icon>
+			<ion-icon color = "dnb" name="trash" (click)="deleteSparingFirebase(sparingListEntry);"></ion-icon>
 			
 				
 			

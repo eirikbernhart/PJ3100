@@ -94,3 +94,10 @@ $tabs-ios-tab-icon-color-active: color($colors, dnb);
 
 $tabs-md-tab-text-color-active: color($colors, dnb);
 $tabs-md-tab-icon-color-active: color($colors, dnb);
+
+.ios,
+.md{
+  .back-button{
+    color: #f4f4f4;
+  }
+}

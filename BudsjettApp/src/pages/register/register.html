@@ -1,14 +1,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <h2>Registrering</h2>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h2>Register</h2>
+  
   <form [formGroup]="registerForm" (submit)="doRegister()" novalidate>
     <ion-item>
       <ion-label stacked>Email</ion-label>
@@ -28,7 +28,7 @@
     <ion-item class="error-message" *ngIf="!registerForm.controls.password.valid  && (passwordChanged || submitAttempt)">
       <p>Your password needs more than 6 characters.</p>
     </ion-item>
-    <button ion-button block type="submit">
+    <button ion-button color = "dnb"  block type="submit">
       Register
     </button>
   </form>
