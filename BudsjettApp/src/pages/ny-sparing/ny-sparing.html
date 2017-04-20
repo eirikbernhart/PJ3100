@@ -15,7 +15,7 @@
                 <ion-input [(ngModel)] = "extName" type="text" placeholder="Tittel"></ion-input>
             </ion-item>
             <ion-item style="padding-top:20px">
-                <ion-input [(ngModel)] = "extPris" type="number" placeholder="Sum"></ion-input>  
+                <ion-input [(ngModel)] = "extPrisTotal" type="number" placeholder="Sum"></ion-input>  
             </ion-item>
             <ion-item style="padding-top:20px">
                 <ion-label>Dato</ion-label>
@@ -23,7 +23,7 @@
             </ion-item>
 
     
-            <button ion-button style="width:100%; margin-top:40px;" navPop (click)="nySparingFirebase(id, name, pris, dato)"> 
+            <button ion-button style="width:100%; margin-top:40px;" navPop (click)="nySparingFirebase(id, name, prisTotal, dato)"> 
                 <ion-icon padding-right="3px" name="checkmark"></ion-icon>
                 Ok
             </button>

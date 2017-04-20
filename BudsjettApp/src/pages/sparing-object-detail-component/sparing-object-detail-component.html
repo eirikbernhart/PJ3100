@@ -7,7 +7,7 @@
 			
 			<ion-list-header>Detaljer: {{sparingObject.name}} </ion-list-header>
 			<ion-item>Dato: {{sparingObject.dato}}</ion-item>
-			<ion-item>Pris: {{sparingObject.totalPris}}</ion-item>
+			<ion-item>Pris: {{sparingObject.prisTotal}}</ion-item>
 			
 		
 			<!--<input type="text" #titleInput [(ngModel)]="sparingObject.pris">--><!--original-->
@@ -16,7 +16,7 @@
 							<ion-input [value]="sparingsVerdi" [(ngModel)]="sparingsVerdi" placeholder="Sett av til sparing" type="number"></ion-input>
 							<button ion-button item-right (click)="addToSparing(sparingsVerdi)">Ok</button>
 			</ion-item>
-			{{sparingObject.spartPris}}/{{sparingObject.totalPris}}
+			{{sparingObject.spartPris}}/{{sparingObject.prisTotal}}
 			
 
 		
