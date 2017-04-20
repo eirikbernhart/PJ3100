@@ -23,6 +23,30 @@ page-forside {
         color: rgba(75, 192, 192, 0.2);
     }
 
+    .dnb1{
+        @extend .icons;
+        color: rgba(137, 40, 212, 0.5);
+    }
+    .dnb2{
+        @extend .icons;
+        color: rgba(40, 126, 212, 0.5);
+    }
+    
+    .dnb3{
+        @extend .icons;
+        color: rgba(255,165,0, 0.5);  
+    }
+
+    .dnb4{
+        @extend .icons;
+        color: rgba(0,153,135, 0.5);  
+    }
+
+    .green{
+        @extend .icons;
+        color: rgba(75, 192, 192, 0.2);
+    }
+
     ion-select {
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -88,6 +112,10 @@ page-forside {
 
 .item-md {
         padding-left: 5px;
+}
+
+.card-ios, .card-md {
+    border-radius: 10px;
 }
 
 

@@ -26,6 +26,31 @@ progress-bar .progress-inner {
     height: 2px;
 }
 
+ion-input, ion-textarea {
+    position: relative;
+    display: block;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    background: #ebeced;
+    border-radius: 8px;
+}
+
+.text-input-ios {
+    margin: 5px 10px 5px 10px;
+    padding: 0;
+    width: calc(100% - 8px);
+    
+}
+
+.text-input-md {
+    margin: 5px 10px 5px 10px;
+    padding: 0;
+    width: calc(100% - 8px);
+   
+}
+
  /*ion-list {
     display: block;
     margin: 0;
