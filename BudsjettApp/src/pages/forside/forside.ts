@@ -114,9 +114,9 @@ export class Forside {
           data: [(this.calcServ.sumAllFoodAndDrink), 8600, this.calcServ.sumAllClothes, this.calcServ.sumAllOther], //Kategori data skal inn i dette arrayet!
           backgroundColor: [
             'rgba(40, 126, 212, 0.5)',
-            'rgba(137, 40, 212, 0.4)',
-            'rgba(255,165,0, 0.5)',
-            'rgba(0,153,135, 0.5)',
+            'rgba(192,183,244, 0.7)',
+            'rgba(255,165,0, 0.4)',
+            'rgba(0,153,135, 0.4)',
             'rgba(153, 102, 255, 0.2)',
             'rgba(255, 159, 64, 0.2)'
           ],
