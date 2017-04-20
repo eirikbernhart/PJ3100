@@ -43,11 +43,7 @@ export class Kategoriser {
   }
 
   submit(){
-    
-    //this.fbp.addForingToFirebase(this.category, this.title, this.date, this.time, this.amount)
-    this.fbp.addExpenseToExternalList(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
-    
-    /*if (this.title == null)
+    if (this.title == null)
       this.title = this.transaction.title;
     if (this.amount == null)
       this.amount = this.transaction.amount;
