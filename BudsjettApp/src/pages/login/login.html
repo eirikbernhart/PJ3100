@@ -1,19 +1,22 @@
 <ion-content padding>
   <h2>Logg inn</h2>
+
+  <img src="../../assets/BuddyLogo.png" />
+
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
     <ion-item>
-      <ion-label stacked>Email</ion-label>
+      <ion-label stacked>Brukernavn</ion-label>
       <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
-        placeholder="Your email address"
+        placeholder="Epost addresse"
         [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
       <p>Please enter a valid email.</p>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Password</ion-label>
+      <ion-label stacked>Passord</ion-label>
       <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
-        placeholder="Your password"
+        placeholder="Password"
         [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
@@ -25,9 +28,9 @@
   </form>
 
   <button ion-button color = "dnb" block clear (click)="register()">
-    New User? Register Now!
+    Ny bruker? Registrer nå!
   </button>
   <button ion-button color = "dnb" block clear (click)="resetPwd()">
-    Forgot Password
+    Glemt passord?
   </button>
 </ion-content>
