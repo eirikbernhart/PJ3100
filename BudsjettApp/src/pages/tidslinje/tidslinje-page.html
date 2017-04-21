@@ -45,7 +45,7 @@
 	
 
 	<ion-list>
-		<button ion-item (click)="goToCategory('lønn', 'income')">
+		<button ion-item (click)="goToCategory('lønn', 'income', 'income')">
 			<ion-icon name="clipboard" item-left></ion-icon>
 			<ion-label>Inntekter</ion-label>
 		</button>
@@ -55,15 +55,15 @@
 	<ion-list>
 		<ion-list-header>Utgifter</ion-list-header>
 		<ion-item-sliding> 
-			<button ion-item (click)="goToCategory('MatOgDrikke', 'expenses')">
+			<button ion-item (click)="goToCategory('MatOgDrikke', 'foodAndDrink', 'expenses')">
 				<ion-icon name="pizza" item-left></ion-icon>
 				<ion-label>Mat og Drikke</ion-label>
 			</button>
-			<button ion-item (click)="goToCategory('KlærOgUtstyr', 'expenses')">
+			<button ion-item (click)="goToCategory('KlærOgUtstyr', 'clothes', 'expenses')">
 				<ion-icon name="shirt" item-left></ion-icon>
 				<ion-label>Klær og utstyr</ion-label>
 			</button>
-			<button ion-item (click)="goToCategory('Annet', 'expenses')">
+			<button ion-item (click)="goToCategory('Annet', 'other', 'expenses')">
 				<ion-icon name="archive" item-left></ion-icon>
 				<ion-label>Annet</ion-label>
 			</button>

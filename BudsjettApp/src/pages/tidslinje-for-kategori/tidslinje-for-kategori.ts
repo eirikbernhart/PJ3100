@@ -24,11 +24,9 @@ export class TidslinjeForKategori {
 
     this.category = navParams.data;
 
-      console.log(this.category);
-
     if (this.category.incomeOrExpense == 'income')
       this.headerTitle = 'Inntekter';
-      
+
     else {
     var headerTitle_ = this.category.title.replace( /([A-Z])/g, " $1" );
     this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
@@ -60,6 +58,7 @@ export class TidslinjeForKategori {
             if(flags[date]) return;
             flags[date] = true;
             arr.push(date);
+            console.log('daaaate ' , date);
           }
         });
         arr.sort();

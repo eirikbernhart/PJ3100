@@ -76,8 +76,8 @@ export class TidsLinje {
   *  Takes two parameters, the category and a string "expense" or "income".
   */
 
-  goToCategory(category: string, incomeOrExpense: string){
-    var categoryObj: any = {title: category, incomeOrExpense: incomeOrExpense};
+  goToCategory(title: string, category: string, incomeOrExpense: string){
+    var categoryObj: any = {title: title, category: category, incomeOrExpense: incomeOrExpense};
     this.navCtrl.push(TidslinjeForKategori, categoryObj);
   }
 

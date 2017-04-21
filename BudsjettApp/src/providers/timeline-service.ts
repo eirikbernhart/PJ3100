@@ -131,7 +131,7 @@ export class TimelineService {
     let week = dateFunc.isoWeek();
 
     this.af.database.list('/userData/' + this.currentUser.uid + '/income/')
-      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount})
+      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: 'income'})
   }
 
   
