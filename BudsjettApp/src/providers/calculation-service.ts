@@ -55,6 +55,7 @@ export class CalculationService implements OnInit{
 
       let dateWeek = moment().tz("Europe/Berlin").week();
       date = dateWeek.toString();
+      console.log('daaaate test ', date);
     
     } else if(filterBy == "month") {
       orderType ="dateMonth"
