@@ -4,8 +4,8 @@ export class SparingObject {
 
 	public id;
 	public name;
-	public prisTotal;
-	public spartPris;
+	public prisTotal: number;
+	public spartPris: number;
 	public dato;
 
 	constructor(id: number, name: string, prisTotal: number, spartPris: number, dato: string) {

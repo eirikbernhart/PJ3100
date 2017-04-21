@@ -13,7 +13,7 @@ import { WishlistService } from '../../providers/wishlist-service';
 export class SparingObjectDetailComponent {
 
   public prisToSet;
-  public sparingsVerdi;
+  public sparingsVerdi: number;
 
   constructor(
     public navCtrl: NavController, 

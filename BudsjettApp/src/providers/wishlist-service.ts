@@ -84,9 +84,14 @@ export class WishlistService {
   
   
 
-  setSparingsPropertyPrisSpart(sparingObj, spartPris) {
+  setSparingsPropertyPrisSpart(sparingObj, spartPris: any) {
       this.currentUser = firebase.auth().currentUser;
-      firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).update({spartPris: spartPris});
+      spartPris = parseInt(spartPris);
+      firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).once('value', item => {
+        spartPris = parseInt(item.val().spartPris) + spartPris;
+      }).then(x => {
+        firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).update({spartPris: spartPris});
+      });
   }
 
 
