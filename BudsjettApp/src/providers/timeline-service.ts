@@ -51,14 +51,6 @@ export class TimelineService {
 
       this.uncategorized = this.af.database.list('/userData/' + this.currentUser.uid + '/uncategorized');
 
-      /* 
-      * This is an array of 6 transactions for demonstration purposes.
-      * This is since we don't have an API from DNB to work with. 
-      */
-
-        
-              
-       
   }
 
   

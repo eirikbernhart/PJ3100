@@ -53,12 +53,12 @@ export class TidslinjeForKategori {
       .subscribe(snapshots => {
         snapshots.forEach(snapshot => {
           count++;
-          if (snapshot.val().category == this.category){
+          console.log(snapshot.val().category, this.category.category);
+          if (snapshot.val().category == this.category.category){
             let date: string = snapshot.val().date;
             if(flags[date]) return;
             flags[date] = true;
             arr.push(date);
-            console.log('daaaate ' , date);
           }
         });
         arr.sort();

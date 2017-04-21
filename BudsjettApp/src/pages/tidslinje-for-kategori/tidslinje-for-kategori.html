@@ -17,14 +17,16 @@
           </ion-item-divider>
 
           <div *ngFor="let item of items | async">
-            <div *ngIf="item.date === date">
-              <ion-item>
-                <h3>{{item.title}}</h3>
-                <p>
-                  {{item.amount}} Kr &mdash;
-                  kl. {{item.time}}
-                </p>
-              </ion-item>
+            <div *ngIf="item.category === category.category">
+              <div *ngIf="item.date === date">
+                <ion-item>
+                  <h3>{{item.title}}</h3>
+                  <p>
+                    {{item.amount}} Kr &mdash;
+                    kl. {{item.time}}
+                  </p>
+                </ion-item>
+              </div>
             </div>
           </div>
 

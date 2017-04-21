@@ -45,7 +45,7 @@ export class Forside {
 
   filtrerTest: string = "month";
 
-  public currentBalance: any = 16600;
+  public currentBalance: any;
   public foodTotalTest = 0;
   foodTotal;
   clothTotal;
@@ -71,6 +71,17 @@ export class Forside {
 
       }
     });
+
+    
+    setTimeout(x => {
+      this.updateDiagram("month");
+      this.filtrerTest = 'month';
+    }, 1000);
+
+
+      
+    
+    
   }
 
 
@@ -80,25 +91,16 @@ export class Forside {
 
   ionViewDidEnter() {
 
-    this.calcServ.sumTotalAll(this.dateVarUpd, "month");
     Chart.defaults.global.legend.display = false;
-
-
-    setTimeout(x => {
-      this.filtrerTest = "month";
-    }, 1000);
-    setTimeout(x => {
-      this.updateDiagram("month");
-    }, 2000);
+      
 
   }
 
   ngOnInit() {
     
-    setTimeout(x => {
+
       this.renderChart();
-      this.filtrerTest = "month";
-    }, 1000);
+
     
   }
 
@@ -145,51 +147,37 @@ export class Forside {
     let dataRent;
     let dataClothes;
     let dataAnnet;
+    let disponibeltDivider;
 
     this.currentBalance;
 
     if (value == "day") {
 
       this.calcServ.sumTotalAll(this.dateVarUpd, "day");
-
-        setTimeout(x => {
-
-            dataRent = (8000 / 31);
-            dataFoodAndDrink = this.calcServ.sumAllFoodAndDrink;
-            dataClothes = this.calcServ.sumAllClothes;
-            dataAnnet = this.calcServ.sumAllOther;
-
-            let income = 0;
-            let incomeObservable = this.calcServ.af.database.list('/userData/' + this.calcServ.currentUser.uid + '/income');
-            
-            incomeObservable.map(list => {
-              for (var key in list){
-                income += list[key].amount;
-                console.log(list);
-              }
-            });
-
-            this.currentBalance = income;
-
-            this.sumTotalDay = dataFoodAndDrink + dataRent + dataClothes + dataAnnet;
-            this.expensesToShow = (this.sumTotalDay);
-
-            this.currentBalance = Math.round(this.currentBalance);
-            this.sumTotalDay = Math.round(this.sumTotalDay/this.currentBalance); // Verdi for progressbar
-            this.expensesToShow = Math.round(this.expensesToShow);
-            
-      }, 1000);
+      dataRent = (8000 / 31);
+      disponibeltDivider = 31;
 
     } else if (value == "week") {
 
       this.calcServ.sumTotalAll(this.dateVarUpd, "week");
+      dataRent = (8000 / 4);
+      disponibeltDivider = 4;
 
-      setTimeout(x => {
+    } else if (value == "month") {
+
+      this.calcServ.sumTotalAll(this.dateVarUpd, "month");
+      dataRent = (8000);
+      disponibeltDivider = 1;
+    }
+    
+    setTimeout(x => {
 
           dataFoodAndDrink = (this.calcServ.sumAllFoodAndDrink);
-          dataRent = (8000 / 4);
           dataClothes = (this.calcServ.sumAllClothes);
           dataAnnet = (this.calcServ.sumAllOther);
+
+          let total = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet);
+          this.expensesToShow = total;
 
           let income = 0;
           let incomeObservable = this.calcServ.af.database.list('/userData/' + this.calcServ.currentUser.uid + '/income');
@@ -197,59 +185,17 @@ export class Forside {
           incomeObservable.map(list => {
             for (var key in list){
               income += list[key].amount;
-              console.log(list);
             }
+            console.log('incoooome ' + income);
+          }).subscribe(x => {
+            this.currentBalance = income / disponibeltDivider;
+
+            this.currentBalance = Math.round(this.currentBalance);
+            this.sumTotalMonth = Math.round(total/this.currentBalance); // Verdi for progressbar
+            this.sumTotalWeek = Math.round(total/this.currentBalance);
+            this.sumTotalDay = Math.round(total/this.currentBalance);
+            this.expensesToShow = Math.round(this.expensesToShow);
           });
-
-          this.currentBalance = income;
-
-          this.expensesToShow = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet);
-          this.sumTotalWeek = this.expensesToShow;
-
-          this.currentBalance = Math.round(this.currentBalance);
-          this.sumTotalWeek = Math.round(this.sumTotalWeek/this.currentBalance); // Verdi for progressbar
-          this.expensesToShow = Math.round(this.expensesToShow);
-
-      }, 500);
-
-    } else if (value == "month") {
-
-      this.calcServ.sumTotalAll(this.dateVarUpd, "month");
-
-      setTimeout(x => {
-
-          dataFoodAndDrink = (this.calcServ.sumAllFoodAndDrink);
-          dataRent = (8000);
-          dataClothes = (this.calcServ.sumAllClothes);
-          dataAnnet = (this.calcServ.sumAllOther);
-
-          this.sumTotalMonth = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet)
-          this.expensesToShow = this.sumTotalMonth;
-
-          this.currentBalance = Math.round(this.currentBalance);
-          this.sumTotalMonth = Math.round(this.sumTotalMonth/this.currentBalance); // Verdi for progressbar
-          this.expensesToShow = Math.round(this.expensesToShow);
-
-      }, 500);
-    }
-    
-    setTimeout(x => {
-
-          dataFoodAndDrink = (this.calcServ.sumAllFoodAndDrink);
-          dataRent = (8000);
-          dataClothes = (this.calcServ.sumAllClothes);
-          dataAnnet = (this.calcServ.sumAllOther);
-
-          let total = (dataFoodAndDrink + dataRent + dataClothes + dataAnnet);
-          this.expensesToShow = total;
-
-          
-
-          this.currentBalance = Math.round(this.currentBalance);
-          this.sumTotalMonth = Math.round(this.sumTotalMonth/this.currentBalance); // Verdi for progressbar
-          this.sumTotalWeek = Math.round(this.sumTotalWeek/this.currentBalance);
-          this.sumTotalDay = Math.round(this.sumTotalDay/this.currentBalance);
-          this.expensesToShow = Math.round(this.expensesToShow);
 
       }, 500);
 
