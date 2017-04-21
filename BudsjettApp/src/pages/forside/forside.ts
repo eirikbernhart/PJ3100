@@ -29,7 +29,7 @@ export class Forside {
   
 
   
-  public dateVarUpd = moment().tz("Europe/Berlin").format('MM/DD/YYYY');
+  public dateVarUpd = moment().tz("Europe/Oslo").format('DD.MM.YYYY');
 
   @ViewChild('canvas') doughCanvas;
   public doughChart: any;

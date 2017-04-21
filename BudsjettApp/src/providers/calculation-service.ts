@@ -47,19 +47,18 @@ export class CalculationService implements OnInit{
     let orderType: string;
 
     if(filterBy == "day") {
-      orderType = "date"
-      date = date;
+      orderType = "date";
+      date = date.toString();
 
     } else if(filterBy == "week") {
-      orderType ="dateWeek"
+      orderType ="dateWeek";
 
       let dateWeek = moment().tz("Europe/Berlin").week();
-      date = dateWeek.toString();
-      console.log('daaaate test ', date);
+      date = dateWeek;
     
     } else if(filterBy == "month") {
-      orderType ="dateMonth"
-      date = date.substring(0, 2);
+      orderType = "dateMonth";
+      date = date.substring(3, 6);
       date = parseInt(date);
     }
 
