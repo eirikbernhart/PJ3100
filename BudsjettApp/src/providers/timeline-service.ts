@@ -93,7 +93,14 @@ export class TimelineService {
   }
 
 
-  addForingToFirebase(category, title, amount, date, week, month, time) {
+  addForingToFirebase(category, title, amount, date, time) {
+
+    // Get week number based on year, month, day.
+    let dateFunc = moment();
+    let day = parseInt(date.substring(0, 2));
+    let month = parseInt(date.substring(3, 5));
+    let year = parseInt(date.substring(6, 10));
+    let week = moment(date, "DD.MM-YYYY").week();
 
     this.af.database.list('/userData/' + this.currentUser.uid + '/expenses/')
       .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: category});
