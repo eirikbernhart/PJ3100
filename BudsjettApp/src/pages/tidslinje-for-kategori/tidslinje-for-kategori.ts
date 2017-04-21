@@ -23,17 +23,17 @@ export class TidslinjeForKategori {
   constructor(public navParams: NavParams, private af: AngularFire, private fpb: TimelineService) {
 
     this.category = navParams.data;
-    if (this.category.title == "foodAndDrink")
-      this.headerTitle = 'Mat og Drikke';
-    else if (this.category.title == 'clothes')
-      this.headerTitle = 'Klær og Utstyr';
-    else if (this.category.title == 'other')
-      this.headerTitle = 'Annet';
 
-    /*
+      console.log(this.category);
+
+    if (this.category.incomeOrExpense == 'income')
+      this.headerTitle = 'Inntekter';
+      
+    else {
     var headerTitle_ = this.category.title.replace( /([A-Z])/g, " $1" );
     this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
-    */
+  }
+  
       this.fb_categoryPath = 
         '/userData/' + this.currentUser.uid +
         '/' + this.category.incomeOrExpense;
