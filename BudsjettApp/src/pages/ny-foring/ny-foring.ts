@@ -22,9 +22,9 @@ export class NyForingPage {
   extPris: number;
   category: string;
 
-  public dateVar = moment().tz("Europe/Berlin").format('MM/DD/YYYY');
+  public dateVar = moment().tz("Europe/Berlin").format('DD.MM.YYYY');
   public dateWeekVar = moment().tz("Europe/Berlin").week().toString();
-  public dateMonthVar = moment().tz("Europe/Berlin").format('MM/DD/YYYY').substring(0, 2);
+  public dateMonthVar = moment().tz("Europe/Berlin").format('DD.MM.YYYY').substring(0, 2);
   public timeVar = moment().tz("Europe/Berlin").format('HH:mm');
 
   constructor(
