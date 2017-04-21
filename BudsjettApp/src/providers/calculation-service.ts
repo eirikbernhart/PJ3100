@@ -89,7 +89,7 @@ export class CalculationService implements OnInit{
               this.sumAllClothes += i.amount * (-1);
             } else if(i.category == "other") {
               this.sumAllOther += i.amount * (-1);
-            }
+            } 
 
           })
         }).subscribe(sum => {
