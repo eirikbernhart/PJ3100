@@ -87,15 +87,15 @@ export class Forside {
 
   ionViewDidEnter() {
 
-    Chart.defaults.global.legend.display = false;
       
 
   }
 
   ngOnInit() {
     
-
+      Chart.defaults.global.legend.display = false;
       this.renderChart();
+     
 
     
   }
@@ -179,10 +179,12 @@ export class Forside {
           let incomeObservable = this.calcServ.af.database.list('/userData/' + this.calcServ.currentUser.uid + '/income');
           
           incomeObservable.map(list => {
+            income = 0;
             for (var key in list){
+              
               income += list[key].amount;
+              //console.log('incoooome' + income);
             }
-            console.log('incoooome ' + income);
           }).subscribe(x => {
             this.currentBalance = income / disponibeltDivider;
 
