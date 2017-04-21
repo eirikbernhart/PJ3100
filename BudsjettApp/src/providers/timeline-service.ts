@@ -90,7 +90,7 @@ export class TimelineService {
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: expense -> category -> "the expense object".
    */
-  addExpenseToExternalList(category: string, title: string, date: string, time: string, amount: number){
+  addExpense(category: string, title: string, date: string, time: string, amount: number){
 
     // Get week number based on year, month, day.
     let dateFunc = moment();
@@ -102,18 +102,16 @@ export class TimelineService {
     dateFunc.set('date', day);
     let week = dateFunc.isoWeek();
 
-    this.af.database.list('/userData/' + this.currentUser.uid + '/expenseExternalList/' + category)
-      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount});
+    this.af.database.list('/userData/' + this.currentUser.uid + '/expenses/')
+      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: category});
   }
 
 
   addForingToFirebase(category, title, amount, date, week, month, time) {
 
-    this.af.database.list('/userData/' + this.currentUser.uid + '/expenseFlatened/')
+    this.af.database.list('/userData/' + this.currentUser.uid + '/expenses/')
       .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: category});
 
-      this.af.database.list('/userData/' + this.currentUser.uid + '/expenseExternalList/' + category)
-      .push({title: title, date: date, time: time, amount: amount});
   }
 
 

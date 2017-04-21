@@ -62,7 +62,7 @@ export class CalculationService implements OnInit{
       date = parseInt(date);
     }
 
-    let queryObservable = this.af.database.list('/userData/' + this.currentUser.uid + '/expenseFlatened', {
+    let queryObservable = this.af.database.list('/userData/' + this.currentUser.uid + '/expenses', {
       query: {
         orderByChild: orderType,
         equalTo: date

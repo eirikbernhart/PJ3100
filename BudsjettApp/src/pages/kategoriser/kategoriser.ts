@@ -53,7 +53,7 @@ export class Kategoriser {
     
 
     if (this.amount < 0){
-      this.fbp.addExpenseToExternalList(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
+      this.fbp.addExpense(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
 
     } else {
       this.fbp.addIncome(this.title, this.transaction.date, this.transaction.time, this.amount);
