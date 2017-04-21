@@ -78,10 +78,6 @@ export class Forside {
       this.filtrerTest = 'month';
     }, 1000);
 
-
-      
-    
-    
   }
 
 
@@ -191,9 +187,9 @@ export class Forside {
             this.currentBalance = income / disponibeltDivider;
 
             this.currentBalance = Math.round(this.currentBalance);
-            this.sumTotalMonth = Math.round(total/this.currentBalance); // Verdi for progressbar
-            this.sumTotalWeek = Math.round(total/this.currentBalance);
-            this.sumTotalDay = Math.round(total/this.currentBalance);
+            this.sumTotalMonth = Math.round(this.currentBalance/total); // Verdi for progressbar
+            this.sumTotalWeek = Math.round(this.currentBalance/total);
+            this.sumTotalDay = Math.round(this.currentBalance/total);
             this.expensesToShow = Math.round(this.expensesToShow);
           });
 
