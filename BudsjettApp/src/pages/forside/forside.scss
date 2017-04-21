@@ -126,6 +126,11 @@ ion-card-header {
     white-space: nowrap;
     text-align: center;
 }
+
+progress-bar .progress-inner {
+    min-width: 0%;
+    max-width: 100%;
+}
     
    
 
