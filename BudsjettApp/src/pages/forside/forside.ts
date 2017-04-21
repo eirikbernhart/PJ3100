@@ -181,17 +181,18 @@ export class Forside {
           incomeObservable.map(list => {
             income = 0;
             for (var key in list){
-              
               income += list[key].amount;
-              //console.log('incoooome' + income);
             }
           }).subscribe(x => {
             this.currentBalance = income / disponibeltDivider;
 
             this.currentBalance = Math.round(this.currentBalance);
-            this.sumTotalMonth = Math.round(this.currentBalance/total); // Verdi for progressbar
-            this.sumTotalWeek = Math.round(this.currentBalance/total);
-            this.sumTotalDay = Math.round(this.currentBalance/total);
+            console.log(this.currentBalance, ' currentBalance');
+            console.log(total, ' total');
+            this.sumTotalMonth = Math.round(total/this.currentBalance * 100); // Verdi for progressbar
+            console.log(this.sumTotalMonth);
+            this.sumTotalWeek = Math.round(total/this.currentBalance * 100);
+            this.sumTotalDay = Math.round(total/this.currentBalance * 100);
             this.expensesToShow = Math.round(this.expensesToShow);
           });
 
