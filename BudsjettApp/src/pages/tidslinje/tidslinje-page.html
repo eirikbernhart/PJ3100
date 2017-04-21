@@ -3,6 +3,11 @@
 
   <ion-navbar>
     <ion-title>Tidslinje</ion-title>
+	<ion-buttons start>
+		<button ion-button color="royal" (click)="addDemoTransactions()">
+                demo
+        </button> 
+	</ion-buttons>
 	<ion-buttons end>
 		<button ion-button color="light" [navPush]="nyForing">
                 <ion-icon style="font-size: 25px" name="add-circle"></ion-icon>
@@ -40,20 +45,10 @@
 	
 
 	<ion-list>
-		<ion-list-header>Inntekter</ion-list-header>
-		<ion-item-sliding> 
-			
-			<button ion-item (click)="goToCategory('vipps', 'income')">
-				<ion-icon name="logo-usd" item-left></ion-icon>
-				<ion-label>Vipps</ion-label>
-
-	
-			</button>
-			<button ion-item (click)="goToCategory('lønn', 'income')">
-				<ion-icon name="clipboard" item-left></ion-icon>
-				<ion-label>Lønn</ion-label>
-			</button>
-		</ion-item-sliding>
+		<button ion-item (click)="goToCategory('lønn', 'income')">
+			<ion-icon name="clipboard" item-left></ion-icon>
+			<ion-label>Inntekter</ion-label>
+		</button>
 	</ion-list>
 	
 
@@ -63,8 +58,6 @@
 			<button ion-item (click)="goToCategory('foodAndDrink', 'expenseExternalList')">
 				<ion-icon name="pizza" item-left></ion-icon>
 				<ion-label>Mat og Drikke</ion-label>
-
-	
 			</button>
 			<button ion-item (click)="goToCategory('clothes', 'expenseExternalList')">
 				<ion-icon name="shirt" item-left></ion-icon>

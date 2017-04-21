@@ -41,7 +41,7 @@ export class CalculationService implements OnInit{
 
   //This method can get the total amount of expenses, based on:
   //"Today", "current week" and "current month".
-  sumTotalAll(date: string, filterBy: string) {
+  sumTotalAll(date: any, filterBy: string) {
     this.currentUser = firebase.auth().currentUser;
 
     let orderType: string;
@@ -59,6 +59,7 @@ export class CalculationService implements OnInit{
     } else if(filterBy == "month") {
       orderType ="dateMonth"
       date = date.substring(0, 2);
+      date = parseInt(date);
     }
 
     let queryObservable = this.af.database.list('/userData/' + this.currentUser.uid + '/expenseFlatened', {

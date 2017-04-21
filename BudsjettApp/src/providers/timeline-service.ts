@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { AngularFire, FirebaseListObservable, FirebaseAuth } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseDatabase } from 'angularfire2';
 import { AuthService } from './auth-service';
+
+import * as moment from 'moment';
+import 'moment-timezone';
 
 @Injectable()
 export class TimelineService {
@@ -45,46 +48,17 @@ export class TimelineService {
   setUp() {
 
       this.currentUser = firebase.auth().currentUser; 
-      console.log(this.currentUser.uid);
 
       this.uncategorized = this.af.database.list('/userData/' + this.currentUser.uid + '/uncategorized');
-      this.staticArrayGuardian = this.af.database.list('/userData/' + this.currentUser.uid + '/static-array-guardian');
 
       /* 
-      * This is an array of 8 transactions for demonstration purposes.
-      * It uses a "guardian-node", to only inject a static array once.
+      * This is an array of 6 transactions for demonstration purposes.
       * This is since we don't have an API from DNB to work with. 
       */
 
-       const staticGuardianLength$ = this.staticArrayGuardian
-                .map(list => list.length);
-      
-        let mySubscription = staticGuardianLength$.subscribe(length => {
-          
-            console.log("Guardian's length inside subscribe is: " + length);
-
-            if(length >= 1) {
-                mySubscription.unsubscribe();
-              }
-
-             if(length < 1) {
-
-              this.addUncategorizedTransaction("Spaceworld 345 Fornebu", "03.11.2016", "13:37", -599);
-              this.addUncategorizedTransaction("H&M 344 SMESTAD", "04.11.2016", "16:23", -499);
-              this.addUncategorizedTransaction("Dressmann 444 SMESTAD", "04.11.2016", "17:59", -399);
-              this.addUncategorizedTransaction("KIWI 547 FROGNER", "07.11.2016", "08:00", -179);
-              this.addUncategorizedTransaction("KIWI 547 FROGNER", "08.11.2016", "11:22", -237);
-              this.addUncategorizedTransaction("NSB AS OSLO", "08.11.2016", "13:00", -781);
-              this.addUncategorizedTransaction("DEVTEAM AS", "12.12.2016", "17:20", 1738);
-              this.addUncategorizedTransaction("ARBEIDEREN AS OSLO", "16.12.2016", "15:45", 20738);  
+        
               
-              let guardianRef = 'Guardian is on duty!'; 
-              this.staticArrayGuardian.push(guardianRef);
-
-              
-              
-          }            
-        })
+       
   }
 
   
@@ -93,7 +67,18 @@ export class TimelineService {
   */  
 
   addUncategorizedTransaction(title: string, date: string, time: string, amount: number){
-     this.uncategorized.push({title: title, date: date, time: time, amount: amount});
+
+    // Get week number based on year, month, day.
+    let dateFunc = moment();
+    let day = parseInt(date.substring(0, 2));
+    let month = parseInt(date.substring(3, 5));
+    let year = parseInt(date.substring(6, 10));
+    dateFunc.set('year', year);
+    dateFunc.set('month', month); 
+    dateFunc.set('date', day);
+    let week = dateFunc.isoWeek();
+
+    this.uncategorized.push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount});
    }
 
 
@@ -106,11 +91,24 @@ export class TimelineService {
    *  In Firebase: expense -> category -> "the expense object".
    */
   addExpenseToExternalList(category: string, title: string, date: string, time: string, amount: number){
+
+    // Get week number based on year, month, day.
+    let dateFunc = moment();
+    let day = parseInt(date.substring(0, 2));
+    let month = parseInt(date.substring(3, 5));
+    let year = parseInt(date.substring(6, 10));
+    dateFunc.set('year', year);
+    dateFunc.set('month', month);
+    dateFunc.set('date', day);
+    let week = dateFunc.isoWeek();
+
     this.af.database.list('/userData/' + this.currentUser.uid + '/expenseExternalList/' + category)
-      .push({title: title, date: date, time: time, amount: amount});
+      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount});
   }
 
+
   addForingToFirebase(category, title, amount, date, week, month, time) {
+
     this.af.database.list('/userData/' + this.currentUser.uid + '/expenseFlatened/')
       .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: category});
 
@@ -118,12 +116,24 @@ export class TimelineService {
       .push({title: title, date: date, time: time, amount: amount});
   }
 
+
    /* Categorizes a transaction based on the given parameters. 
    *  In Firebase: income -> "vipps" or "lønn" -> "the income object".
    */
-  addIncome(category: string, title: string, date: string, time: string, amount: number){
-    this.af.database.list('/userData/' + this.currentUser.uid + '/income/' + category)
-      .push({title: title, date: date, time: time, amount: amount})
+  addIncome(title: string, date: string, time: string, amount: number){
+
+    // Get week number based on year, month, day.
+    let dateFunc = moment();
+    let day = parseInt(date.substring(0, 2));
+    let month = parseInt(date.substring(3, 5));
+    let year = parseInt(date.substring(6, 10));
+    dateFunc.set('year', year);
+    dateFunc.set('month', month);
+    dateFunc.set('date', day);
+    let week = dateFunc.isoWeek();
+
+    this.af.database.list('/userData/' + this.currentUser.uid + '/income/')
+      .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount})
   }
 
   

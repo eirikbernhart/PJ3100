@@ -27,10 +27,15 @@ export class TidslinjeForKategori {
     this.headerTitle = headerTitle_.charAt(0).toUpperCase() + headerTitle_.slice(1);
 
 
-    this.fb_categoryPath = 
+    if (this.category.incomeOrExpense == 'income') 
+      this.fb_categoryPath = 
       '/userData/' + this.currentUser.uid +
-      '/' + this.category.incomeOrExpense + 
-      '/' + this.category.title;
+      '/' + this.category.incomeOrExpense;
+    else
+      this.fb_categoryPath = 
+        '/userData/' + this.currentUser.uid +
+        '/' + this.category.incomeOrExpense + 
+        '/' + this.category.title;
 
      this.pushUniqueDates(this.uniqueDates);
 

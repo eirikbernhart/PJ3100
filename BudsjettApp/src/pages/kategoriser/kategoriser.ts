@@ -43,16 +43,20 @@ export class Kategoriser {
   }
 
   submit(){
+    //Default values. Settes dersom bruker velger å lagre med transaction info eller det som står i placeholder.
     if (this.title == null)
       this.title = this.transaction.title;
     if (this.amount == null)
       this.amount = this.transaction.amount;
+    if (this.category == null)
+      this.category = 'foodAndDrink';
+    
 
     if (this.amount < 0){
       this.fbp.addExpenseToExternalList(this.category, this.title, this.transaction.date, this.transaction.time, this.amount);
 
     } else {
-      this.fbp.addIncome('lønn', this.title, this.transaction.date, this.transaction.time, this.amount);
+      this.fbp.addIncome(this.title, this.transaction.date, this.transaction.time, this.amount);
     }
     
 

@@ -18,11 +18,12 @@
 
   <ion-list inset>
 
+    <p style="text-align: center">{{ transaction.date }}</p>
+
     <ion-item>
       <ion-label stacked>Tittel</ion-label>
       <ion-input type="text" [(ngModel)]="title" placeholder={{transaction.title}}></ion-input>
     </ion-item>
-
 
     <div *ngIf="type === 'Utgift'">
       <ion-item>
@@ -32,10 +33,10 @@
       
       <ion-item>
         <ion-label stacked>Kategori</ion-label>
-        <ion-select [(ngModel)]="category">
-        <ion-option value="foodAndDrink">Mat Og Drikke</ion-option>
-        <ion-option value="clothes">Klær Og Utstyr</ion-option>
-        <ion-option value="other">Annet</ion-option>
+        <ion-select [(ngModel)]="category" placeholder="Mat og Drikke">
+          <ion-option value="foodAndDrink" selected>Mat Og Drikke</ion-option>
+          <ion-option value="clothes">Klær Og Utstyr</ion-option>
+          <ion-option value="other">Annet</ion-option>
       </ion-select>
       </ion-item>
     </div>
