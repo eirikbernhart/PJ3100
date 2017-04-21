@@ -65,10 +65,7 @@ export class TimelineService {
     let day = parseInt(date.substring(0, 2));
     let month = parseInt(date.substring(3, 5));
     let year = parseInt(date.substring(6, 10));
-    dateFunc.set('year', year);
-    dateFunc.set('month', month); 
-    dateFunc.set('date', day);
-    let week = dateFunc.isoWeek();
+    let week = moment(date, "DD.MM-YYYY").week();
 
     this.uncategorized.push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount});
    }
@@ -89,10 +86,7 @@ export class TimelineService {
     let day = parseInt(date.substring(0, 2));
     let month = parseInt(date.substring(3, 5));
     let year = parseInt(date.substring(6, 10));
-    dateFunc.set('year', year);
-    dateFunc.set('month', month);
-    dateFunc.set('date', day);
-    let week = dateFunc.isoWeek();
+    let week = moment(date, "DD.MM-YYYY").week();
 
     this.af.database.list('/userData/' + this.currentUser.uid + '/expenses/')
       .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: category});
@@ -117,10 +111,7 @@ export class TimelineService {
     let day = parseInt(date.substring(0, 2));
     let month = parseInt(date.substring(3, 5));
     let year = parseInt(date.substring(6, 10));
-    dateFunc.set('year', year);
-    dateFunc.set('month', month);
-    dateFunc.set('date', day);
-    let week = dateFunc.isoWeek();
+    let week = moment(date, "DD.MM-YYYY").week();
 
     this.af.database.list('/userData/' + this.currentUser.uid + '/income/')
       .push({title: title, date: date, dateWeek: week, dateMonth: month, time: time, amount: amount, category: 'income'})
