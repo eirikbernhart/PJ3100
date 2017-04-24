@@ -43,5 +43,11 @@ export class SparingObjectDetailComponent {
     this.sparingsVerdi = null;
   } 
 
+  deleteSparing(SparingObject: SparingObject) {
+    this.sparing.deleteSparingFirebase(this.sparingObject);
+  }
+
+  
+
 
 }
