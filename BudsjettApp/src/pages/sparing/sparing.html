@@ -20,15 +20,12 @@
 	</div>
 
 	<ion-list>
-		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async" no-lines>-->
 		<ion-item *ngFor="let sparingListEntry of sparingList | async; 
-		let sparingListEntry2 of sparingList2 | async;
 		let i = index" no-lines
-		[class.active]="isActive"><!--Original-->
+		[class.active]="isActive">
 		
 
 		
-			<!--<ion-icon color = "dnb" name="settings" (click)="onSelect(sparingListEntry);"></ion-icon>-->
 			<ion-icon color = "dnb" name="settings" (click)="onSelect2(sparingListEntry, sparingListEntry2);"></ion-icon>
 			{{sparingListEntry.name}}
 			<progress-bar [progress]="(sparingListEntry.spartPris / sparingListEntry.prisTotal) * 100"></progress-bar>

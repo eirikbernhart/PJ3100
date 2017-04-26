@@ -70,7 +70,6 @@ export class CalculationService implements OnInit{
       }
     })
      
-      //KEEP...
       queryObservable
         .map(x => {
 
@@ -113,7 +112,7 @@ export class CalculationService implements OnInit{
         })
       
     }).subscribe(sub => {
-      console.log("Sparrrrrrrrrrrriiiiiing: " + this.sumSparingVar)
+      console.log("Sparing: " + this.sumSparingVar)
     });
   }
 

@@ -50,23 +50,14 @@ export class NySparing implements OnInit{
 	 
   }
 
-  nySparingFirebase(id: number, name: string, prisTotal: number, spartPris: number, dato: string) { //THIS WORKS ONLINE!
+  nySparingFirebase(id: number, name: string, prisTotal: number, spartPris: number, dato: string) { 
     this.sparingObject = new SparingObject(3, this.extName, this.extPrisTotal, this.extSpartPris, this.event.month, "testValue");
     console.log(this.sparingObject);
-    this.addToWishList(this.sparingObject); //THIS WORKS!
+    this.addToWishList(this.sparingObject); 
   }
 
   addToWishList(sparingObj) {
     this.wishProv.addWishList(sparingObj);
-    /*this.wishProv.addSparingToFirebase(
-      "other",
-      "Satt av til sparing",
-    0,
-    0,
-      this.dateVar,
-      this.timeVar,
-      this.sparingObject
-    );*/
   }
 
 

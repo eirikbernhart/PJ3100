@@ -12,7 +12,6 @@ import { TidsLinje } from '../tidslinje/tidslinje-page';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  //tab1Root: any = HomePage; //THIS WORKS!
   tab2Root: any = Forside;
   tab3Root: any = Sparing;
   tab4Root: any = TidsLinje;

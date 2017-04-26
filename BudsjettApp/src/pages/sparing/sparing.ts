@@ -25,7 +25,6 @@ export class Sparing implements OnInit {
 
   sparingObjects: SparingObject[];
   selectedSparingObject: SparingObject;
-  selectedSparingObject2: SparingObject;
 
   
   antallSparinger;
@@ -52,9 +51,7 @@ export class Sparing implements OnInit {
 
   ionViewWillEnter() {
       console.log("Showing the Sparings-page!");
-      this.sparingList = this.wishProv.getDataBasedOnCurrentUser(); //Original
-      this.sparingList2 = this.wishProv.getDataBasedOnCurrentUser2();
-      //this.sparingList = this.wishProv.getSparingerBasedOnCurrentUser();
+      this.sparingList = this.wishProv.getDataBasedOnCurrentUser(); 
 
       const sparingerLength$ =  this.sparingList
               .map(list => list.length);
@@ -82,7 +79,6 @@ export class Sparing implements OnInit {
 
   onSelect2(sparingObject: SparingObject, sparingsObject2: SparingObject): void {
 	  this.selectedSparingObject = sparingObject; 
-    this.selectedSparingObject2 = sparingsObject2;
   }
 
   deSelect (sparingObject: SparingObject): void {
@@ -94,7 +90,7 @@ export class Sparing implements OnInit {
 					prisTotal: 0, spartPris: 0, dato: "ingen", keyPointer: ""}; 
   }
 	
-  deleteSparingFirebase(sparingObject: SparingObject): void { //Works Online
+  deleteSparingFirebase(sparingObject: SparingObject): void { 
       this.selectedSparingObject = sparingObject;
       this.wishProv.deleteBasedOnCurrentUser(this.selectedSparingObject);
       this.selectedSparingObject = null;

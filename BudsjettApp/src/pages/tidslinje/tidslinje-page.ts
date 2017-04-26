@@ -22,9 +22,6 @@ export class TidsLinje {
     public navCtrl: NavController, 
     public timelineServ: TimelineService
     ) {
-
-
-    //this.uncategorized = this.timelineServ.uncategorized;
    
 
   }
@@ -37,7 +34,6 @@ export class TidsLinje {
 
   ionViewWillLeave() { 
       console.log("Left Tidslinje-page");
-      //this.uncategorized = null;
       
   }
 

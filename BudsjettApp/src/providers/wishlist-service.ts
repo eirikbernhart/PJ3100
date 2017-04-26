@@ -14,11 +14,9 @@ import 'moment-timezone';
 @Injectable()
 
 
-/*************This providers logic is in AuthService, which is not a good idea...***************/
 export class WishlistService {
 
 
-  //Wishlist-specific
   public userDataVar: any;
   public databaseRef  = firebase.database().ref('/userData');
   public currentUser;
@@ -57,17 +55,7 @@ export class WishlistService {
 
     this.currentUser = firebase.auth().currentUser;
       if(this.currentUser) {
-       let refererence = this.databaseRef.child(this.currentUser.uid + "/sparinger/").push(sparingObj); //Denne som legger til det andre stedet...
-
-        /*this.addSparingToFirebase(
-            "other",
-            "Satt av til sparing",
-            0,
-            0,
-            dateVar,
-            timeVar,
-            refererence.key
-          );*/
+       let refererence = this.databaseRef.child(this.currentUser.uid + "/sparinger/").push(sparingObj); 
         } 
 
   }
@@ -107,7 +95,6 @@ export class WishlistService {
   }
 
   deleteBasedOnCurrentUser(sparingObj) {
-    //console.log(sparingObj.$key);
     this.currentUser = firebase.auth().currentUser;
     if(this.currentUser) {
 
@@ -143,18 +130,11 @@ export class WishlistService {
       let spartPrisExtra: number;
       let dato: string;
       let fbRef;
-
-
-
       let dateCheck;
       
       firebase.database().ref("/userData/"+this.currentUser.uid + "/expenses/" +sparingObj.keyPointer).once('value', item => {
         dateCheck = item.val().date;
       });
-
-      console.log("Waaaaaaa: " + dateCheck);
-      console.log("Weeeee: " + dateVar);
-      console.log("Wooooo: " + sparingObj.keyPointer);
 
       if(dateCheck == dateVar) {
           firebase.database().ref("/userData/"+this.currentUser.uid + "/expenses/" +sparingObj.keyPointer).once('value', item => {
@@ -169,46 +149,10 @@ export class WishlistService {
          });
       } else {
 
-         /*firebase.database().ref("/userData/"+this.currentUser.uid + "/expenses/" +sparingObj.keyPointer).once('value', item => {
-            spartPris = parseInt(item.val().amount) + spartPris;
-            category = item.val().category;
-            name = item.val().title;
-            spartPrisExtra = item.val().spartPris;
-        
-       this.addSparingToFirebase(
-          category,
-          "Satt av til sparing",
-          0,
-          spartPrisExtra,
-          dateVar,
-          timeVar,
-          ""
-        );
-
-        firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).once('value', item => {
-        fbRef = item.val().keyPointer;
-      }).then(x => {
-        firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).update({keyPointer: sparingObj.keyPointer});
-      });
-
-        
-        console.log("DO NOOOOOTHIIIING!!!!" + sparingObj.$key);
-        console.log("DO NOOOOOTHIIIING!!!!" + fbRef);
-         });*/
       }
       
       
     
-  }
-
-  setSparingsPropertyPrisSpart3(sparingObj, spartPris: any) {
-      this.currentUser = firebase.auth().currentUser;
-      let pointer;
-      firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).once('value', item => {
-        pointer = item.val().keyPointer;
-      }).then(x => {
-        firebase.database().ref("/userData/"+this.currentUser.uid + "/sparinger/" +sparingObj.$key).update({keyPointer: "lol"});
-      });
   }
 
    addSparingToFirebase(category, title, amountTotal, amountSpart, date, time, keyRef) {

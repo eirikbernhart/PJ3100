@@ -42,13 +42,11 @@ export class SparingObjectDetailComponent {
 
   addToSparing(val: number) {
     this.wishProv.setSparingsPropertyPrisSpart(this.sparingObject ,val); 
-    //this.wishProv.setSparingsPropertyPrisSpart2(this.sparingObject ,val); 
     this.sparingsVerdi = null;
   } 
 
   deleteSparing(SparingObject: SparingObject) {
     this.sparing.deleteSparingFirebase(this.sparingObject);
-    //this.wishProv.setSparingsPropertyPrisSpart(this.sparingObject ,0); 
   }
 
 
