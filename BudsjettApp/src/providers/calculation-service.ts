@@ -25,6 +25,7 @@ export class CalculationService implements OnInit{
   public sumAllFoodAndDrink: number = 0;
   public sumAllClothes: number = 0;
   public sumAllOther: number = 0;
+  public sumSparingVar: number = 0;
 
   constructor(
     public http: Http,
@@ -98,6 +99,22 @@ export class CalculationService implements OnInit{
           console.log("Total innen kategorien annet: " + this.sumAllOther);
           console.log("Total sum for alt: " + this.sumAll);
         });
+  }
+
+  sumSparing() {
+    this.currentUser = firebase.auth().currentUser;
+    let queryObservable = this.af.database.list('/userData/' + this.currentUser.uid + '/sparinger');
+    queryObservable.map(x => {
+     
+        this.sumSparingVar = 0;
+       
+        x.forEach(i => {
+          this.sumSparingVar += i.spartPris;
+        })
+      
+    }).subscribe(sub => {
+      console.log("Sparrrrrrrrrrrriiiiiing: " + this.sumSparingVar)
+    });
   }
 
 

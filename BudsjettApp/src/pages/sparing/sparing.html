@@ -1,7 +1,7 @@
 
 <ion-header>
     <ion-navbar>
-        <ion-title>Sparing</ion-title>
+        <ion-title>Sparinger</ion-title>
         
         <ion-buttons end>
             <button ion-button color="light" [navPush]="nySparing">
@@ -14,25 +14,22 @@
 
 
 <ion-content padding="true">
-
-	Antall sparinger: {{lengthOfList}}
+		<div *ngIf="lengthOfList == 0">
+			Antall sparinger: {{lengthOfList}}
+		<img src="assets/img/noSparing.png"/>
+	</div>
 
 	<ion-list>
 		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async" no-lines>-->
-		<ion-item *ngFor="let sparingListEntry of sparingList | async;
+		<ion-item *ngFor="let sparingListEntry of sparingList | async; 
+		let sparingListEntry2 of sparingList2 | async;
 		let i = index" no-lines
 		[class.active]="isActive"><!--Original-->
 		
 
-		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async; let i = index" 
-		[ngClass]="{'active': selectedIndex == i}" no-lines>-->
-
-		<!--<ion-item *ngFor="let sparingListEntry of sparingList | async;
-		let i = index" no-lines
-		[ngClass]="{'active': selectedIndex == i}">-->
-
-
-			<ion-icon color = "dnb" name="settings" (click)="onSelect(sparingListEntry);"></ion-icon>
+		
+			<!--<ion-icon color = "dnb" name="settings" (click)="onSelect(sparingListEntry);"></ion-icon>-->
+			<ion-icon color = "dnb" name="settings" (click)="onSelect2(sparingListEntry, sparingListEntry2);"></ion-icon>
 			{{sparingListEntry.name}}
 			<progress-bar [progress]="(sparingListEntry.spartPris / sparingListEntry.prisTotal) * 100"></progress-bar>
 			

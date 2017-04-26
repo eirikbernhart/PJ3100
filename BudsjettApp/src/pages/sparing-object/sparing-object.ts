@@ -7,8 +7,9 @@ export class SparingObject {
 	public prisTotal: number;
 	public spartPris: number;
 	public dato;
+	public keyPointer;
 
-	constructor(id: number, name: string, prisTotal: number, spartPris: number, dato: string) {
+	constructor(id: number, name: string, prisTotal: number, spartPris: number, dato: string, keyPointer: string) {
 		
 		console.log("SparingObject constructor ran!");
 
@@ -17,6 +18,7 @@ export class SparingObject {
 		this.prisTotal = prisTotal;
 		this.spartPris = spartPris;
 		this.dato = dato;
+		this.keyPointer = keyPointer;
 	
 	}
 
@@ -25,7 +27,7 @@ export class SparingObject {
 	}
 
 	static fromJson({id, name, prisTotal, spartPris, dato}): SparingObject {
-		return new SparingObject(id, name, prisTotal, spartPris, dato);
+		return new SparingObject(id, name, prisTotal, spartPris, dato, "");
 	}
 	
 	

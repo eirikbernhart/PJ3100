@@ -29,8 +29,9 @@
           </ion-card-header>
         </ion-col>
       </ion-row>
-       <!--Innhold relatert til dag, uke eller måned-->
-  <!--NB!Progressbar operates on values form 0 -100-->
+      
+  <!--Innhold relatert til dag, uke eller måned-->
+  <!--NB!Progressbar operates på values fra 0 -100-->
   <div [ngSwitch]="filtrerTest">
 
     <ion-list *ngSwitchCase="'day'">
@@ -50,6 +51,14 @@
         <progress-bar [progress]="sumTotalMonth"></progress-bar>
       </ion-item>
     </ion-list>
+
+    <ion-list *ngSwitchCase="'none'">
+      <ion-item style="border: none " style="text-align:center" >
+        Disponibelt er tom! 
+      </ion-item>
+    </ion-list>
+
+    
 
   </div>
     </ion-card>
@@ -71,14 +80,21 @@
       <ion-segment-button value="month">
         Måned
       </ion-segment-button>
+
     </ion-segment>
+
+    <div [ngSwitch]="filtrerTest">
+      <div class="dateFilter" *ngSwitchCase="'day'"><strong>{{today}}</strong></div>
+      <div class="dateFilter" *ngSwitchCase="'week'"><strong>Uke: {{currentWeek}}</strong></div>
+      <div class="dateFilter" *ngSwitchCase="'month'"><strong>Måned: {{currentMonth}}</strong></div>
+    </div>
 
 
  
   <!--Innhold relatert til dag, uke eller måned END-->
 
 
-
+  
   <div class="chart_container">
     <canvas #canvas width="20%" height="15%"></canvas>
     <!--Diagrammet-->
@@ -101,7 +117,11 @@
       <p>Klær og utstyr</p>
     </ion-item>
     <ion-item no-lines>
-      <ion-icon name="archive" item-left class="dnb4"></ion-icon>
+      <ion-icon name="cash" item-left class="dnb4"></ion-icon>
+      <p>Sparing</p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-icon name="archive" item-left class="dnb5"></ion-icon>
       <p>Annet</p>
     </ion-item>
   </ion-col>

@@ -19,7 +19,7 @@ export class NyForingPage {
   nyForingObject: NyForingObject;
 
   extName: string;
-  extPris: number;
+  extPris: any;
   category: string;
 
   public dateVar = moment().tz("Europe/Berlin").format('DD.MM.YYYY');
@@ -32,13 +32,20 @@ export class NyForingPage {
     ) {}
 
   nyForingFirebase() {
+        this.extPris = parseInt(this.extPris);
+        if(this.category == "income") {
+            this.timeServ.addIncome(this.extName, this.dateVar, this.timeVar, this.extPris);        
+          } else {
+            this.timeServ.addForingToFirebase(
+            this.category, 
+            this.extName, 
+            this.extPris * (-1),
+            this.dateVar,
+            this.timeVar
+          );
+        }
+          
+        }
+       
   
-        this.timeServ.addForingToFirebase(
-          this.category, 
-          this.extName, 
-          this.extPris * (-1),
-          this.dateVar,
-          this.timeVar
-        );
-  }
 }

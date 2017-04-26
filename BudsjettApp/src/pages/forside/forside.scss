@@ -42,6 +42,11 @@ page-forside {
         color: rgba(0,153,135, 0.5);  
     }
 
+    .dnb5{
+        @extend .icons;
+        color: rgba(200,78,99, 0.5);  
+    }
+
     .green{
         @extend .icons;
         color: rgba(75, 192, 192, 0.2);
@@ -130,6 +135,13 @@ ion-card-header {
 progress-bar .progress-inner {
     min-width: 0%;
     max-width: 100%;
+}
+
+.dateFilter {
+    text-align: center;
+    font-size: 1em;
+    color: grey;
+    margin-top: 7px !important;
 }
     
    

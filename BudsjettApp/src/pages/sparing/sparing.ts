@@ -25,10 +25,14 @@ export class Sparing implements OnInit {
 
   sparingObjects: SparingObject[];
   selectedSparingObject: SparingObject;
+  selectedSparingObject2: SparingObject;
+
+  
   antallSparinger;
   
   lengthOfList;
   public sparingList;
+  public sparingList2;
 
   //Styling
   isActive: boolean = false;
@@ -48,7 +52,10 @@ export class Sparing implements OnInit {
 
   ionViewWillEnter() {
       console.log("Showing the Sparings-page!");
-      this.sparingList = this.wishProv.getDataBasedOnCurrentUser();
+      this.sparingList = this.wishProv.getDataBasedOnCurrentUser(); //Original
+      this.sparingList2 = this.wishProv.getDataBasedOnCurrentUser2();
+      //this.sparingList = this.wishProv.getSparingerBasedOnCurrentUser();
+
       const sparingerLength$ =  this.sparingList
               .map(list => list.length);
       sparingerLength$.subscribe(length => {
@@ -73,13 +80,18 @@ export class Sparing implements OnInit {
 	  this.selectedSparingObject = sparingObject; 
   }
 
+  onSelect2(sparingObject: SparingObject, sparingsObject2: SparingObject): void {
+	  this.selectedSparingObject = sparingObject; 
+    this.selectedSparingObject2 = sparingsObject2;
+  }
+
   deSelect (sparingObject: SparingObject): void {
 	  this.selectedSparingObject = null;
   }
 	
   defaultValue(sparingObject: SparingObject): void {
 	  this.selectedSparingObject = {id: 0, name: "Ingen sparinger er registrert!",
-					prisTotal: 0, spartPris: 0, dato: "ingen"}; 
+					prisTotal: 0, spartPris: 0, dato: "ingen", keyPointer: ""}; 
   }
 	
   deleteSparingFirebase(sparingObject: SparingObject): void { //Works Online

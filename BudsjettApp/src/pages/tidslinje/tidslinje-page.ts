@@ -20,7 +20,8 @@ export class TidsLinje {
   
   constructor (
     public navCtrl: NavController, 
-    public timelineServ: TimelineService) {
+    public timelineServ: TimelineService
+    ) {
 
 
     //this.uncategorized = this.timelineServ.uncategorized;

@@ -20,7 +20,7 @@
 			<!--<input type="text" #titleInput [(ngModel)]="sparingObject.pris">--><!--original-->
 			
 			<ion-item no-lines>
-							<ion-input [value]="sparingsVerdi" [(ngModel)]="sparingsVerdi" placeholder="Sett av til sparing" type="number"></ion-input>
+							<ion-input [value]="sparingsVerdi" [(ngModel)]="sparingsVerdi" placeholder="Legg til månedlig sparing" type="number"></ion-input>
 							<button ion-button color="dnb" item-right (click)="addToSparing(sparingsVerdi)" (click)="sparing.deSelect(sparingListEntry)">Ok</button>
 			</ion-item>
 			<ion-item><strong>Oppspart: </strong>{{sparingObject.spartPris}} / {{sparingObject.prisTotal}}</ion-item>
