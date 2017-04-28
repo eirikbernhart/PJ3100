@@ -1,3 +1,4 @@
+//https://www.djamware.com/post/586bb16680aca70c73934116/ionic-2-firebase-email-authentication-tutorial.  
 import { Component } from '@angular/core';
 import { NavController, AlertController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -30,7 +31,6 @@ export class LoginPage {
     public alertCtrl: AlertController, 
     public loadingCtrl: LoadingController) {
 
-    //https://www.djamware.com/post/586bb16680aca70c73934116/ionic-2-firebase-email-authentication-tutorial.  
     let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
