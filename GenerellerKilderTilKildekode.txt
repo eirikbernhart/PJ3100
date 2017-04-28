@@ -1,3 +1,7 @@
+Store deler av typescripten til login, registrering og glemt passord er implimentert av opphavsmann i denne kilden.
+//https://www.djamware.com/post/586bb16680aca70c73934116/ionic-2-firebase-email-authentication-tutorial.  
+
+
 AngularFire, 2017.
 “Retrieving data as objects”.
 “www.github.com”.
