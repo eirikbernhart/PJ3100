@@ -1,0 +1,31 @@
+AngularFire, 2017.
+“Retrieving data as objects”.
+“www.github.com”.
+https://github.com/angular/angularfire2/blob/master/docs/2-retrieving-data-as-objects.md.
+
+Arcen, 2016. 
+“Tabs persist after logging out of app, start stacking on log”. 
+“forum.ionicframework.com”. 
+https://forum.ionicframework.com/t/tabs-persist-after-logging-out-of-app-start-stacking-on-log-in/46321/8.
+
+Strttn, 2016.
+“Error uploading ionic app”.
+“www.stackoverflow.com”.
+http://stackoverflow.com/questions/30518213/error-uploading-ionic-app.
+
+Thierry Templier, 2016.
+“Firebase doesn't return value (Angular 2)”.
+“www.stackoverflow.com”.
+http://stackoverflow.com/questions/37030961/firebase-doesnt-return-value-angular-2.
+
+Alex B, 2016.
+“Correct way to use image assets in Ionic 2”.
+“www.stackoverflow.com”.
+http://stackoverflow.com/questions/39952214/correct-way-to-use-image-assets-in-ionic-2.
+
+Reactive-Extensions, 2017.
+“www.github.com”.
+“The Reactive Extensions for JavaScript”.
+Avansert JavaScript: https://github.com/Reactive-Extensions/RxJS.
+
+
