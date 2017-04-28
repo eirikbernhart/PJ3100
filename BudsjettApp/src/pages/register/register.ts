@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
 import { TabsPage } from '../tabs/tabs';
 
-
+//https://www.djamware.com/post/586bb16680aca70c73934116/ionic-2-firebase-email-authentication-tutorial.    
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html'
